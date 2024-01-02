@@ -1,0 +1,221 @@
+/*Display flex and orientate display positions start*/
+/*justify-content displays at start, middle, end, space-around, space-between*/
+/*column*/
+.DisplayFlexColumnLeftBottom,
+.DisplayFlexColumnMiddleBottom,
+.DisplayFlexColumnRightBottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.DisplayFlexColumnLeftMiddle,
+.DisplayFlexColumnMiddleMiddle,
+.DisplayFlexColumnRightMiddle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.DisplayFlexColumnLeftTop,
+.DisplayFlexColumnMiddleTop,
+.DisplayFlexColumnRightTop {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.DisplayFlexColumnLeftSpaceAround,
+.DisplayFlexColumnMiddleSpaceAround,
+.DisplayFlexColumnRightSpaceAround {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.DisplayFlexColumnLeftSpaceBetween,
+.DisplayFlexColumnMiddleSpaceBetween,
+.DisplayFlexColumnRightSpaceBetween {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/*column reverse*/
+.DisplayFlexColumnReverseLeftBottom,
+.DisplayFlexColumnReverseMiddleBottom,
+.DisplayFlexColumnReverseRightBottom {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-start;
+}
+.DisplayFlexColumnReverseLeftMiddle,
+.DisplayFlexColumnReverseMiddleMiddle,
+.DisplayFlexColumnReverseRightMiddle {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+}
+.DisplayFlexColumnReverseLeftTop,
+.DisplayFlexColumnReverseMiddleTop,
+.DisplayFlexColumnReverseRightTop {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+}
+.DisplayFlexColumnReverseLeftSpaceAround,
+.DisplayFlexColumnReverseMiddleSpaceAround,
+.DisplayFlexColumnReverseRightSpaceAround {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-around;
+}
+.DisplayFlexColumnReverseLeftSpaceBetween,
+.DisplayFlexColumnReverseMiddleSpaceBetween,
+.DisplayFlexColumnReverseRightSpaceBetween {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+}
+
+/*row*/
+
+.DisplayFlexRowRightTop,
+.DisplayFlexRowRightMiddle,
+.DisplayFlexRowRightBottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.DisplayFlexRowMiddleTop,
+.DisplayFlexRowMiddleMiddle,
+.DisplayFlexRowMiddleBottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.DisplayFlexRowLeftTop,
+.DisplayFlexRowLeftMiddle,
+.DisplayFlexRowLeftBottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.DisplayFlexRowSpaceAroundTop,
+.DisplayFlexRowSpaceAroundMiddle,
+.DisplayFlexRowSpaceAroundBottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.DisplayFlexRowSpaceBetweenTop,
+.DisplayFlexRowSpaceBetweenMiddle,
+.DisplayFlexRowSpaceBetweenBottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+/*row reverse*/
+.DisplayFlexRowReverseRightTop,
+.DisplayFlexRowReverseRightMiddle,
+.DisplayFlexRowReverseRightBottom {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+}
+.DisplayFlexRowReverseMiddleTop,
+.DisplayFlexRowReverseMiddleMiddle,
+.DisplayFlexRowReverseMiddleBottom {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+.DisplayFlexRowReverseLeftTop,
+.DisplayFlexRowReverseLeftMiddle,
+.DisplayFlexRowReverseLeftBottom {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+.DisplayFlexRowReverseSpaceAroundTop,
+.DisplayFlexRowReverseSpaceAroundMiddle,
+.DisplayFlexRowReverseSpaceAroundBottom {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+}
+.DisplayFlexRowReverseSpaceBetweenTop,
+.DisplayFlexRowReverseSpaceBetweenMiddle,
+.DisplayFlexRowReverseSpaceBetweenBottom {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+/*align column row*/
+.DisplayFlexColumnReverseLeftBottom > *,
+.DisplayFlexColumnReverseLeftMiddle > *,
+.DisplayFlexColumnReverseLeftTop > *,
+.DisplayFlexColumnReverseLeftSpaceAround > *,
+.DisplayFlexColumnReverseLeftSpaceBetween > *,
+.DisplayFlexColumnLeftBottom > *,
+.DisplayFlexColumnLeftMiddle > *,
+.DisplayFlexColumnLeftTop > *,
+.DisplayFlexColumnLeftSpaceAround > *,
+.DisplayFlexColumnLeftSpaceBetween > *,
+.DisplayFlexRowReverseLeftTop > *,
+.DisplayFlexRowReverseMiddleTop > *,
+.DisplayFlexRowReverseRightTop > *,
+.DisplayFlexRowReverseSpaceAroundTop > *,
+.DisplayFlexRowReverseSpaceBetweenTop > *,
+.DisplayFlexRowLeftTop > *,
+.DisplayFlexRowMiddleTop > *,
+.DisplayFlexRowRightTop > *,
+.DisplayFlexRowSpaceAroundTop > *,
+.DisplayFlexRowSpaceBetweenTop > * {
+  align-self: flex-start;
+}
+.DisplayFlexColumnReverseMiddleBottom > *,
+.DisplayFlexColumnReverseMiddleMiddle > *,
+.DisplayFlexColumnReverseMiddleTop > *,
+.DisplayFlexColumnReverseMiddleSpaceAround > *,
+.DisplayFlexColumnReverseMiddleSpaceBetween > *,
+.DisplayFlexColumnMiddleBottom > *,
+.DisplayFlexColumnMiddleMiddle > *,
+.DisplayFlexColumnMiddleTop > *,
+.DisplayFlexColumnMiddleSpaceAround > *,
+.DisplayFlexColumnMiddleSpaceBetween > *,
+.DisplayFlexRowReverseLeftMiddle > *,
+.DisplayFlexRowReverseMiddleMiddle > *,
+.DisplayFlexRowReverseRightMiddle > *,
+.DisplayFlexRowReverseSpaceAroundMiddle > *,
+.DisplayFlexRowReverseSpaceBetweenMiddle > *,
+.DisplayFlexRowLeftMiddle > *,
+.DisplayFlexRowMiddleMiddle > *,
+.DisplayFlexRowRightMiddle > *,
+.DisplayFlexRowSpaceAroundMiddle > *,
+.DisplayFlexRowSpaceBetweenMiddle > * {
+  align-self: center;
+}
+.DisplayFlexColumnReverseRightBottom > *,
+.DisplayFlexColumnReverseRightMiddle > *,
+.DisplayFlexColumnReverseRightTop > *,
+.DisplayFlexColumnReverseRightSpaceAround > *,
+.DisplayFlexColumnReverseRightSpaceBetween > *,
+.DisplayFlexColumnRightBottom > *,
+.DisplayFlexColumnRightMiddle > *,
+.DisplayFlexColumnRightTop > *,
+.DisplayFlexColumnRightSpaceAround > *,
+.DisplayFlexColumnRightSpaceBetween > *,
+.DisplayFlexRowReverseLeftBottom > *,
+.DisplayFlexRowReverseMiddleBottom > *,
+.DisplayFlexRowReverseRightBottom > *,
+.DisplayFlexRowReverseSpaceAroundBottom > *,
+.DisplayFlexRowReverseSpaceBetweenBottom > *,
+.DisplayFlexRowLeftBottom > *,
+.DisplayFlexRowMiddleBottom > *,
+.DisplayFlexRowRightBottom > *,
+.DisplayFlexRowSpaceAroundBottom > *,
+.DisplayFlexRowSpaceBetweenBottom > * {
+  align-self: flex-end;
+}
+
+.flexwrap {
+  flex-wrap: wrap;
+}
+/*Display flex and orientate display positions end*/

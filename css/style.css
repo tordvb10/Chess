@@ -1,0 +1,23 @@
+:root {
+  --whiteoff: #d1d1d1;
+  --black: #1e1e24;
+  --brownlighter: #e0afa0;
+  --brown: #5e4848;
+  --white: #ffffff;
+}
+main,
+html,
+body {
+  font-family: "Inknut Antiqua", "Inter", "Times New Roman", Times, serif;
+}
+main > * {
+  border: solid 1px var(--black);
+  width: 600px;
+  height: 600px;
+}
+main .sjakkrow {
+  display: flex;
+  align-content: stretch;
+  justify-content: stretch;
+  background-color: var(--brownlighter);
+}
