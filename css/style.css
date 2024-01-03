@@ -9,12 +9,19 @@ main,
 html,
 body {
   font-family: "Inknut Antiqua", "Inter", "Times New Roman", Times, serif;
+  margin: 0;
 }
-main > * {
+header,
+footer {
+  background-color: var(--brown);
+  width: 100%;
+  height: 30px;
+}
+main #sjakkcontainer {
   border: solid 1px var(--black);
-  width: 80%;
+  width: fit-content;
+  height: 70%;
   aspect-ratio: 1 / 1;
-  align-items: stretch;
 }
 main .dark {
   background-color: var(--brown);
@@ -24,4 +31,55 @@ main .dark {
 main .light {
   background-color: var(--whiteoff);
   color: var(--black);
+}
+
+main .brikke > * {
+  width: fit-content;
+  height: fit-content;
+}
+main .brikke {
+  width: 100%;
+  height: 100%;
+}
+main #white_queen {
+  height: 50px;
+  width: auto;
+  margin: 20%;
+}
+main .her {
+}
+main svg {
+  width: 100%;
+  height: fit-content;
+  padding: 15px;
+  padding-right: auto;
+}
+main .svg {
+  width: fit-content;
+  height: fit-content;
+  padding: 15px;
+}
+
+main .brikke:hover {
+  opacity: 0.6;
+}
+
+main .brikke:active {
+  opacity: 0.9;
+}
+
+main .kant {
+  background-color: var(--brownlighter);
+  color: var(--black);
+}
+main .kantbokstav {
+  border-top: solid 1px var(--black);
+  border-bottom: solid 1px var(--black);
+}
+main .kanttall {
+  border-right: solid 1px var(--black);
+  border-left: solid 1px var(--black);
+}
+main .hjorne {
+  border: solid 1px var(--black);
 }
