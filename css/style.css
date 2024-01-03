@@ -12,12 +12,16 @@ body {
 }
 main > * {
   border: solid 1px var(--black);
-  width: 600px;
-  height: 600px;
+  width: 80%;
+  aspect-ratio: 1 / 1;
+  align-items: stretch;
 }
-main .sjakkrow {
-  display: flex;
-  align-content: stretch;
-  justify-content: stretch;
-  background-color: var(--brownlighter);
+main .dark {
+  background-color: var(--brown);
+  color: var(--white);
+}
+
+main .light {
+  background-color: var(--whiteoff);
+  color: var(--black);
 }

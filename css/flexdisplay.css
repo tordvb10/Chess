@@ -1,6 +1,7 @@
 /*Display flex and orientate display positions start*/
 /*justify-content displays at start, middle, end, space-around, space-between*/
 /*column*/
+.DisplayFlexColumnStretchBottom,
 .DisplayFlexColumnLeftBottom,
 .DisplayFlexColumnMiddleBottom,
 .DisplayFlexColumnRightBottom {
@@ -8,6 +9,7 @@
   flex-direction: column;
   justify-content: flex-end;
 }
+.DisplayFlexColumnStretchMiddle,
 .DisplayFlexColumnLeftMiddle,
 .DisplayFlexColumnMiddleMiddle,
 .DisplayFlexColumnRightMiddle {
@@ -15,6 +17,7 @@
   flex-direction: column;
   justify-content: center;
 }
+.DisplayFlexColumnStretchTop,
 .DisplayFlexColumnLeftTop,
 .DisplayFlexColumnMiddleTop,
 .DisplayFlexColumnRightTop {
@@ -22,6 +25,7 @@
   flex-direction: column;
   justify-content: flex-start;
 }
+.DisplayFlexColumnStretchSpaceAround,
 .DisplayFlexColumnLeftSpaceAround,
 .DisplayFlexColumnMiddleSpaceAround,
 .DisplayFlexColumnRightSpaceAround {
@@ -29,6 +33,7 @@
   flex-direction: column;
   justify-content: space-around;
 }
+.DisplayFlexColumnStretchSpaceBetween,
 .DisplayFlexColumnLeftSpaceBetween,
 .DisplayFlexColumnMiddleSpaceBetween,
 .DisplayFlexColumnRightSpaceBetween {
@@ -38,6 +43,7 @@
 }
 
 /*column reverse*/
+.DisplayFlexColumnReverseStretchBottom,
 .DisplayFlexColumnReverseLeftBottom,
 .DisplayFlexColumnReverseMiddleBottom,
 .DisplayFlexColumnReverseRightBottom {
@@ -45,6 +51,7 @@
   flex-direction: column-reverse;
   justify-content: flex-start;
 }
+.DisplayFlexColumnReverseStretchMiddle,
 .DisplayFlexColumnReverseLeftMiddle,
 .DisplayFlexColumnReverseMiddleMiddle,
 .DisplayFlexColumnReverseRightMiddle {
@@ -52,6 +59,7 @@
   flex-direction: column-reverse;
   justify-content: center;
 }
+.DisplayFlexColumnReverseStretchTop,
 .DisplayFlexColumnReverseLeftTop,
 .DisplayFlexColumnReverseMiddleTop,
 .DisplayFlexColumnReverseRightTop {
@@ -59,6 +67,7 @@
   flex-direction: column-reverse;
   justify-content: flex-end;
 }
+.DisplayFlexColumnReverseStretchSpaceAround,
 .DisplayFlexColumnReverseLeftSpaceAround,
 .DisplayFlexColumnReverseMiddleSpaceAround,
 .DisplayFlexColumnReverseRightSpaceAround {
@@ -66,6 +75,7 @@
   flex-direction: column-reverse;
   justify-content: space-around;
 }
+.DisplayFlexColumnReverseStretchSpaceBetween,
 .DisplayFlexColumnReverseLeftSpaceBetween,
 .DisplayFlexColumnReverseMiddleSpaceBetween,
 .DisplayFlexColumnReverseRightSpaceBetween {
@@ -76,6 +86,7 @@
 
 /*row*/
 
+.DisplayFlexRowRightStretch,
 .DisplayFlexRowRightTop,
 .DisplayFlexRowRightMiddle,
 .DisplayFlexRowRightBottom {
@@ -83,6 +94,7 @@
   flex-direction: row;
   justify-content: flex-end;
 }
+.DisplayFlexRowMiddleStretch,
 .DisplayFlexRowMiddleTop,
 .DisplayFlexRowMiddleMiddle,
 .DisplayFlexRowMiddleBottom {
@@ -90,6 +102,7 @@
   flex-direction: row;
   justify-content: center;
 }
+.DisplayFlexRowLeftStretch,
 .DisplayFlexRowLeftTop,
 .DisplayFlexRowLeftMiddle,
 .DisplayFlexRowLeftBottom {
@@ -97,6 +110,7 @@
   flex-direction: row;
   justify-content: flex-start;
 }
+.DisplayFlexRowSpaceAroundStretch,
 .DisplayFlexRowSpaceAroundTop,
 .DisplayFlexRowSpaceAroundMiddle,
 .DisplayFlexRowSpaceAroundBottom {
@@ -104,6 +118,7 @@
   flex-direction: row;
   justify-content: space-around;
 }
+.DisplayFlexRowSpaceBetweenStretch,
 .DisplayFlexRowSpaceBetweenTop,
 .DisplayFlexRowSpaceBetweenMiddle,
 .DisplayFlexRowSpaceBetweenBottom {
@@ -112,6 +127,7 @@
   justify-content: space-between;
 }
 /*row reverse*/
+.DisplayFlexRowReverseRightStretch,
 .DisplayFlexRowReverseRightTop,
 .DisplayFlexRowReverseRightMiddle,
 .DisplayFlexRowReverseRightBottom {
@@ -119,6 +135,7 @@
   flex-direction: row-reverse;
   justify-content: flex-start;
 }
+.DisplayFlexRowReverseMiddleStretch,
 .DisplayFlexRowReverseMiddleTop,
 .DisplayFlexRowReverseMiddleMiddle,
 .DisplayFlexRowReverseMiddleBottom {
@@ -126,6 +143,7 @@
   flex-direction: row-reverse;
   justify-content: center;
 }
+.DisplayFlexRowReverseLeftStretch,
 .DisplayFlexRowReverseLeftTop,
 .DisplayFlexRowReverseLeftMiddle,
 .DisplayFlexRowReverseLeftBottom {
@@ -133,6 +151,7 @@
   flex-direction: row-reverse;
   justify-content: flex-end;
 }
+.DisplayFlexRowReverseSpaceAroundStretch,
 .DisplayFlexRowReverseSpaceAroundTop,
 .DisplayFlexRowReverseSpaceAroundMiddle,
 .DisplayFlexRowReverseSpaceAroundBottom {
@@ -140,6 +159,7 @@
   flex-direction: row-reverse;
   justify-content: space-around;
 }
+.DisplayFlexRowReverseSpaceBetweenStretch,
 .DisplayFlexRowReverseSpaceBetweenTop,
 .DisplayFlexRowReverseSpaceBetweenMiddle,
 .DisplayFlexRowReverseSpaceBetweenBottom {
@@ -213,6 +233,34 @@
 .DisplayFlexRowSpaceAroundBottom > *,
 .DisplayFlexRowSpaceBetweenBottom > * {
   align-self: flex-end;
+}
+
+.DisplayFlexRowReverseSpaceBetweenStretch > *,
+.DisplayFlexRowReverseSpaceAroundStretch > *,
+.DisplayFlexRowReverseLeftStretch > *,
+.DisplayFlexRowReverseMiddleStretch > *,
+.DisplayFlexRowReverseRightStretch > *,
+.DisplayFlexRowSpaceBetweenStretch > *,
+.DisplayFlexRowSpaceAroundStretch > *,
+.DisplayFlexRowLeftStretch > *,
+.DisplayFlexRowMiddleStretch > *,
+.DisplayFlexRowRightStretch > * {
+  align-self: stretch;
+  width: 100%;
+}
+
+.DisplayFlexColumnReverseStretchSpaceBetween > *,
+.DisplayFlexColumnReverseStretchSpaceAround > *,
+.DisplayFlexColumnReverseStretchTop > *,
+.DisplayFlexColumnReverseStretchMiddle > *,
+.DisplayFlexColumnReverseStretchBottom > *,
+.DisplayFlexColumnStretchSpaceBetween > *,
+.DisplayFlexColumnStretchSpaceAround > *,
+.DisplayFlexColumnStretchTop > *,
+.DisplayFlexColumnStretchMiddle > *,
+.DisplayFlexColumnStretchBottom > * {
+  align-self: stretch;
+  height: 100%;
 }
 
 .flexwrap {
