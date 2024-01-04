@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=0.9" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -38,8 +38,8 @@
     <script src="script.js" type="module" defer></script>
     <title>Chess</title>
   </head>
-  <body>
-    <header></header>
+  <body class="DisplayFlexColumnMiddleSpaceBetween">
+    <header class="DisplayFlexRowMiddleMiddle"></header>
     <main class="DisplayFlexColumnMiddleMiddle">
       <div class="DisplayFlexRowSpaceAroundStretch" id="sjakkcontainer">
         <div class="DisplayFlexColumnStretchSpaceAround sjakkrow">
@@ -74,11 +74,14 @@
             <div></div>
           </div>
         </div>
-        <div class="DisplayFlexColumnStretchSpaceAround sjakkrow A">
+        <div class="DisplayFlexColumnStretchSpaceAround sjakkrow">
           <div class="DisplayFlexRowMiddleMiddle kant kantbokstav kantA">
             <div>A</div>
           </div>
-          <div id="1A" class="DisplayFlexRowMiddleMiddle brikke 1 light">
+          <div
+            id="A1"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_A tall_1 light"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -94,7 +97,10 @@
               </svg>
             </div>
           </div>
-          <div id="2A" class="DisplayFlexRowMiddleMiddle brikke 2 dark">
+          <div
+            id="A2"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_A tall_2 dark"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -110,19 +116,34 @@
               </svg>
             </div>
           </div>
-          <div id="3A" class="DisplayFlexRowMiddleMiddle brikke 3 light">
-            <div class="DisplayFlexRowMiddleMiddle her">3 A</div>
+          <div
+            id="A3"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_A tall_3 light"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="4A" class="DisplayFlexRowMiddleMiddle brikke 4 dark">
-            <div class="DisplayFlexRowMiddleMiddle her">4 A</div>
+          <div
+            id="A4"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_A tall_4 dark"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="5A" class="DisplayFlexRowMiddleMiddle brikke 5 light">
-            <div class="DisplayFlexRowMiddleMiddle her">5 A</div>
+          <div
+            id="A5"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_A tall_5 light"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="6A" class="DisplayFlexRowMiddleMiddle brikke 6 dark">
-            <div class="DisplayFlexRowMiddleMiddle her">6 A</div>
+          <div
+            id="A6"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_A tall_6 dark"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="7A" class="DisplayFlexRowMiddleMiddle brikke 7 light">
+          <div
+            id="A7"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_A tall_7 light"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -138,7 +159,10 @@
               </svg>
             </div>
           </div>
-          <div id="8A" class="DisplayFlexRowMiddleMiddle brikke 8 dark">
+          <div
+            id="A8"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_A tall_8 dark"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -158,11 +182,14 @@
             <div>A</div>
           </div>
         </div>
-        <div class="DisplayFlexColumnStretchSpaceAround sjakkrow B">
+        <div class="DisplayFlexColumnStretchSpaceAround sjakkrow">
           <div class="DisplayFlexRowMiddleMiddle kant kantbokstav kantB">
             <div>B</div>
           </div>
-          <div id="1B" class="DisplayFlexRowMiddleMiddle brikke 1 dark">
+          <div
+            id="B1"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_B tall_1 dark"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -178,7 +205,10 @@
               </svg>
             </div>
           </div>
-          <div id="2B" class="DisplayFlexRowMiddleMiddle brikke 2 light">
+          <div
+            id="B2"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_B tall_2 light"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -194,19 +224,34 @@
               </svg>
             </div>
           </div>
-          <div id="3B" class="DisplayFlexRowMiddleMiddle brikke 3 dark">
-            <div class="DisplayFlexRowMiddleMiddle her">3 B</div>
+          <div
+            id="B3"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_B tall_3 dark"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="4B" class="DisplayFlexRowMiddleMiddle brikke 4 light">
-            <div class="DisplayFlexRowMiddleMiddle her">4 B</div>
+          <div
+            id="B4"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_B tall_4 light"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="5B" class="DisplayFlexRowMiddleMiddle brikke 5 dark">
-            <div class="DisplayFlexRowMiddleMiddle her">5 B</div>
+          <div
+            id="B5"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_B tall_5 dark"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="6B" class="DisplayFlexRowMiddleMiddle brikke 6 light">
-            <div class="DisplayFlexRowMiddleMiddle her">6 B</div>
+          <div
+            id="B6"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_B tall_6 light"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="7B" class="DisplayFlexRowMiddleMiddle brikke 7 dark">
+          <div
+            id="B7"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_B tall_7 dark"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -222,7 +267,10 @@
               </svg>
             </div>
           </div>
-          <div id="8B" class="DisplayFlexRowMiddleMiddle brikke 7 light">
+          <div
+            id="B8"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_B tall_7 light"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -242,11 +290,14 @@
             <div>B</div>
           </div>
         </div>
-        <div class="DisplayFlexColumnStretchSpaceAround sjakkrow C">
+        <div class="DisplayFlexColumnStretchSpaceAround sjakkrow">
           <div class="DisplayFlexRowMiddleMiddle kant kantbokstav kantC">
             <div>C</div>
           </div>
-          <div id="1C" class="DisplayFlexRowMiddleMiddle brikke 1 light">
+          <div
+            id="C1"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_C tall_1 light"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -262,7 +313,10 @@
               </svg>
             </div>
           </div>
-          <div id="2C" class="DisplayFlexRowMiddleMiddle brikke 2 dark">
+          <div
+            id="C2"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_C tall_2 dark"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -278,19 +332,34 @@
               </svg>
             </div>
           </div>
-          <div id="3C" class="DisplayFlexRowMiddleMiddle brikke 3 light">
-            <div class="DisplayFlexRowMiddleMiddle her">3 C</div>
+          <div
+            id="C3"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_C tall_3 light"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="4C" class="DisplayFlexRowMiddleMiddle brikke 4 dark">
-            <div class="DisplayFlexRowMiddleMiddle her">4 C</div>
+          <div
+            id="C4"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_C tall_4 dark"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="5C" class="DisplayFlexRowMiddleMiddle brikke 5 light">
-            <div class="DisplayFlexRowMiddleMiddle her">5 C</div>
+          <div
+            id="C5"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_C tall_5 light"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="6C" class="DisplayFlexRowMiddleMiddle brikke 6 dark">
-            <div class="DisplayFlexRowMiddleMiddle her">6 C</div>
+          <div
+            id="C6"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_C tall_6 dark"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="7C" class="DisplayFlexRowMiddleMiddle brikke 7 light">
+          <div
+            id="C7"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_C tall_7 light"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -306,7 +375,10 @@
               </svg>
             </div>
           </div>
-          <div id="8C" class="DisplayFlexRowMiddleMiddle brikke 8 dark">
+          <div
+            id="C8"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_C tall_8 dark"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -326,11 +398,14 @@
             <div>C</div>
           </div>
         </div>
-        <div class="DisplayFlexColumnStretchSpaceAround sjakkrow D">
+        <div class="DisplayFlexColumnStretchSpaceAround sjakkrow">
           <div class="DisplayFlexRowMiddleMiddle kant kantbokstav kantD">
             <div>D</div>
           </div>
-          <div id="1D" class="DisplayFlexRowMiddleMiddle brikke 1 dark">
+          <div
+            id="D1"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_D tall_1 dark"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -339,21 +414,17 @@
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <g clip-path="url(#clip0_3_111)">
-                  <path
-                    d="M25 0C26.9754 0 28.5714 1.39648 28.5714 3.125V4.6875H30.3571C32.3326 4.6875 33.9286 6.08398 33.9286 7.8125C33.9286 9.54102 32.3326 10.9375 30.3571 10.9375H28.5714V15.625H45.5357C48.0022 15.625 50 17.373 50 19.5312C50 20.0488 49.8884 20.5566 49.654 21.0352L41.0714 39.0625H8.92857L0.345982 21.0352C0.111607 20.5566 0 20.0488 0 19.5312C0 17.373 1.99777 15.625 4.46429 15.625H21.4286V10.9375H19.6429C17.6674 10.9375 16.0714 9.54102 16.0714 7.8125C16.0714 6.08398 17.6674 4.6875 19.6429 4.6875H21.4286V3.125C21.4286 1.39648 23.0246 0 25 0ZM4.30804 46.2305L8.92857 42.1875H41.0714L45.692 46.2305C46.1607 46.6406 46.4286 47.207 46.4286 47.793C46.4286 49.0137 45.3013 50 43.9062 50H6.09375C4.69866 50 3.57143 49.0137 3.57143 47.793C3.57143 47.207 3.83929 46.6406 4.30804 46.2305Z"
-                    fill="black"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_3_111">
-                    <rect width="50" height="50" fill="white" />
-                  </clipPath>
-                </defs>
+                <path
+                  d="M25 0C26.9754 0 28.5714 1.39648 28.5714 3.125V4.6875H30.3571C32.3326 4.6875 33.9286 6.08398 33.9286 7.8125C33.9286 9.54102 32.3326 10.9375 30.3571 10.9375H28.5714V15.625H45.5357C48.0022 15.625 50 17.373 50 19.5312C50 20.0488 49.8884 20.5566 49.654 21.0352L41.0714 39.0625H8.92857L0.345982 21.0352C0.111607 20.5566 0 20.0488 0 19.5312C0 17.373 1.99777 15.625 4.46429 15.625H21.4286V10.9375H19.6429C17.6674 10.9375 16.0714 9.54102 16.0714 7.8125C16.0714 6.08398 17.6674 4.6875 19.6429 4.6875H21.4286V3.125C21.4286 1.39648 23.0246 0 25 0ZM4.30804 46.2305L8.92857 42.1875H41.0714L45.692 46.2305C46.1607 46.6406 46.4286 47.207 46.4286 47.793C46.4286 49.0137 45.3013 50 43.9062 50H6.09375C4.69866 50 3.57143 49.0137 3.57143 47.793C3.57143 47.207 3.83929 46.6406 4.30804 46.2305Z"
+                  fill="black"
+                />
               </svg>
             </div>
           </div>
-          <div id="2D" class="DisplayFlexRowMiddleMiddle brikke 2 light">
+          <div
+            id="D2"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_D tall_2 light"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -369,19 +440,34 @@
               </svg>
             </div>
           </div>
-          <div id="3D" class="DisplayFlexRowMiddleMiddle brikke 3 dark">
-            <div class="DisplayFlexRowMiddleMiddle her">3 D</div>
+          <div
+            id="D3"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_D tall_3 dark"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="4D" class="DisplayFlexRowMiddleMiddle brikke 4 light">
-            <div class="DisplayFlexRowMiddleMiddle her">4 D</div>
+          <div
+            id="D4"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_D tall_4 light"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="5D" class="DisplayFlexRowMiddleMiddle brikke 5 dark">
-            <div class="DisplayFlexRowMiddleMiddle her">5 D</div>
+          <div
+            id="D5"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_D tall_5 dark"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="6D" class="DisplayFlexRowMiddleMiddle brikke 6 light">
-            <div class="DisplayFlexRowMiddleMiddle her">6 D</div>
+          <div
+            id="D6"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_D tall_6 light"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="7D" class="DisplayFlexRowMiddleMiddle brikke 7 dark">
+          <div
+            id="D7"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_D tall_7 dark"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -397,7 +483,10 @@
               </svg>
             </div>
           </div>
-          <div id="8D" class="DisplayFlexRowMiddleMiddle brikke 8 light">
+          <div
+            id="D8"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_D tall_8 light"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -417,11 +506,14 @@
             <div>D</div>
           </div>
         </div>
-        <div class="DisplayFlexColumnStretchSpaceAround sjakkrow E">
+        <div class="DisplayFlexColumnStretchSpaceAround sjakkrow">
           <div class="DisplayFlexRowMiddleMiddle kant kantbokstav kantE">
             <div>E</div>
           </div>
-          <div id="1E" class="DisplayFlexRowMiddleMiddle brikke 1 light">
+          <div
+            id="E1"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_E tall_1 light"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -437,7 +529,10 @@
               </svg>
             </div>
           </div>
-          <div id="2E" class="DisplayFlexRowMiddleMiddle brikke 2 dark">
+          <div
+            id="E2"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_E tall_2 dark"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -453,19 +548,34 @@
               </svg>
             </div>
           </div>
-          <div id="3E" class="DisplayFlexRowMiddleMiddle brikke 3 light">
-            <div class="DisplayFlexRowMiddleMiddle her">3 E</div>
+          <div
+            id="E3"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_E tall_3 light"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="4E" class="DisplayFlexRowMiddleMiddle brikke 4 dark">
-            <div class="DisplayFlexRowMiddleMiddle her">4 E</div>
+          <div
+            id="E4"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_E tall_4 dark"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="5E" class="DisplayFlexRowMiddleMiddle brikke 5 light">
-            <div class="DisplayFlexRowMiddleMiddle her">5 E</div>
+          <div
+            id="E5"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_E tall_5 light"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="6E" class="DisplayFlexRowMiddleMiddle brikke 6 dark">
-            <div class="DisplayFlexRowMiddleMiddle her">6 E</div>
+          <div
+            id="E6"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_E tall_6 dark"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="7E" class="DisplayFlexRowMiddleMiddle brikke 7 light">
+          <div
+            id="E7"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_E tall_7 light"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -481,7 +591,10 @@
               </svg>
             </div>
           </div>
-          <div id="8E" class="DisplayFlexRowMiddleMiddle brikke 8 dark">
+          <div
+            id="E8"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_E tall_8 dark"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -501,11 +614,14 @@
             <div>E</div>
           </div>
         </div>
-        <div class="DisplayFlexColumnStretchSpaceAround sjakkrow F">
+        <div class="DisplayFlexColumnStretchSpaceAround sjakkrow">
           <div class="DisplayFlexRowMiddleMiddle kant kantbokstav kantF">
             <div>F</div>
           </div>
-          <div id="1F" class="DisplayFlexRowMiddleMiddle brikke 1 dark">
+          <div
+            id="F1"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_F tall_1 dark"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -521,7 +637,10 @@
               </svg>
             </div>
           </div>
-          <div id="2F" class="DisplayFlexRowMiddleMiddle brikke 2 light">
+          <div
+            id="F2"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_F tall_2 light"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -537,19 +656,34 @@
               </svg>
             </div>
           </div>
-          <div id="3F" class="DisplayFlexRowMiddleMiddle brikke 3 dark">
-            <div class="DisplayFlexRowMiddleMiddle her">3 F</div>
+          <div
+            id="F3"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_F tall_3 dark"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="4F" class="DisplayFlexRowMiddleMiddle brikke 4 light">
-            <div class="DisplayFlexRowMiddleMiddle her">4 F</div>
+          <div
+            id="F4"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_F tall_4 light"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="5F" class="DisplayFlexRowMiddleMiddle brikke 5 dark">
-            <div class="DisplayFlexRowMiddleMiddle her">5 F</div>
+          <div
+            id="F5"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_F tall_5 dark"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="6F" class="DisplayFlexRowMiddleMiddle brikke 6 light">
-            <div class="DisplayFlexRowMiddleMiddle her">6 F</div>
+          <div
+            id="F6"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_F tall_6 light"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="7F" class="DisplayFlexRowMiddleMiddle brikke 7 dark">
+          <div
+            id="F7"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_F tall_7 dark"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -565,7 +699,10 @@
               </svg>
             </div>
           </div>
-          <div id="8F" class="DisplayFlexRowMiddleMiddle brikke 8 light">
+          <div
+            id="F8"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_F tall_8 light"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -585,11 +722,14 @@
             <div>F</div>
           </div>
         </div>
-        <div class="DisplayFlexColumnStretchSpaceAround sjakkrow G">
+        <div class="DisplayFlexColumnStretchSpaceAround sjakkrow">
           <div class="DisplayFlexRowMiddleMiddle kant kantbokstav kantG">
             <div>G</div>
           </div>
-          <div id="1G" class="DisplayFlexRowMiddleMiddle brikke 1 light">
+          <div
+            id="G1"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_G tall_1 light"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -605,7 +745,10 @@
               </svg>
             </div>
           </div>
-          <div id="2G" class="DisplayFlexRowMiddleMiddle brikke 2 dark">
+          <div
+            id="G2"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_G tall_2 dark"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -621,19 +764,34 @@
               </svg>
             </div>
           </div>
-          <div id="3G" class="DisplayFlexRowMiddleMiddle brikke 3 light">
-            <div class="DisplayFlexRowMiddleMiddle her">3 G</div>
+          <div
+            id="G3"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_G tall_3 light"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="4G" class="DisplayFlexRowMiddleMiddle brikke 4 dark">
-            <div class="DisplayFlexRowMiddleMiddle her">4 G</div>
+          <div
+            id="G4"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_G tall_4 dark"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="5G" class="DisplayFlexRowMiddleMiddle brikke 5 light">
-            <div class="DisplayFlexRowMiddleMiddle her">5 G</div>
+          <div
+            id="G5"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_G tall_5 light"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="6G" class="DisplayFlexRowMiddleMiddle brikke 6 dark">
-            <div class="DisplayFlexRowMiddleMiddle her">6 G</div>
+          <div
+            id="G6"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_G tall_6 dark"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="7G" class="DisplayFlexRowMiddleMiddle brikke 7 light">
+          <div
+            id="G7"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_G tall_7 light"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -649,7 +807,10 @@
               </svg>
             </div>
           </div>
-          <div id="8G" class="DisplayFlexRowMiddleMiddle brikke 8 dark">
+          <div
+            id="G8"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_G tall_8 dark"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -669,11 +830,14 @@
             <div>G</div>
           </div>
         </div>
-        <div class="DisplayFlexColumnStretchSpaceAround sjakkrow H">
+        <div class="DisplayFlexColumnStretchSpaceAround sjakkrow">
           <div class="DisplayFlexRowMiddleMiddle kant kantbokstav kantH">
             <div>H</div>
           </div>
-          <div id="1H" class="DisplayFlexRowMiddleMiddle brikke 1 dark">
+          <div
+            id="H1"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_H tall_1 dark"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -689,7 +853,10 @@
               </svg>
             </div>
           </div>
-          <div id="2H" class="DisplayFlexRowMiddleMiddle brikke 2 light">
+          <div
+            id="H2"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_H tall_2 light"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -705,19 +872,34 @@
               </svg>
             </div>
           </div>
-          <div id="3H" class="DisplayFlexRowMiddleMiddle brikke 3 dark">
-            <div class="DisplayFlexRowMiddleMiddle her">3 H</div>
+          <div
+            id="H3"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_H tall_3 dark"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="4H" class="DisplayFlexRowMiddleMiddle brikke 4 light">
-            <div class="DisplayFlexRowMiddleMiddle her">4 H</div>
+          <div
+            id="H4"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_H tall_4 light"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="5H" class="DisplayFlexRowMiddleMiddle brikke 5 dark">
-            <div class="DisplayFlexRowMiddleMiddle her">5 H</div>
+          <div
+            id="H5"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_H tall_5 dark"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="6H" class="DisplayFlexRowMiddleMiddle brikke 6 light">
-            <div class="DisplayFlexRowMiddleMiddle her">6 H</div>
+          <div
+            id="H6"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_H tall_6 light"
+          >
+            <div class="DisplayFlexRowMiddleMiddle her"></div>
           </div>
-          <div id="7H" class="DisplayFlexRowMiddleMiddle brikke 7 dark">
+          <div
+            id="H7"
+            class="DisplayFlexRowMiddleMiddle brikke bokstav_H tall_7 dark"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -733,7 +915,10 @@
               </svg>
             </div>
           </div>
-          <div id="8H" class="DisplayFlexColumnMiddleMiddle brikke 8 light">
+          <div
+            id="H8"
+            class="DisplayFlexColumnMiddleMiddle brikke bokstav_H tall_8 light"
+          >
             <div class="DisplayFlexRowMiddleMiddle her">
               <svg
                 width="50"
@@ -787,6 +972,6 @@
         </div>
       </div>
     </main>
-    <footer></footer>
+    <footer class="DisplayFlexRowMiddleMiddle"></footer>
   </body>
 </html>

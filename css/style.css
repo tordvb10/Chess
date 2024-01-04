@@ -17,6 +17,11 @@ footer {
   width: 100%;
   height: 30px;
 }
+body {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
 main #sjakkcontainer {
   border: solid 1px var(--black);
   width: fit-content;
@@ -46,13 +51,11 @@ main #white_queen {
   width: auto;
   margin: 20%;
 }
-main .her {
-}
+
 main svg {
   width: 100%;
   height: fit-content;
-  padding: 15px;
-  padding-right: auto;
+  padding: 20%;
 }
 main .svg {
   width: fit-content;
