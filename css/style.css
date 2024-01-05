@@ -86,3 +86,11 @@ main .kanttall {
 main .hjorne {
   border: solid 1px var(--black);
 }
+
+main #sjakkcontainer .light svg.tombox path {
+  fill: var(--whiteoff);
+}
+
+main #sjakkcontainer .dark svg.tombox path {
+  fill: var(--brown);
+}

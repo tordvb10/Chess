@@ -1,4 +1,45 @@
+// kompakt form av variabel-type konvertering her som objekt, enkelt å hente ut i ettertid.
+const Convert = {
+  Index: {
+    To: {
+      UpperCase(index) {
+        return String.fromCharCode(65 + index);
+      },
+      LowerCase(index) {
+        return String.fromCharCode(97 + index);
+      },
+      Tall(index) {
+        return String(index + 1);
+      },
+    },
+    From: {
+      UpperCase(index) {
+        return index.charCodeAt(0) - 65;
+      },
+      LowerCase(index) {
+        return index.charCodeAt(0) - 97;
+      },
+      Tall(index) {
+        return Number("1") - 1;
+      },
+    },
+  },
+};
+// Setter svg for hver spillebrikke klar til uthenting her.
 const spillebrikke = {
+  None: `<svg
+                class="tombox"
+                width="50"
+                height="50"
+                viewBox="0 0 68 67"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0.666656 0.166687H67.3333V66.8334H0.666656V0.166687ZM7.33332 6.83335V20.1667H20.6667V33.5H7.33332V46.8334H20.6667V60.1667H34V46.8334H47.3333V60.1667H60.6667V46.8334H47.3333V33.5H60.6667V20.1667H47.3333V6.83335H34V20.1667H20.6667V6.83335H7.33332ZM34 33.5H20.6667V46.8334H34V33.5ZM34 20.1667V33.5H47.3333V20.1667H34Z"
+                  fill="black"
+                />
+              </svg>`,
   black: {
     Bishop: `<svg
                 width="50"
@@ -148,21 +189,153 @@ const spillebrikke = {
               </svg>`,
   },
 };
-console.log(spillebrikke);
-
+const start_posisjon = {
+  A1: spillebrikke.black.Rook,
+};
+console.log(start_posisjon);
 //let testbrikke = document.querySelector("main #A2 .her"); //innerHTML = spillebrikke.white.Rook;
 //testbrikke = testbrikke.hasChildNodes();
 // kan bruke syntaksten over til å finne ut om det er en spiller på tilhørende brikke.
 
 //testbrikke.innerHTML = spillebrikke.white.Rook;
 let brett = document.querySelector("main #sjakkcontainer");
-
 let testbrikke = brett.querySelector("#A1"); //innerHTML = spillebrikke.white.Rook;
-
 testbrikke = testbrikke.querySelector(".her");
-
-console.log(testbrikke);
-
+//console.log(testbrikke);
+//console.log(Convert.Index.To.LowerCase(0));
+let brett_id = [];
 function setboard() {
-  let test = 1;
+  for (let i = 0; i < 8; i++) {
+    let brett_id_indre = [];
+    let chr = Convert.Index.To.Tall(i);
+    let boardpieceArray = [];
+    for (let j = 0; j < 8; j++) {
+      let letter = Convert.Index.To.UpperCase(j);
+      // hvis brette trenger flere object elementer, så er det bare til å legge dem til her.
+      let SVG = spillebrikke.None;
+      if (chr === "2") {
+        SVG = spillebrikke.black.Pawn;
+        boardpieceArray = ["svart", "bonde"];
+      } else if (chr === "1") {
+        if (letter === "A" || letter === "H") {
+          SVG = spillebrikke.black.Rook;
+          boardpieceArray = ["svart", "tarn"];
+        } else if (letter === "B" || letter === "G") {
+          SVG = spillebrikke.black.Knight;
+          boardpieceArray = ["svart", "hest"];
+        } else if (letter === "C" || letter === "F") {
+          SVG = spillebrikke.black.Bishop;
+          boardpieceArray = ["svart", "loper"];
+        } else if (letter === "D") {
+          SVG = spillebrikke.black.King;
+          boardpieceArray = ["svart", "konge"];
+        } else if (letter === "E") {
+          SVG = spillebrikke.black.Queen;
+          boardpieceArray = ["svart", "dronning"];
+        }
+      } else if (chr === "7") {
+        SVG = spillebrikke.white.Pawn;
+        boardpieceArray = ["hvit", "bonde"];
+      } else if (chr === "8") {
+        if (letter === "A" || letter === "H") {
+          SVG = spillebrikke.white.Rook;
+          boardpieceArray = ["hvit", "tarn"];
+        } else if (letter === "B" || letter === "G") {
+          SVG = spillebrikke.white.Knight;
+          boardpieceArray = ["hvit", "hest"];
+        } else if (letter === "C" || letter === "F") {
+          SVG = spillebrikke.white.Bishop;
+          boardpieceArray = ["hvit", "loper"];
+        } else if (letter === "D") {
+          SVG = spillebrikke.white.King;
+          boardpieceArray = ["hvit", "konge"];
+        } else if (letter === "E") {
+          SVG = spillebrikke.white.Queen;
+          boardpieceArray = ["hvit", "dronning"];
+        }
+      }
+      let brett_object = {
+        ID: {
+          tag: letter + chr,
+          boardpiece: boardpieceArray,
+        },
+        svg: SVG,
+      };
+      brett_id_indre.push(brett_object);
+    }
+    brett_id.push(brett_id_indre);
+  }
 }
+setboard();
+console.log(brett_id);
+console.log(brett_id[0][0]);
+
+function ApplySvgToBrett() {
+  brett_id.forEach(function (brett_id_rad) {
+    brett_id_rad.forEach(function (brett_id_el) {
+      //console.log(`brett_id_el.ID = ${brett_id_el.ID}`);
+      //console.log(`brett_id_el.svg = ${brett_id_el.svg}`);
+      changeSVG(brett_id_el.ID.tag, brett_id_el.svg); // endrer bare svg i html brett, må også endre det for brett_id for js-variabelen
+    });
+  });
+}
+ApplySvgToBrett();
+//små funksjoner
+function SplitToBrettIdElement(Split) {
+  console.log("splittet");
+  let splittet = Split.split("");
+  console.log(Convert.Index.From.Tall(splittet[1]));
+  console.log(Convert.Index.From.UpperCase(splittet[0]));
+  let returnere =
+    brett_id[Convert.Index.From.Tall(splittet[1])][
+      Convert.Index.From.UpperCase(splittet[0])
+    ];
+  console.log(returnere);
+  return returnere;
+}
+
+function changeSVG(nyID, nySVG) {
+  console.log(nyID);
+  console.log(nySVG);
+  brett.querySelector(`#${nyID} .her`).innerHTML = nySVG;
+}
+
+function MoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
+  // lag en funksjon som sjekker om trekket er gydlig her!!
+  //saving brettidfrom.bordpiece in order to save the info for later. -- til info
+  let angriper = BrettIdElFrom.ID;
+  let forsvarer = BrettIdElTo.ID;
+  console.log(`angriper = ${angriper}`);
+  if (BrettIdElFrom.ID.boardpiece.length) {
+    // her skal faktisk brikken flyttes både på html brett og brett_id
+    changeSVG(BrettIdElTo.ID.tag, BrettIdElFrom.svg); // endrer bare svg i html brett, må også endre det for brett_id for js-variabelen
+    changeSVG(BrettIdElFrom.ID.tag, spillebrikke.None); // endrer bare svg i html brett, må også endre det for brett_id for js-variabelen
+    SplitToBrettIdElement(BrettIdElTo.ID.tag).ID.boardpiece =
+      BrettIdElFrom.ID.boardpiece;
+    SplitToBrettIdElement(BrettIdElTo.ID.tag).ID.boardpiece = [];
+    console.log(brett_id);
+    console.log(brett);
+  }
+}
+
+function MoveBoardPieceByCoordinates(From, To) {
+  console.log(`SplitToBrettIdElement(From) = ${SplitToBrettIdElement(To)}`);
+  MoveBoardPiece(SplitToBrettIdElement(From), SplitToBrettIdElement(To));
+}
+
+MoveBoardPieceByCoordinates("A8", "B8");
+// function get brett_id_element by its ID
+// testing
+let testarray = ["hvit", "bonde"];
+console.log(testarray);
+if (testarray.length) {
+  console.log(true);
+} else {
+  console.log(false);
+}
+
+let testvariable = Number("1") - 1;
+console.log(testvariable);
+console.log(typeof testvariable);
+
+console.log(brett_id);
