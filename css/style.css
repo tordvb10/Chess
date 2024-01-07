@@ -5,6 +5,10 @@
   --brown: #5e4848;
   --white: #ffffff;
 }
+main button {
+  border: 0;
+}
+
 main,
 html,
 body {

@@ -20,14 +20,17 @@ const Convert = {
         return index.charCodeAt(0) - 97;
       },
       Tall(index) {
-        return Number("1") - 1;
+        return Number(index) - 1;
       },
     },
   },
 };
 // Setter svg for hver spillebrikke klar til uthenting her.
 const spillebrikke = {
-  None: `<svg
+  None: {
+    BoardPiece: [],
+    Svg: ` <!-- Tombox -->
+              <svg
                 class="tombox"
                 width="50"
                 height="50"
@@ -40,8 +43,10 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
+  },
   black: {
-    Bishop: `<svg
+    Bishop: ` <!-- svart løper -->
+              <svg
                 width="50"
                 height="50"
                 viewBox="0 0 45 60"
@@ -53,7 +58,8 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-    King: `<svg
+    King: ` <!-- svart konge -->
+              <svg
                 width="50"
                 height="50"
                 viewBox="0 0 50 50"
@@ -65,7 +71,8 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-    Knight: `<svg
+    Knight: ` <!-- svart hest -->
+              <svg
                 width="50"
                 height="50"
                 viewBox="0 0 50 50"
@@ -77,7 +84,8 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-    Pawn: `<svg
+    Pawn: ` <!-- svart bonde -->
+              <svg
                 width="50"
                 height="50"
                 viewBox="0 0 30 50"
@@ -89,7 +97,8 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-    Queen: `<svg
+    Queen: ` <!-- svart dronning -->
+              <svg
                 width="50"
                 height="50"
                 viewBox="0 0 50 50"
@@ -101,7 +110,8 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-    Rook: `<svg
+    Rook: ` <!-- svart tårn -->
+              <svg
                 width="50"
                 height="50"
                 viewBox="0 0 50 50"
@@ -115,7 +125,8 @@ const spillebrikke = {
               </svg>`,
   },
   white: {
-    Bishop: `<svg
+    Bishop: ` <!-- hvit løper -->
+              <svg
               width="50"
               height="50"
               viewBox="0 0 45 60"
@@ -127,7 +138,8 @@ const spillebrikke = {
               fill="black"
             />
             </svg>`,
-    King: `<svg
+    King: ` <!-- hvit konge -->
+              <svg
               width="50"
               height="50"
               viewBox="0 0 50 50"
@@ -139,7 +151,8 @@ const spillebrikke = {
                 fill="black"
             />
             </svg>`,
-    Knight: `<svg
+    Knight: ` <!-- hvis hest -->
+              <svg
             width="50"
             height="50"
             viewBox="0 0 50 50"
@@ -151,7 +164,8 @@ const spillebrikke = {
               fill="black"
             />
           </svg>`,
-    Pawn: `<svg
+    Pawn: ` <!-- hvit bonde -->
+              <svg
                 width="50"
                 height="50"
                 viewBox="0 0 30 50"
@@ -163,7 +177,8 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-    Queen: `<svg
+    Queen: ` <!-- hvit dronning -->
+              <svg
                 width="50"
                 height="50"
                 viewBox="0 0 50 50"
@@ -175,7 +190,8 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-    Rook: `<svg
+    Rook: ` <!-- hvit tårn -->
+              <svg
                 width="50"
                 height="50"
                 viewBox="0 0 50 50"
@@ -189,21 +205,11 @@ const spillebrikke = {
               </svg>`,
   },
 };
-const start_posisjon = {
-  A1: spillebrikke.black.Rook,
-};
-console.log(start_posisjon);
-//let testbrikke = document.querySelector("main #A2 .her"); //innerHTML = spillebrikke.white.Rook;
-//testbrikke = testbrikke.hasChildNodes();
-// kan bruke syntaksten over til å finne ut om det er en spiller på tilhørende brikke.
 
-//testbrikke.innerHTML = spillebrikke.white.Rook;
 let brett = document.querySelector("main #sjakkcontainer");
-let testbrikke = brett.querySelector("#A1"); //innerHTML = spillebrikke.white.Rook;
-testbrikke = testbrikke.querySelector(".her");
-//console.log(testbrikke);
-//console.log(Convert.Index.To.LowerCase(0));
 let brett_id = [];
+let brett_queue = [];
+
 function setboard() {
   for (let i = 0; i < 8; i++) {
     let brett_id_indre = [];
@@ -212,7 +218,7 @@ function setboard() {
     for (let j = 0; j < 8; j++) {
       let letter = Convert.Index.To.UpperCase(j);
       // hvis brette trenger flere object elementer, så er det bare til å legge dem til her.
-      let SVG = spillebrikke.None;
+      let SVG = spillebrikke.None.Svg;
       if (chr === "2") {
         SVG = spillebrikke.black.Pawn;
         boardpieceArray = ["svart", "bonde"];
@@ -257,85 +263,92 @@ function setboard() {
       let brett_object = {
         ID: {
           tag: letter + chr,
-          boardpiece: boardpieceArray,
+          bokstav: letter,
+          tall: chr,
         },
-        svg: SVG,
+        BoardInfo: {
+          BoardPiece: boardpieceArray,
+          Svg: SVG,
+        },
       };
       brett_id_indre.push(brett_object);
+      brett.querySelector(`#${letter + chr} .her`).innerHTML = SVG;
     }
     brett_id.push(brett_id_indre);
   }
 }
-setboard();
-console.log(brett_id);
-console.log(brett_id[0][0]);
 
-function ApplySvgToBrett() {
-  brett_id.forEach(function (brett_id_rad) {
-    brett_id_rad.forEach(function (brett_id_el) {
-      //console.log(`brett_id_el.ID = ${brett_id_el.ID}`);
-      //console.log(`brett_id_el.svg = ${brett_id_el.svg}`);
-      changeSVG(brett_id_el.ID.tag, brett_id_el.svg); // endrer bare svg i html brett, må også endre det for brett_id for js-variabelen
-    });
-  });
-}
-ApplySvgToBrett();
 //små funksjoner
-function SplitToBrettIdElement(Split) {
-  console.log("splittet");
-  let splittet = Split.split("");
-  console.log(Convert.Index.From.Tall(splittet[1]));
-  console.log(Convert.Index.From.UpperCase(splittet[0]));
-  let returnere =
-    brett_id[Convert.Index.From.Tall(splittet[1])][
-      Convert.Index.From.UpperCase(splittet[0])
-    ];
-  console.log(returnere);
-  return returnere;
+function SplitToBrettIdElement(ToSplit) {
+  let splittet = ToSplit.split("");
+  return brett_id[Convert.Index.From.Tall(splittet[1])][
+    Convert.Index.From.UpperCase(splittet[0])
+  ];
 }
-
-function changeSVG(nyID, nySVG) {
-  console.log(nyID);
-  console.log(nySVG);
-  brett.querySelector(`#${nyID} .her`).innerHTML = nySVG;
+// flytte bare brikke
+function actuallyMoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
+  brett.querySelector(`#${BrettIdElTo.ID.tag} .her`).innerHTML =
+    BrettIdElFrom.BoardInfo.Svg;
+  brett.querySelector(`#${BrettIdElFrom.ID.tag} .her`).innerHTML =
+    spillebrikke.None.Svg;
+  brett_id[Convert.Index.From.Tall(BrettIdElTo.ID.tall)][
+    Convert.Index.From.UpperCase(BrettIdElTo.ID.bokstav)
+  ].BoardInfo = BrettIdElFrom.BoardInfo;
+  brett_id[Convert.Index.From.Tall(BrettIdElFrom.ID.tall)][
+    Convert.Index.From.UpperCase(BrettIdElFrom.ID.bokstav)
+  ].BoardInfo = spillebrikke.None;
 }
-
+// flytte brikker etter å ha sjekkt regler
 function MoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
+  let angriper = BrettIdElFrom.BoardInfo.BoardPiece;
+  let forsvarer = BrettIdElTo.BoardInfo.BoardPiece;
   // lag en funksjon som sjekker om trekket er gydlig her!!
   //saving brettidfrom.bordpiece in order to save the info for later. -- til info
-  let angriper = BrettIdElFrom.ID;
-  let forsvarer = BrettIdElTo.ID;
-  console.log(`angriper = ${angriper}`);
-  if (BrettIdElFrom.ID.boardpiece.length) {
-    // her skal faktisk brikken flyttes både på html brett og brett_id
-    changeSVG(BrettIdElTo.ID.tag, BrettIdElFrom.svg); // endrer bare svg i html brett, må også endre det for brett_id for js-variabelen
-    changeSVG(BrettIdElFrom.ID.tag, spillebrikke.None); // endrer bare svg i html brett, må også endre det for brett_id for js-variabelen
-    SplitToBrettIdElement(BrettIdElTo.ID.tag).ID.boardpiece =
-      BrettIdElFrom.ID.boardpiece;
-    SplitToBrettIdElement(BrettIdElTo.ID.tag).ID.boardpiece = [];
-    console.log(brett_id);
-    console.log(brett);
+  if (BrettIdElFrom.BoardInfo.BoardPiece.length) {
+    actuallyMoveBoardPiece(BrettIdElFrom, BrettIdElTo);
+  } else {
+    console.log("Denne brikken er tom.");
   }
 }
-
+// funksjonen under er kun for manuell flytting av brikker, skal ikke bruke split etterhvert. Da henter jeg brikker med adventlistener
+// og bruker classes som bokstav_A og tall_1 for å finne elementet jeg vil flytte brikker av.
 function MoveBoardPieceByCoordinates(From, To) {
-  console.log(`SplitToBrettIdElement(From) = ${SplitToBrettIdElement(To)}`);
   MoveBoardPiece(SplitToBrettIdElement(From), SplitToBrettIdElement(To));
 }
 
-MoveBoardPieceByCoordinates("A8", "B8");
-// function get brett_id_element by its ID
+setboard();
+
+//MoveBoardPieceByCoordinates("A8", "C8");
+
 // testing
-let testarray = ["hvit", "bonde"];
-console.log(testarray);
-if (testarray.length) {
-  console.log(true);
-} else {
-  console.log(false);
+function veivalg() {
+  for (let i = 0; i < 8; i++) {
+    for (let j = 0; j < 8; j++) {
+      let telle_tall = Convert.Index.To.Tall(j);
+      let telle_bokstav = Convert.Index.To.UpperCase(i);
+      brett
+        .querySelector(`.bokstav_${telle_bokstav}.tall_${telle_tall}`)
+        .addEventListener("click", function () {
+          console.log("knapp er trykket");
+          if (brett_queue.length > 1) {
+            console.log("køen er for stor.");
+            brett_queue = [[j, i]];
+          } else {
+            brett_queue.push([j, i]);
+          }
+          if (brett_queue.length == 2) {
+            console.log("På tide å flytte brikken");
+            MoveBoardPiece(
+              brett_id[brett_queue[0][0]][brett_queue[0][1]],
+              brett_id[brett_queue[1][0]][brett_queue[1][1]]
+            );
+          }
+          console.log(brett_queue.length);
+        });
+      //.addEventListener("click", function (telle_tall, telle_bokstav) {
+      //console.log(`Dette er element ${(telle_bokstav, telle_tall)}`);
+      //});
+    }
+  }
 }
-
-let testvariable = Number("1") - 1;
-console.log(testvariable);
-console.log(typeof testvariable);
-
-console.log(brett_id);
+veivalg();
