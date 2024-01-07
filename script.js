@@ -362,9 +362,9 @@ const tester_regler = true;
 setboard();
 veivalg();
 
-const klikkebrikke = ["A8", "A7"];
+const klikkebrikke = ["A8", "A6"];
 klikkebrikke.forEach(function (vei) {
-  brett.querySelector(`#${vei}`).click();
+  //brett.querySelector(`#${vei}`).click();
 });
 
 // TODO: Angi regler for spillets fremgang.
