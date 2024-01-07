@@ -205,11 +205,7 @@ const spillebrikke = {
               </svg>`,
   },
 };
-
-let brett = document.querySelector("main #sjakkcontainer");
-let brett_id = [];
-let brett_queue = [];
-
+// Funksjoner
 function setboard() {
   for (let i = 0; i < 8; i++) {
     let brett_id_indre = [];
@@ -277,14 +273,6 @@ function setboard() {
     brett_id.push(brett_id_indre);
   }
 }
-
-//små funksjoner
-function SplitToBrettIdElement(ToSplit) {
-  let splittet = ToSplit.split("");
-  return brett_id[Convert.Index.From.Tall(splittet[1])][
-    Convert.Index.From.UpperCase(splittet[0])
-  ];
-}
 // flytte bare brikke
 function actuallyMoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
   brett.querySelector(`#${BrettIdElTo.ID.tag} .her`).innerHTML =
@@ -303,11 +291,6 @@ function MoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
   if (validmove(BrettIdElFrom, BrettIdElTo)) {
     actuallyMoveBoardPiece(BrettIdElFrom, BrettIdElTo);
   }
-}
-// funksjonen under er kun for manuell flytting av brikker, skal ikke bruke split etterhvert. Da henter jeg brikker med adventlistener
-// og bruker classes som bokstav_A og tall_1 for å finne elementet jeg vil flytte brikker av.
-function MoveBoardPieceByCoordinates(From, To) {
-  MoveBoardPiece(SplitToBrettIdElement(From), SplitToBrettIdElement(To));
 }
 // funksjonen under beveger brikkene ved å klikke rundt på brettet.
 function veivalg() {
@@ -335,7 +318,7 @@ function veivalg() {
           } else if (brett_queue.length == 2) {
             brett
               .querySelector(`#${brett_queue[0].bokstav}${brett_queue[0].tall}`)
-              .classList.add("avmarkerbrikke");
+              .classList.remove("markertbrikke");
             MoveBoardPiece(
               brett_id[brett_queue[0].index[0]][brett_queue[0].index[1]],
               brett_id[brett_queue[1].index[0]][brett_queue[1].index[1]]
@@ -349,8 +332,46 @@ function veivalg() {
   }
 }
 function validmove(BrettIdElFrom, BrettIdElTo) {
-  return BrettIdElFrom.BoardInfo.BoardPiece.length;
+  if (tester_regler) {
+    if (
+      BrettIdElFrom.BoardInfo.BoardPiece[0] ===
+      BrettIdElTo.BoardInfo.BoardPiece[0]
+    ) {
+      console.log("You cannot take out your own piece");
+      return false;
+    } else {
+      return BrettIdElFrom.BoardInfo.BoardPiece.length;
+    }
+  } else {
+    return BrettIdElFrom.BoardInfo.BoardPiece.length;
+  }
 }
 
+// globale variabler  .
+
+let brett = document.querySelector("main #sjakkcontainer");
+let brett_id = [];
+let brett_queue = [];
+
+//   aa_pushe = {
+//       index: [j, i],
+//     bokstav: telle_bokstav,
+//   tall: telle_tall,
+
+const tester_regler = true;
 setboard();
 veivalg();
+
+const klikkebrikke = ["A8", "A7"];
+klikkebrikke.forEach(function (vei) {
+  brett.querySelector(`#${vei}`).click();
+});
+
+// TODO: Angi regler for spillets fremgang.
+// TODO: lagre brett_id lokalt i nettleseren, så spillprogresjonen ikke slettes.
+// TODO: Angi nytt spill-knapp.
+// TODO: lagre variabelen spillebrikke fil man henter info ifra. spille.None kan lagres om egen variabel i spillet.
+// TODO: Angi two-player, lokalt og online.
+// TODO: Angi Digital sjakkmotstandard:
+
+// if not hest -- > check path
