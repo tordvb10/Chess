@@ -98,3 +98,12 @@ main #sjakkcontainer .light svg.tombox path {
 main #sjakkcontainer .dark svg.tombox path {
   fill: var(--brown);
 }
+
+/* klasser for spill */
+
+.markertbrikke {
+  opacity: 0.5;
+}
+.avmarkerbrikke {
+  opacity: 1;
+}

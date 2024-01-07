@@ -300,14 +300,8 @@ function actuallyMoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
 }
 // flytte brikker etter å ha sjekkt regler
 function MoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
-  let angriper = BrettIdElFrom.BoardInfo.BoardPiece;
-  let forsvarer = BrettIdElTo.BoardInfo.BoardPiece;
-  // lag en funksjon som sjekker om trekket er gydlig her!!
-  //saving brettidfrom.bordpiece in order to save the info for later. -- til info
-  if (BrettIdElFrom.BoardInfo.BoardPiece.length) {
+  if (validmove(BrettIdElFrom, BrettIdElTo)) {
     actuallyMoveBoardPiece(BrettIdElFrom, BrettIdElTo);
-  } else {
-    console.log("Denne brikken er tom.");
   }
 }
 // funksjonen under er kun for manuell flytting av brikker, skal ikke bruke split etterhvert. Da henter jeg brikker med adventlistener
@@ -315,12 +309,7 @@ function MoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
 function MoveBoardPieceByCoordinates(From, To) {
   MoveBoardPiece(SplitToBrettIdElement(From), SplitToBrettIdElement(To));
 }
-
-setboard();
-
-//MoveBoardPieceByCoordinates("A8", "C8");
-
-// testing
+// funksjonen under beveger brikkene ved å klikke rundt på brettet.
 function veivalg() {
   for (let i = 0; i < 8; i++) {
     for (let j = 0; j < 8; j++) {
@@ -329,21 +318,29 @@ function veivalg() {
       brett
         .querySelector(`.bokstav_${telle_bokstav}.tall_${telle_tall}`)
         .addEventListener("click", function () {
-          console.log("knapp er trykket");
+          let aa_pushe = {
+            index: [j, i],
+            bokstav: telle_bokstav,
+            tall: telle_tall,
+          };
           if (brett_queue.length > 1) {
-            console.log("køen er for stor.");
-            brett_queue = [[j, i]];
+            brett_queue = [aa_pushe];
           } else {
-            brett_queue.push([j, i]);
+            brett_queue.push(aa_pushe);
           }
-          if (brett_queue.length == 2) {
-            console.log("På tide å flytte brikken");
+          if (brett_queue.length == 1) {
+            brett
+              .querySelector(`#${brett_queue[0].bokstav}${brett_queue[0].tall}`)
+              .classList.add("markertbrikke");
+          } else if (brett_queue.length == 2) {
+            brett
+              .querySelector(`#${brett_queue[0].bokstav}${brett_queue[0].tall}`)
+              .classList.add("avmarkerbrikke");
             MoveBoardPiece(
-              brett_id[brett_queue[0][0]][brett_queue[0][1]],
-              brett_id[brett_queue[1][0]][brett_queue[1][1]]
+              brett_id[brett_queue[0].index[0]][brett_queue[0].index[1]],
+              brett_id[brett_queue[1].index[0]][brett_queue[1].index[1]]
             );
           }
-          console.log(brett_queue.length);
         });
       //.addEventListener("click", function (telle_tall, telle_bokstav) {
       //console.log(`Dette er element ${(telle_bokstav, telle_tall)}`);
@@ -351,4 +348,9 @@ function veivalg() {
     }
   }
 }
+function validmove(BrettIdElFrom, BrettIdElTo) {
+  return BrettIdElFrom.BoardInfo.BoardPiece.length;
+}
+
+setboard();
 veivalg();
