@@ -572,19 +572,50 @@ function Splitkoordinattilarrar(string) {
 function find_path(flytte, start = [], end = [], queue = [], riktigesteg = []) {
   console.log(flytte);
   console.log(queue.length ? "er sann" : "er usann");
-  flytte.path.forEach(function (element) {
+  let array_recrusive = [];
+  flytte.path.forEach(function (element, index) {
+    let obj_recrusive = {};
     console.log(element, start);
-    let path_tall = start[0] + element[0];
-    let path_bokstav = start[1] + element[1];
+    let path_tall =
+      (start.length == 1 ? start[0][0] : start[index][0]) + element[0];
+    let path_bokstav =
+      (start.length == 1 ? start[0][1] : start[index][1]) + element[1];
+    console.log("startlengde");
+    console.log(start.length == 1);
     if (between(path_tall, 0, 7) && between(path_bokstav, 0, 7)) {
       console.log("steget er rett");
-      let path = [path_tall, path_bokstav];
-      console.log(element, path, end);
+      let path_mx = [path_tall, path_bokstav];
+      console.log(element, path_mx, end);
       if (path_tall === end[0] && path_bokstav === end[1]) {
         console.log("steget er verifisert");
+      } else {
+        if (flytte.recursive_path) {
+          console.log("vi går rekrusivt");
+          obj_recrusive.start = path_mx;
+          obj_recrusive.recursive_path = true;
+          obj_recrusive.path = element;
+          console.log(obj_recrusive);
+          //find_path({path: [path_mx], recursive_path: true },end)
+        }
+        // flytte = {path: [element], recursive_path: boolean}
+        // start = queue
+        // end = end
       }
     }
+    if (Object.keys(obj_recrusive).length) {
+      console.log("vi kan legge til objektet under til i array_recrusive");
+      array_recrusive.push(obj_recrusive);
+    } else {
+      console.log(
+        "vi kan !!IKKE!! legge til objektet under til i array_recrusive"
+      );
+    }
+    console.log(obj_recrusive);
   });
+  console.log(flytte);
+  console.log("printer array til recrusive");
+  console.log(array_recrusive);
+  // bruke forskjellige queue til find_path
   console.log(brett_id);
   console.log(`start = ${start}`);
   console.log(`end = ${end}`);
@@ -596,7 +627,6 @@ function find_path(flytte, start = [], end = [], queue = [], riktigesteg = []) {
   //    ]
   //);
 }
-
 // globale variabler  .
 
 let brett = document.querySelector("main #sjakkcontainer");
@@ -612,7 +642,7 @@ const tester_regler = true;
 setboard();
 veivalg();
 
-const klikkebrikke = ["B8", "C6"];
+const klikkebrikke = ["F8", "D6"];
 klikkebrikke.forEach(function (vei) {
   brett.querySelector(`#${vei}`).click();
 });
@@ -631,14 +661,26 @@ klikkebrikke.forEach(function (vei) {
 const obj = {
   Test: "testen funka!",
 };
-let key = "black";
+let key = "white";
+let key2 = "Bishop";
 console.log(obj["Test"]);
-console.log(spillebrikke[key]["Bishop"]);
 find_path(
-  spillebrikke.black.Knight.flytte,
-  Splitkoordinattilarrar(klikkebrikke[0]),
-  Splitkoordinattilarrar(klikkebrikke[1])
+  spillebrikke[key][key2].flytte,
+  [Splitkoordinattilarrar(klikkebrikke[0])],
+  [Splitkoordinattilarrar(klikkebrikke[1])]
 );
-
+let obj_test = [
+  { path: ["vei1"], recursive_path: "recrusive1" },
+  { path: ["vei2"], recursive_path: "recrusive2" },
+  {},
+];
+let obj_test2 = {};
+obj_test2.path1 = "patha";
+let array_test = [[1, 1]];
+console.log(spillebrikke[key][key2].flytte);
 console.log(`klikkebrikke = ${klikkebrikke}`);
 console.log(Splitkoordinattilarrar("A1"));
+console.log(obj_test);
+obj_test.forEach((el) => console.log(Object.keys(el).length));
+console.log(obj_test2);
+console.log(array_test[2]);
