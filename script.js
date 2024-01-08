@@ -45,7 +45,8 @@ const spillebrikke = {
               </svg>`,
   },
   black: {
-    Bishop: ` <!-- svart løper -->
+    Bishop: {
+      Svg: ` <!-- svart løper -->
               <svg
                 width="50"
                 height="50"
@@ -58,7 +59,19 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-    King: ` <!-- svart konge -->
+      flytte: {
+        path: [
+          [1, 1],
+          [1, -1],
+          [-1, 1],
+          [-1, -1],
+        ],
+        recursive_path: true,
+      },
+      boardpieceArray: ["black", "Bishop"],
+    },
+    King: {
+      Svg: ` <!-- svart konge -->
               <svg
                 width="50"
                 height="50"
@@ -71,7 +84,23 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-    Knight: ` <!-- svart hest -->
+      flytte: {
+        path: [
+          [1, 0],
+          [0, -1],
+          [0, 1],
+          [-1, 0],
+          [1, 1],
+          [1, -1],
+          [-1, 1],
+          [-1, -1],
+        ],
+        recursive_path: false,
+      },
+      boardpieceArray: ["black", "King"],
+    },
+    Knight: {
+      Svg: ` <!-- svart hest -->
               <svg
                 width="50"
                 height="50"
@@ -84,7 +113,23 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-    Pawn: ` <!-- svart bonde -->
+      flytte: {
+        path: [
+          [1, 2],
+          [2, 1],
+          [-1, 2],
+          [-2, 1],
+          [1, -2],
+          [2, -1],
+          [-1, -2],
+          [-2, -1],
+        ],
+        recursive_path: false,
+      },
+      boardpieceArray: ["black", "Knight"],
+    },
+    Pawn: {
+      Svg: ` <!-- svart bonde -->
               <svg
                 width="50"
                 height="50"
@@ -97,7 +142,18 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-    Queen: ` <!-- svart dronning -->
+      flytte: {
+        path: [[0, 1]],
+        recursive_path: NaN,
+        utfordrer: [
+          [1, 1],
+          [-1, 1],
+        ],
+      },
+      boardpieceArray: ["black", "Pawn"],
+    },
+    Queen: {
+      Svg: ` <!-- svart dronning -->
               <svg
                 width="50"
                 height="50"
@@ -110,7 +166,23 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-    Rook: ` <!-- svart tårn -->
+      flytte: {
+        path: [
+          [1, 0],
+          [0, -1],
+          [0, 1],
+          [-1, 0],
+          [1, 1],
+          [1, -1],
+          [-1, 1],
+          [-1, -1],
+        ],
+        recursive_path: true,
+      },
+      boardpieceArray: ["black", "Queen"],
+    },
+    Rook: {
+      Svg: ` <!-- svart tårn -->
               <svg
                 width="50"
                 height="50"
@@ -123,9 +195,21 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
+      flytte: {
+        path: [
+          [1, 0],
+          [0, -1],
+          [0, 1],
+          [-1, 0],
+        ],
+        recursive_path: true,
+      },
+      boardpieceArray: ["black", "Rook"],
+    },
   },
   white: {
-    Bishop: ` <!-- hvit løper -->
+    Bishop: {
+      Svg: ` <!-- hvit løper -->
               <svg
               width="50"
               height="50"
@@ -138,7 +222,19 @@ const spillebrikke = {
               fill="black"
             />
             </svg>`,
-    King: ` <!-- hvit konge -->
+      flytte: {
+        path: [
+          [1, 1],
+          [1, -1],
+          [-1, 1],
+          [-1, -1],
+        ],
+        recursive_path: true,
+      },
+      boardpieceArray: ["white", "Bishop"],
+    },
+    King: {
+      Svg: ` <!-- hvit konge -->
               <svg
               width="50"
               height="50"
@@ -151,7 +247,23 @@ const spillebrikke = {
                 fill="black"
             />
             </svg>`,
-    Knight: ` <!-- hvis hest -->
+      flytte: {
+        path: [
+          [1, 0],
+          [0, -1],
+          [0, 1],
+          [-1, 0],
+          [1, 1],
+          [1, -1],
+          [-1, 1],
+          [-1, -1],
+        ],
+        recursive_path: false,
+      },
+      boardpieceArray: ["white", "King"],
+    },
+    Knight: {
+      Svg: ` <!-- hvis hest -->
               <svg
             width="50"
             height="50"
@@ -164,7 +276,23 @@ const spillebrikke = {
               fill="black"
             />
           </svg>`,
-    Pawn: ` <!-- hvit bonde -->
+      flytte: {
+        path: [
+          [1, 2],
+          [2, 1],
+          [-1, 2],
+          [-2, 1],
+          [1, -2],
+          [2, -1],
+          [-1, -2],
+          [-2, -1],
+        ],
+        recursive_path: false,
+      },
+      boardpieceArray: ["white", "Knight"],
+    },
+    Pawn: {
+      Svg: ` <!-- hvit bonde -->
               <svg
                 width="50"
                 height="50"
@@ -177,7 +305,18 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-    Queen: ` <!-- hvit dronning -->
+      flytte: {
+        path: [[0, 1]],
+        recursive_path: NaN,
+        utfordrer: [
+          [1, -1],
+          [-1, -1],
+        ],
+      },
+      boardpieceArray: ["white", "Pawn"],
+    },
+    Queen: {
+      Svg: ` <!-- hvit dronning -->
               <svg
                 width="50"
                 height="50"
@@ -190,7 +329,23 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-    Rook: ` <!-- hvit tårn -->
+      flytte: {
+        path: [
+          [1, 0],
+          [0, -1],
+          [0, 1],
+          [-1, 0],
+          [1, 1],
+          [1, -1],
+          [-1, 1],
+          [-1, -1],
+        ],
+        recursive_path: true,
+      },
+      boardpieceArray: ["white", "Queen"],
+    },
+    Rook: {
+      Svg: ` <!-- hvit tårn -->
               <svg
                 width="50"
                 height="50"
@@ -203,6 +358,17 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
+      flytte: {
+        path: [
+          [1, 0],
+          [0, -1],
+          [0, 1],
+          [-1, 0],
+        ],
+        recursive_path: true,
+      },
+      boardpieceArray: ["white", "Rook"],
+    },
   },
 };
 // Funksjoner
@@ -216,44 +382,44 @@ function setboard() {
       // hvis brette trenger flere object elementer, så er det bare til å legge dem til her.
       let SVG = spillebrikke.None.Svg;
       if (chr === "2") {
-        SVG = spillebrikke.black.Pawn;
-        boardpieceArray = ["svart", "bonde"];
+        SVG = spillebrikke.black.Pawn.Svg;
+        boardpieceArray = spillebrikke.black.Pawn.boardpieceArray;
       } else if (chr === "1") {
         if (letter === "A" || letter === "H") {
-          SVG = spillebrikke.black.Rook;
-          boardpieceArray = ["svart", "tarn"];
+          SVG = spillebrikke.black.Rook.Svg;
+          boardpieceArray = spillebrikke.black.Rook.boardpieceArray;
         } else if (letter === "B" || letter === "G") {
-          SVG = spillebrikke.black.Knight;
-          boardpieceArray = ["svart", "hest"];
+          SVG = spillebrikke.black.Knight.Svg;
+          boardpieceArray = spillebrikke.black.Knight.boardpieceArray;
         } else if (letter === "C" || letter === "F") {
-          SVG = spillebrikke.black.Bishop;
-          boardpieceArray = ["svart", "loper"];
+          SVG = spillebrikke.black.Bishop.Svg;
+          boardpieceArray = spillebrikke.black.Bishop.boardpieceArray;
         } else if (letter === "D") {
-          SVG = spillebrikke.black.King;
-          boardpieceArray = ["svart", "konge"];
+          SVG = spillebrikke.black.King.Svg;
+          boardpieceArray = spillebrikke.black.King.boardpieceArray;
         } else if (letter === "E") {
-          SVG = spillebrikke.black.Queen;
-          boardpieceArray = ["svart", "dronning"];
+          SVG = spillebrikke.black.Queen.Svg;
+          boardpieceArray = spillebrikke.black.Queen.boardpieceArray;
         }
       } else if (chr === "7") {
-        SVG = spillebrikke.white.Pawn;
-        boardpieceArray = ["hvit", "bonde"];
+        SVG = spillebrikke.white.Pawn.Svg;
+        boardpieceArray = spillebrikke.white.Pawn.boardpieceArray;
       } else if (chr === "8") {
         if (letter === "A" || letter === "H") {
-          SVG = spillebrikke.white.Rook;
-          boardpieceArray = ["hvit", "tarn"];
+          SVG = spillebrikke.white.Rook.Svg;
+          boardpieceArray = spillebrikke.white.Rook.boardpieceArray;
         } else if (letter === "B" || letter === "G") {
-          SVG = spillebrikke.white.Knight;
-          boardpieceArray = ["hvit", "hest"];
+          SVG = spillebrikke.white.Knight.Svg;
+          boardpieceArray = spillebrikke.white.Knight.boardpieceArray;
         } else if (letter === "C" || letter === "F") {
-          SVG = spillebrikke.white.Bishop;
-          boardpieceArray = ["hvit", "loper"];
+          SVG = spillebrikke.white.Bishop.Svg;
+          boardpieceArray = spillebrikke.white.Bishop.boardpieceArray;
         } else if (letter === "D") {
-          SVG = spillebrikke.white.King;
-          boardpieceArray = ["hvit", "konge"];
+          SVG = spillebrikke.white.King.Svg;
+          boardpieceArray = spillebrikke.white.King.boardpieceArray;
         } else if (letter === "E") {
-          SVG = spillebrikke.white.Queen;
-          boardpieceArray = ["hvit", "dronning"];
+          SVG = spillebrikke.white.Queen.Svg;
+          boardpieceArray = spillebrikke.white.Queen.boardpieceArray;
         }
       }
       let brett_object = {
@@ -288,6 +454,8 @@ function actuallyMoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
 }
 // flytte brikker etter å ha sjekkt regler
 function MoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
+  console.log(BrettIdElFrom);
+  console.log(BrettIdElTo);
   if (validmove(BrettIdElFrom, BrettIdElTo)) {
     actuallyMoveBoardPiece(BrettIdElFrom, BrettIdElTo);
   }
@@ -319,10 +487,13 @@ function veivalg() {
             brett
               .querySelector(`#${brett_queue[0].bokstav}${brett_queue[0].tall}`)
               .classList.remove("markertbrikke");
-            MoveBoardPiece(
-              brett_id[brett_queue[0].index[0]][brett_queue[0].index[1]],
-              brett_id[brett_queue[1].index[0]][brett_queue[1].index[1]]
-            );
+            let BrettIdElFrom =
+              brett_id[brett_queue[0].index[0]][brett_queue[0].index[1]];
+            let BrettIdElTo =
+              brett_id[brett_queue[1].index[0]][brett_queue[1].index[1]];
+            console.log(BrettIdElFrom);
+            console.log(BrettIdElTo);
+            MoveBoardPiece(BrettIdElFrom, BrettIdElTo);
           }
         });
       //.addEventListener("click", function (telle_tall, telle_bokstav) {
@@ -332,14 +503,24 @@ function veivalg() {
   }
 }
 function validmove(BrettIdElFrom, BrettIdElTo) {
-  if (tester_regler) {
+  if (tester_regler && BrettIdElFrom.BoardInfo.BoardPiece.length) {
+    console.log(
+      spillebrikke[BrettIdElFrom.BoardInfo.BoardPiece[0]][
+        BrettIdElFrom.BoardInfo.BoardPiece[1]
+      ]
+    );
     if (
       BrettIdElFrom.BoardInfo.BoardPiece[0] ===
       BrettIdElTo.BoardInfo.BoardPiece[0]
     ) {
-      console.log("You cannot take out your own piece");
+      console.log("You cannot take out your own piece.");
+      console.log(BrettIdElFrom);
+      console.log(BrettIdElTo);
       return false;
     } else {
+      console.log("You did not take out your own piece.");
+      console.log(BrettIdElFrom);
+      console.log(BrettIdElTo);
       return BrettIdElFrom.BoardInfo.BoardPiece.length;
     }
   } else {
@@ -364,7 +545,7 @@ veivalg();
 
 const klikkebrikke = ["A8", "A6"];
 klikkebrikke.forEach(function (vei) {
-  //brett.querySelector(`#${vei}`).click();
+  brett.querySelector(`#${vei}`).click();
 });
 
 // TODO: Angi regler for spillets fremgang.
@@ -375,3 +556,12 @@ klikkebrikke.forEach(function (vei) {
 // TODO: Angi Digital sjakkmotstandard:
 
 // if not hest -- > check path
+
+// testing:
+
+const obj = {
+  Test: "testen funka!",
+};
+let key = "black";
+console.log(obj["Test"]);
+console.log(spillebrikke[key]["Bishop"]);
