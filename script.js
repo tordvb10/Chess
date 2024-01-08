@@ -143,11 +143,11 @@ const spillebrikke = {
                 />
               </svg>`,
       flytte: {
-        path: [[0, 1]],
+        path: [[-1, 0]],
         recursive_path: NaN,
         utfordrer: [
-          [1, 1],
           [-1, 1],
+          [-1, -1],
         ],
       },
       boardpieceArray: ["black", "Pawn"],
@@ -306,11 +306,11 @@ const spillebrikke = {
                 />
               </svg>`,
       flytte: {
-        path: [[0, 1]],
+        path: [[1, 0]],
         recursive_path: NaN,
         utfordrer: [
           [1, -1],
-          [-1, -1],
+          [1, 1],
         ],
       },
       boardpieceArray: ["white", "Pawn"],
@@ -372,6 +372,9 @@ const spillebrikke = {
   },
 };
 // Funksjoner
+function between(x, min, max) {
+  return x >= min && x <= max;
+}
 function setboard() {
   for (let i = 0; i < 8; i++) {
     let brett_id_indre = [];
@@ -381,46 +384,67 @@ function setboard() {
       let letter = Convert.Index.To.UpperCase(j);
       // hvis brette trenger flere object elementer, så er det bare til å legge dem til her.
       let SVG = spillebrikke.None.Svg;
-      if (chr === "2") {
-        SVG = spillebrikke.black.Pawn.Svg;
-        boardpieceArray = spillebrikke.black.Pawn.boardpieceArray;
-      } else if (chr === "1") {
-        if (letter === "A" || letter === "H") {
-          SVG = spillebrikke.black.Rook.Svg;
-          boardpieceArray = spillebrikke.black.Rook.boardpieceArray;
-        } else if (letter === "B" || letter === "G") {
-          SVG = spillebrikke.black.Knight.Svg;
-          boardpieceArray = spillebrikke.black.Knight.boardpieceArray;
-        } else if (letter === "C" || letter === "F") {
-          SVG = spillebrikke.black.Bishop.Svg;
-          boardpieceArray = spillebrikke.black.Bishop.boardpieceArray;
-        } else if (letter === "D") {
-          SVG = spillebrikke.black.King.Svg;
-          boardpieceArray = spillebrikke.black.King.boardpieceArray;
-        } else if (letter === "E") {
-          SVG = spillebrikke.black.Queen.Svg;
-          boardpieceArray = spillebrikke.black.Queen.boardpieceArray;
-        }
-      } else if (chr === "7") {
-        SVG = spillebrikke.white.Pawn.Svg;
-        boardpieceArray = spillebrikke.white.Pawn.boardpieceArray;
-      } else if (chr === "8") {
-        if (letter === "A" || letter === "H") {
-          SVG = spillebrikke.white.Rook.Svg;
-          boardpieceArray = spillebrikke.white.Rook.boardpieceArray;
-        } else if (letter === "B" || letter === "G") {
-          SVG = spillebrikke.white.Knight.Svg;
-          boardpieceArray = spillebrikke.white.Knight.boardpieceArray;
-        } else if (letter === "C" || letter === "F") {
-          SVG = spillebrikke.white.Bishop.Svg;
-          boardpieceArray = spillebrikke.white.Bishop.boardpieceArray;
-        } else if (letter === "D") {
-          SVG = spillebrikke.white.King.Svg;
-          boardpieceArray = spillebrikke.white.King.boardpieceArray;
-        } else if (letter === "E") {
-          SVG = spillebrikke.white.Queen.Svg;
-          boardpieceArray = spillebrikke.white.Queen.boardpieceArray;
-        }
+      switch (chr) {
+        case "2":
+          SVG = spillebrikke.black.Pawn.Svg;
+          boardpieceArray = spillebrikke.black.Pawn.boardpieceArray;
+          break;
+        case "1":
+          switch (letter) {
+            case "A":
+            case "H":
+              SVG = spillebrikke.black.Rook.Svg;
+              boardpieceArray = spillebrikke.black.Rook.boardpieceArray;
+              break;
+            case "B":
+            case "G":
+              SVG = spillebrikke.black.Knight.Svg;
+              boardpieceArray = spillebrikke.black.Knight.boardpieceArray;
+              break;
+            case "C":
+            case "F":
+              SVG = spillebrikke.black.Bishop.Svg;
+              boardpieceArray = spillebrikke.black.Bishop.boardpieceArray;
+              break;
+            case "D":
+              SVG = spillebrikke.black.King.Svg;
+              boardpieceArray = spillebrikke.black.King.boardpieceArray;
+              break;
+            case "E":
+              SVG = spillebrikke.black.Queen.Svg;
+              boardpieceArray = spillebrikke.black.Queen.boardpieceArray;
+              break;
+          }
+          break;
+        case "7":
+          SVG = spillebrikke.white.Pawn.Svg;
+          boardpieceArray = spillebrikke.white.Pawn.boardpieceArray;
+          break;
+        case "8":
+          switch (letter) {
+            case "A":
+            case "H":
+              SVG = spillebrikke.white.Rook.Svg;
+              boardpieceArray = spillebrikke.white.Rook.boardpieceArray;
+              break;
+            case "B":
+            case "G":
+              SVG = spillebrikke.white.Knight.Svg;
+              boardpieceArray = spillebrikke.white.Knight.boardpieceArray;
+              break;
+            case "C":
+            case "F":
+              SVG = spillebrikke.white.Bishop.Svg;
+              boardpieceArray = spillebrikke.white.Bishop.boardpieceArray;
+              break;
+            case "D":
+              SVG = spillebrikke.white.King.Svg;
+              boardpieceArray = spillebrikke.white.King.boardpieceArray;
+              break;
+            case "E":
+              SVG = spillebrikke.white.Queen.Svg;
+              boardpieceArray = spillebrikke.white.Queen.boardpieceArray;
+          }
       }
       let brett_object = {
         ID: {
@@ -504,11 +528,20 @@ function veivalg() {
 }
 function validmove(BrettIdElFrom, BrettIdElTo) {
   if (tester_regler && BrettIdElFrom.BoardInfo.BoardPiece.length) {
-    console.log(
-      spillebrikke[BrettIdElFrom.BoardInfo.BoardPiece[0]][
-        BrettIdElFrom.BoardInfo.BoardPiece[1]
-      ]
-    );
+    console.log("hei Tord");
+    console.log(BrettIdElFrom);
+    if (BrettIdElFrom.BoardInfo.BoardPiece[1] === "Pawn") {
+      console.log("Dette er en bonde");
+      return BrettIdElFrom.BoardInfo.BoardPiece.length;
+    } else {
+      console.log("Detter er ikke en bonde");
+      console.log(
+        spillebrikke[BrettIdElFrom.BoardInfo.BoardPiece[0]][
+          BrettIdElFrom.BoardInfo.BoardPiece[1]
+        ].flytte
+      );
+    }
+
     if (
       BrettIdElFrom.BoardInfo.BoardPiece[0] ===
       BrettIdElTo.BoardInfo.BoardPiece[0]
@@ -528,6 +561,42 @@ function validmove(BrettIdElFrom, BrettIdElTo) {
   }
 }
 
+function Splitkoordinattilarrar(string) {
+  let svar = string.split("");
+  return [
+    Convert.Index.From.Tall(svar[1]),
+    Convert.Index.From.UpperCase(svar[0]),
+  ];
+}
+
+function find_path(flytte, start = [], end = [], queue = [], riktigesteg = []) {
+  console.log(flytte);
+  console.log(queue.length ? "er sann" : "er usann");
+  flytte.path.forEach(function (element) {
+    console.log(element, start);
+    let path_tall = start[0] + element[0];
+    let path_bokstav = start[1] + element[1];
+    if (between(path_tall, 0, 7) && between(path_bokstav, 0, 7)) {
+      console.log("steget er rett");
+      let path = [path_tall, path_bokstav];
+      console.log(element, path, end);
+      if (path_tall === end[0] && path_bokstav === end[1]) {
+        console.log("steget er verifisert");
+      }
+    }
+  });
+  console.log(brett_id);
+  console.log(`start = ${start}`);
+  console.log(`end = ${end}`);
+  console.log(`queue = ${queue}`);
+  console.log(`riktigesteg = ${riktigesteg}`);
+  //  console.log(
+  //  brett_id[Convert.Index.From.Tall(start[1])][
+  //  Convert.Index.From.UpperCase(start[0])
+  //    ]
+  //);
+}
+
 // globale variabler  .
 
 let brett = document.querySelector("main #sjakkcontainer");
@@ -543,7 +612,7 @@ const tester_regler = true;
 setboard();
 veivalg();
 
-const klikkebrikke = ["A8", "A6"];
+const klikkebrikke = ["B8", "C6"];
 klikkebrikke.forEach(function (vei) {
   brett.querySelector(`#${vei}`).click();
 });
@@ -565,3 +634,11 @@ const obj = {
 let key = "black";
 console.log(obj["Test"]);
 console.log(spillebrikke[key]["Bishop"]);
+find_path(
+  spillebrikke.black.Knight.flytte,
+  Splitkoordinattilarrar(klikkebrikke[0]),
+  Splitkoordinattilarrar(klikkebrikke[1])
+);
+
+console.log(`klikkebrikke = ${klikkebrikke}`);
+console.log(Splitkoordinattilarrar("A1"));
