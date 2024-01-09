@@ -59,16 +59,18 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-      flytte: {
-        path: [
-          [1, 1],
-          [1, -1],
-          [-1, 1],
-          [-1, -1],
-        ],
-        recursive_path: true,
+      spillinfo: {
+        flytte: {
+          path: [
+            [1, 1],
+            [1, -1],
+            [-1, 1],
+            [-1, -1],
+          ],
+          recursive_path: true,
+        },
+        boardpieceArray: ["black", "Bishop"],
       },
-      boardpieceArray: ["black", "Bishop"],
     },
     King: {
       Svg: ` <!-- svart konge -->
@@ -84,20 +86,22 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-      flytte: {
-        path: [
-          [1, 0],
-          [0, -1],
-          [0, 1],
-          [-1, 0],
-          [1, 1],
-          [1, -1],
-          [-1, 1],
-          [-1, -1],
-        ],
-        recursive_path: false,
+      spillinfo: {
+        flytte: {
+          path: [
+            [1, 0],
+            [0, -1],
+            [0, 1],
+            [-1, 0],
+            [1, 1],
+            [1, -1],
+            [-1, 1],
+            [-1, -1],
+          ],
+          recursive_path: false,
+        },
+        boardpieceArray: ["black", "King"],
       },
-      boardpieceArray: ["black", "King"],
     },
     Knight: {
       Svg: ` <!-- svart hest -->
@@ -113,20 +117,22 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-      flytte: {
-        path: [
-          [1, 2],
-          [2, 1],
-          [-1, 2],
-          [-2, 1],
-          [1, -2],
-          [2, -1],
-          [-1, -2],
-          [-2, -1],
-        ],
-        recursive_path: false,
+      spillinfo: {
+        flytte: {
+          path: [
+            [1, 2],
+            [2, 1],
+            [-1, 2],
+            [-2, 1],
+            [1, -2],
+            [2, -1],
+            [-1, -2],
+            [-2, -1],
+          ],
+          recursive_path: false,
+        },
+        boardpieceArray: ["black", "Knight"],
       },
-      boardpieceArray: ["black", "Knight"],
     },
     Pawn: {
       Svg: ` <!-- svart bonde -->
@@ -142,15 +148,17 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-      flytte: {
-        path: [[-1, 0]],
-        recursive_path: NaN,
-        utfordrer: [
-          [-1, 1],
-          [-1, -1],
-        ],
+      spillinfo: {
+        flytte: {
+          path: [[-1, 0]],
+          recursive_path: false,
+          utfordrer: [
+            [-1, 1],
+            [-1, -1],
+          ],
+        },
+        boardpieceArray: ["black", "Pawn"],
       },
-      boardpieceArray: ["black", "Pawn"],
     },
     Queen: {
       Svg: ` <!-- svart dronning -->
@@ -166,20 +174,22 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-      flytte: {
-        path: [
-          [1, 0],
-          [0, -1],
-          [0, 1],
-          [-1, 0],
-          [1, 1],
-          [1, -1],
-          [-1, 1],
-          [-1, -1],
-        ],
-        recursive_path: true,
+      spillinfo: {
+        flytte: {
+          path: [
+            [1, 0],
+            [0, -1],
+            [0, 1],
+            [-1, 0],
+            [1, 1],
+            [1, -1],
+            [-1, 1],
+            [-1, -1],
+          ],
+          recursive_path: true,
+        },
+        boardpieceArray: ["black", "Queen"],
       },
-      boardpieceArray: ["black", "Queen"],
     },
     Rook: {
       Svg: ` <!-- svart tårn -->
@@ -195,16 +205,18 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-      flytte: {
-        path: [
-          [1, 0],
-          [0, -1],
-          [0, 1],
-          [-1, 0],
-        ],
-        recursive_path: true,
+      spillinfo: {
+        flytte: {
+          path: [
+            [1, 0],
+            [0, -1],
+            [0, 1],
+            [-1, 0],
+          ],
+          recursive_path: true,
+        },
+        boardpieceArray: ["black", "Rook"],
       },
-      boardpieceArray: ["black", "Rook"],
     },
   },
   white: {
@@ -222,16 +234,18 @@ const spillebrikke = {
               fill="black"
             />
             </svg>`,
-      flytte: {
-        path: [
-          [1, 1],
-          [1, -1],
-          [-1, 1],
-          [-1, -1],
-        ],
-        recursive_path: true,
+      spillinfo: {
+        flytte: {
+          path: [
+            [1, 1],
+            [1, -1],
+            [-1, 1],
+            [-1, -1],
+          ],
+          recursive_path: true,
+        },
+        boardpieceArray: ["white", "Bishop"],
       },
-      boardpieceArray: ["white", "Bishop"],
     },
     King: {
       Svg: ` <!-- hvit konge -->
@@ -247,20 +261,22 @@ const spillebrikke = {
                 fill="black"
             />
             </svg>`,
-      flytte: {
-        path: [
-          [1, 0],
-          [0, -1],
-          [0, 1],
-          [-1, 0],
-          [1, 1],
-          [1, -1],
-          [-1, 1],
-          [-1, -1],
-        ],
-        recursive_path: false,
+      spillinfo: {
+        flytte: {
+          path: [
+            [1, 0],
+            [0, -1],
+            [0, 1],
+            [-1, 0],
+            [1, 1],
+            [1, -1],
+            [-1, 1],
+            [-1, -1],
+          ],
+          recursive_path: false,
+        },
+        boardpieceArray: ["white", "King"],
       },
-      boardpieceArray: ["white", "King"],
     },
     Knight: {
       Svg: ` <!-- hvis hest -->
@@ -276,20 +292,22 @@ const spillebrikke = {
               fill="black"
             />
           </svg>`,
-      flytte: {
-        path: [
-          [1, 2],
-          [2, 1],
-          [-1, 2],
-          [-2, 1],
-          [1, -2],
-          [2, -1],
-          [-1, -2],
-          [-2, -1],
-        ],
-        recursive_path: false,
+      spillinfo: {
+        flytte: {
+          path: [
+            [1, 2],
+            [2, 1],
+            [-1, 2],
+            [-2, 1],
+            [1, -2],
+            [2, -1],
+            [-1, -2],
+            [-2, -1],
+          ],
+          recursive_path: false,
+        },
+        boardpieceArray: ["white", "Knight"],
       },
-      boardpieceArray: ["white", "Knight"],
     },
     Pawn: {
       Svg: ` <!-- hvit bonde -->
@@ -305,15 +323,17 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-      flytte: {
-        path: [[1, 0]],
-        recursive_path: NaN,
-        utfordrer: [
-          [1, -1],
-          [1, 1],
-        ],
+      spillinfo: {
+        flytte: {
+          path: [[1, 0]],
+          recursive_path: false,
+          utfordrer: [
+            [1, -1],
+            [1, 1],
+          ],
+        },
+        boardpieceArray: ["white", "Pawn"],
       },
-      boardpieceArray: ["white", "Pawn"],
     },
     Queen: {
       Svg: ` <!-- hvit dronning -->
@@ -329,20 +349,22 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-      flytte: {
-        path: [
-          [1, 0],
-          [0, -1],
-          [0, 1],
-          [-1, 0],
-          [1, 1],
-          [1, -1],
-          [-1, 1],
-          [-1, -1],
-        ],
-        recursive_path: true,
+      spillinfo: {
+        flytte: {
+          path: [
+            [1, 0],
+            [0, -1],
+            [0, 1],
+            [-1, 0],
+            [1, 1],
+            [1, -1],
+            [-1, 1],
+            [-1, -1],
+          ],
+          recursive_path: true,
+        },
+        boardpieceArray: ["white", "Queen"],
       },
-      boardpieceArray: ["white", "Queen"],
     },
     Rook: {
       Svg: ` <!-- hvit tårn -->
@@ -358,22 +380,24 @@ const spillebrikke = {
                   fill="black"
                 />
               </svg>`,
-      flytte: {
-        path: [
-          [1, 0],
-          [0, -1],
-          [0, 1],
-          [-1, 0],
-        ],
-        recursive_path: true,
+      spillinfo: {
+        flytte: {
+          path: [
+            [1, 0],
+            [0, -1],
+            [0, 1],
+            [-1, 0],
+          ],
+          recursive_path: true,
+        },
+        boardpieceArray: ["white", "Rook"],
       },
-      boardpieceArray: ["white", "Rook"],
     },
   },
 };
 // Funksjoner
-function between(x, min, max) {
-  return x >= min && x <= max;
+function IndexOnBoard(x) {
+  return x >= 0 && x <= 7;
 }
 function setboard() {
   for (let i = 0; i < 8; i++) {
@@ -387,63 +411,73 @@ function setboard() {
       switch (chr) {
         case "2":
           SVG = spillebrikke.black.Pawn.Svg;
-          boardpieceArray = spillebrikke.black.Pawn.boardpieceArray;
+          boardpieceArray = spillebrikke.black.Pawn.spillinfo.boardpieceArray;
           break;
         case "1":
           switch (letter) {
             case "A":
             case "H":
               SVG = spillebrikke.black.Rook.Svg;
-              boardpieceArray = spillebrikke.black.Rook.boardpieceArray;
+              boardpieceArray =
+                spillebrikke.black.Rook.spillinfo.boardpieceArray;
               break;
             case "B":
             case "G":
               SVG = spillebrikke.black.Knight.Svg;
-              boardpieceArray = spillebrikke.black.Knight.boardpieceArray;
+              boardpieceArray =
+                spillebrikke.black.Knight.spillinfo.boardpieceArray;
               break;
             case "C":
             case "F":
               SVG = spillebrikke.black.Bishop.Svg;
-              boardpieceArray = spillebrikke.black.Bishop.boardpieceArray;
+              boardpieceArray =
+                spillebrikke.black.Bishop.spillinfo.boardpieceArray;
               break;
             case "D":
               SVG = spillebrikke.black.King.Svg;
-              boardpieceArray = spillebrikke.black.King.boardpieceArray;
+              boardpieceArray =
+                spillebrikke.black.King.spillinfo.boardpieceArray;
               break;
             case "E":
               SVG = spillebrikke.black.Queen.Svg;
-              boardpieceArray = spillebrikke.black.Queen.boardpieceArray;
+              boardpieceArray =
+                spillebrikke.black.Queen.spillinfo.boardpieceArray;
               break;
           }
           break;
         case "7":
           SVG = spillebrikke.white.Pawn.Svg;
-          boardpieceArray = spillebrikke.white.Pawn.boardpieceArray;
+          boardpieceArray = spillebrikke.white.Pawn.spillinfo.boardpieceArray;
           break;
         case "8":
           switch (letter) {
             case "A":
             case "H":
               SVG = spillebrikke.white.Rook.Svg;
-              boardpieceArray = spillebrikke.white.Rook.boardpieceArray;
+              boardpieceArray =
+                spillebrikke.white.Rook.spillinfo.boardpieceArray;
               break;
             case "B":
             case "G":
               SVG = spillebrikke.white.Knight.Svg;
-              boardpieceArray = spillebrikke.white.Knight.boardpieceArray;
+              boardpieceArray =
+                spillebrikke.white.Knight.spillinfo.boardpieceArray;
               break;
             case "C":
             case "F":
               SVG = spillebrikke.white.Bishop.Svg;
-              boardpieceArray = spillebrikke.white.Bishop.boardpieceArray;
+              boardpieceArray =
+                spillebrikke.white.Bishop.spillinfo.boardpieceArray;
               break;
             case "D":
               SVG = spillebrikke.white.King.Svg;
-              boardpieceArray = spillebrikke.white.King.boardpieceArray;
+              boardpieceArray =
+                spillebrikke.white.King.spillinfo.boardpieceArray;
               break;
             case "E":
               SVG = spillebrikke.white.Queen.Svg;
-              boardpieceArray = spillebrikke.white.Queen.boardpieceArray;
+              boardpieceArray =
+                spillebrikke.white.Queen.spillinfo.boardpieceArray;
           }
       }
       let brett_object = {
@@ -455,6 +489,7 @@ function setboard() {
         BoardInfo: {
           BoardPiece: boardpieceArray,
           Svg: SVG,
+          PieceMoved: false,
         },
       };
       brett_id_indre.push(brett_object);
@@ -475,6 +510,9 @@ function actuallyMoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
   brett_id[Convert.Index.From.Tall(BrettIdElFrom.ID.tall)][
     Convert.Index.From.UpperCase(BrettIdElFrom.ID.bokstav)
   ].BoardInfo = spillebrikke.None;
+  brett_id[Convert.Index.From.Tall(BrettIdElTo.ID.tall)][
+    Convert.Index.From.UpperCase(BrettIdElTo.ID.bokstav)
+  ].BoardInfo.PieceMoved = true;
 }
 // flytte brikker etter å ha sjekkt regler
 function MoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
@@ -561,7 +599,7 @@ function validmove(BrettIdElFrom, BrettIdElTo) {
   }
 }
 
-function Splitkoordinattilarrar(string) {
+function Splitkoordinattilarray(string) {
   let svar = string.split("");
   return [
     Convert.Index.From.Tall(svar[1]),
@@ -569,12 +607,21 @@ function Splitkoordinattilarrar(string) {
   ];
 }
 
-function find_path(flytte, start = [], end = [], queue = [], riktigesteg = []) {
-  console.log(flytte);
-  console.log(queue.length ? "er sann" : "er usann");
-  let array_recrusive = [];
-  flytte.path.forEach(function (element, index) {
-    let obj_recrusive = {};
+function find_path(
+  brikke,
+  start,
+  end = [],
+  svar = false,
+  depth = 1,
+  riktigesteg = []
+) {
+  console.log(`depth = ${depth}`);
+  console.log(brikke);
+  console.log(brikke.flytte);
+  let queue_start = [];
+  let queue_path = [];
+  brikke.flytte.path.forEach(function (element, index) {
+    console.log(`index = ${index}`);
     console.log(element, start);
     let path_tall =
       (start.length == 1 ? start[0][0] : start[index][0]) + element[0];
@@ -582,19 +629,22 @@ function find_path(flytte, start = [], end = [], queue = [], riktigesteg = []) {
       (start.length == 1 ? start[0][1] : start[index][1]) + element[1];
     console.log("startlengde");
     console.log(start.length == 1);
-    if (between(path_tall, 0, 7) && between(path_bokstav, 0, 7)) {
+    if (IndexOnBoard(path_tall) && IndexOnBoard(path_bokstav)) {
       console.log("steget er rett");
       let path_mx = [path_tall, path_bokstav];
+      console.log("Printer brikke på path");
+      console.log(brett_id[path_tall][path_bokstav].BoardInfo);
+      console.log(path_mx, end);
       console.log(element, path_mx, end);
       if (path_tall === end[0] && path_bokstav === end[1]) {
         console.log("steget er verifisert");
+        brikke.flytte.recursive_path = false;
+        svar = true;
       } else {
-        if (flytte.recursive_path) {
+        if (brikke.flytte.recursive_path) {
           console.log("vi går rekrusivt");
-          obj_recrusive.start = path_mx;
-          obj_recrusive.recursive_path = true;
-          obj_recrusive.path = element;
-          console.log(obj_recrusive);
+          queue_start.push(path_mx);
+          queue_path.push(element);
           //find_path({path: [path_mx], recursive_path: true },end)
         }
         // flytte = {path: [element], recursive_path: boolean}
@@ -602,30 +652,33 @@ function find_path(flytte, start = [], end = [], queue = [], riktigesteg = []) {
         // end = end
       }
     }
-    if (Object.keys(obj_recrusive).length) {
-      console.log("vi kan legge til objektet under til i array_recrusive");
-      array_recrusive.push(obj_recrusive);
-    } else {
-      console.log(
-        "vi kan !!IKKE!! legge til objektet under til i array_recrusive"
-      );
-    }
-    console.log(obj_recrusive);
   });
-  console.log(flytte);
-  console.log("printer array til recrusive");
-  console.log(array_recrusive);
-  // bruke forskjellige queue til find_path
-  console.log(brett_id);
-  console.log(`start = ${start}`);
-  console.log(`end = ${end}`);
-  console.log(`queue = ${queue}`);
-  console.log(`riktigesteg = ${riktigesteg}`);
-  //  console.log(
-  //  brett_id[Convert.Index.From.Tall(start[1])][
-  //  Convert.Index.From.UpperCase(start[0])
-  //    ]
-  //);
+
+  console.log(brikke.flytte);
+  console.log("Printer forslag til recrusive find_path");
+  console.log({
+    path: queue_path,
+    recursive_path: brikke.flytte.recursive_path,
+  });
+  console.log(queue_start);
+  if (brikke.flytte.recursive_path) {
+    console.log("vi skal nå gå rekrusivt!!");
+    return find_path(
+      {
+        flytte: {
+          path: queue_path,
+          recursive_path: brikke.flytte.recursive_path,
+        },
+        boardpieceArray: brikke.boardpieceArray,
+      },
+      queue_start,
+      end,
+      svar,
+      depth + 1
+    );
+  } else {
+    return svar;
+  }
 }
 // globale variabler  .
 
@@ -654,33 +707,52 @@ klikkebrikke.forEach(function (vei) {
 // TODO: Angi two-player, lokalt og online.
 // TODO: Angi Digital sjakkmotstandard:
 
+let key = "white";
+let key2 = "Bishop";
+let svar = find_path(
+  spillebrikke[key][key2].spillinfo,
+  [Splitkoordinattilarray(klikkebrikke[0])],
+  Splitkoordinattilarray(klikkebrikke[1])
+);
+console.log("svaret er:");
+console.log(svar);
+console.log(brett_id[5][3]);
+console.log(brett_id);
+console.log(spillebrikke[key][key2]);
+function depths(dybde) {
+  dybde -= 1;
+  if (dybde) {
+    console.log(dybde);
+    return depths(dybde) + "Jeg kom meg ut til slutt";
+  } else {
+    return "Jeg kom meg ut til slutt";
+  }
+}
+console.log(depths(3));
 // if not hest -- > check path
 
 // testing:
 
-const obj = {
-  Test: "testen funka!",
-};
-let key = "white";
-let key2 = "Bishop";
-console.log(obj["Test"]);
-find_path(
-  spillebrikke[key][key2].flytte,
-  [Splitkoordinattilarrar(klikkebrikke[0])],
-  [Splitkoordinattilarrar(klikkebrikke[1])]
-);
-let obj_test = [
-  { path: ["vei1"], recursive_path: "recrusive1" },
-  { path: ["vei2"], recursive_path: "recrusive2" },
-  {},
-];
-let obj_test2 = {};
-obj_test2.path1 = "patha";
-let array_test = [[1, 1]];
-console.log(spillebrikke[key][key2].flytte);
-console.log(`klikkebrikke = ${klikkebrikke}`);
-console.log(Splitkoordinattilarrar("A1"));
-console.log(obj_test);
-obj_test.forEach((el) => console.log(Object.keys(el).length));
-console.log(obj_test2);
-console.log(array_test[2]);
+//const obj = {
+// Test: "testen funka!",
+//};
+//console.log(obj["Test"]);
+
+//let obj_test = [
+//{ path: ["vei1"], recursive_path: "recrusive1" },
+//  { path: ["vei2"], recursive_path: "recrusive2" },
+//{},
+//];
+//let obj_test2 = {};
+//obj_test2.path1 = "patha";
+//let array_test = [[1, 1]];
+//console.log(spillebrikke[key][key2].flytte);
+//console.log(`klikkebrikke = ${klikkebrikke}`);
+//console.log(Splitkoordinattilarray("A1"));
+//console.log(obj_test);
+//obj_test.forEach((el) => console.log(Object.keys(el).length));
+//console.log(obj_test2);
+//console.log(array_test[2]);
+//if (Infinity) {
+//console.log(true);
+//}
