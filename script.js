@@ -595,25 +595,19 @@ function find_path(
       (start.length == 1 ? start[0][0] : start[index][0]) + element[0];
     let path_bokstav =
       (start.length == 1 ? start[0][1] : start[index][1]) + element[1];
-    if (
-      IndexOnBoard(path_tall) &&
-      IndexOnBoard(path_bokstav) &&
-      !brett_id[path_tall][path_bokstav].BoardInfo.BoardPiece.length
-    ) {
+    if (IndexOnBoard(path_tall) && IndexOnBoard(path_bokstav)) {
       path_mx = [path_tall, path_bokstav];
-      if (path_tall === end[0] && path_bokstav === end[1]) {
+      if (
+        !brett_id[path_tall][path_bokstav].BoardInfo.BoardPiece.length &&
+        path_tall !== end[0] &&
+        path_bokstav !== end[1] &&
+        brikke.flytte.recursive_path
+      ) {
+        queue_start.push(path_mx);
+        queue_path.push(element);
+      } else if (path_tall === end[0] && path_bokstav === end[1]) {
         brikke.flytte.recursive_path = false;
         svar = true;
-      } else {
-        if (brikke.flytte.recursive_path) {
-          queue_start.push(path_mx);
-          queue_path.push(element);
-
-          //find_path({path: [path_mx], recursive_path: true },end)
-        }
-        // flytte = {path: [element], recursive_path: boolean}
-        // start = queue
-        // end = end
       }
     }
   });
@@ -649,7 +643,13 @@ let brett_queue = [];
 setboard();
 veivalg();
 
-const klikkebrikke = [["F8", "D6"]];
+const klikkebrikke = [
+  ["F7", "F6"],
+  ["F6", "F5"],
+  ["F2", "F3"],
+  ["F3", "F4"],
+  ["F5", "F4"],
+];
 klikkebrikke.forEach(function (vei) {
   vei.forEach(function (vei1) {
     brett.querySelector(`#${vei1}`).click();
