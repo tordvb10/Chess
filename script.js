@@ -152,10 +152,6 @@ const spillebrikke = {
         flytte: {
           path: [[1, 0]],
           recursive_path: false,
-          //          utfordrer: [
-          //          [-1, 1],
-          //        [-1, -1],
-          //    ],
         },
         boardpieceArray: ["black", "Pawn"],
       },
@@ -327,12 +323,13 @@ const spillebrikke = {
         flytte: {
           path: [[-1, 0]],
           recursive_path: false,
-          //          utfordrer: [
-          //          [1, -1],
-          //        [1, 1],
-          //    ],
         },
         boardpieceArray: ["white", "Pawn"],
+        betingelser: [
+          {
+            navn: "PieceNotMoved",
+          },
+        ],
       },
     },
     Queen: {
@@ -395,10 +392,21 @@ const spillebrikke = {
     },
   },
 };
+
 // Funksjoner
+// Små hjelpefunksjoner
 function IndexOnBoard(x) {
   return x >= 0 && x <= 7;
 }
+function Splitkoordinattilarray(string) {
+  let svar = string.split("");
+  return [
+    Convert.Index.From.Tall(svar[1]),
+    Convert.Index.From.UpperCase(svar[0]),
+  ];
+}
+// setboard, og veivalg er de funksjonene som setter spillet igang, og er de eneste som er nevn globalt.
+// setboard, setter svg på brikke, alt ettersom hvordan brett_id ser ut. Den kan ha annerledes verdi enn ved start ved load of page
 function setboard() {
   for (let i = 0; i < 8; i++) {
     let brett_id_indre = [];
@@ -498,28 +506,6 @@ function setboard() {
     brett_id.push(brett_id_indre);
   }
 }
-// flytte bare brikke
-function actuallyMoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
-  brett.querySelector(`#${BrettIdElTo.ID.tag} .her`).innerHTML =
-    BrettIdElFrom.BoardInfo.Svg;
-  brett.querySelector(`#${BrettIdElFrom.ID.tag} .her`).innerHTML =
-    spillebrikke.None.Svg;
-  brett_id[Convert.Index.From.Tall(BrettIdElTo.ID.tall)][
-    Convert.Index.From.UpperCase(BrettIdElTo.ID.bokstav)
-  ].BoardInfo = BrettIdElFrom.BoardInfo;
-  brett_id[Convert.Index.From.Tall(BrettIdElFrom.ID.tall)][
-    Convert.Index.From.UpperCase(BrettIdElFrom.ID.bokstav)
-  ].BoardInfo = spillebrikke.None;
-  brett_id[Convert.Index.From.Tall(BrettIdElTo.ID.tall)][
-    Convert.Index.From.UpperCase(BrettIdElTo.ID.bokstav)
-  ].BoardInfo.PieceMoved = true;
-}
-// flytte brikker etter å ha sjekkt regler
-function MoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
-  if (validmove(BrettIdElFrom, BrettIdElTo)) {
-    actuallyMoveBoardPiece(BrettIdElFrom, BrettIdElTo);
-  }
-}
 // funksjonen under beveger brikkene ved å klikke rundt på brettet.
 function veivalg() {
   for (let i = 0; i < 8; i++) {
@@ -557,6 +543,29 @@ function veivalg() {
     }
   }
 }
+
+// flytte brikker etter å ha sjekkt regler
+function MoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
+  if (validmove(BrettIdElFrom, BrettIdElTo)) {
+    actuallyMoveBoardPiece(BrettIdElFrom, BrettIdElTo);
+  }
+}
+// flytte bare brikke
+function actuallyMoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
+  brett.querySelector(`#${BrettIdElTo.ID.tag} .her`).innerHTML =
+    BrettIdElFrom.BoardInfo.Svg;
+  brett.querySelector(`#${BrettIdElFrom.ID.tag} .her`).innerHTML =
+    spillebrikke.None.Svg;
+  brett_id[Convert.Index.From.Tall(BrettIdElTo.ID.tall)][
+    Convert.Index.From.UpperCase(BrettIdElTo.ID.bokstav)
+  ].BoardInfo = BrettIdElFrom.BoardInfo;
+  brett_id[Convert.Index.From.Tall(BrettIdElFrom.ID.tall)][
+    Convert.Index.From.UpperCase(BrettIdElFrom.ID.bokstav)
+  ].BoardInfo = spillebrikke.None;
+  brett_id[Convert.Index.From.Tall(BrettIdElTo.ID.tall)][
+    Convert.Index.From.UpperCase(BrettIdElTo.ID.bokstav)
+  ].BoardInfo.PieceMoved = true;
+}
 function validmove(BrettIdElFrom, BrettIdElTo) {
   if (BrettIdElFrom.BoardInfo.BoardPiece.length > 0) {
     return find_path_med_betingelser(
@@ -569,13 +578,6 @@ function validmove(BrettIdElFrom, BrettIdElTo) {
   } else {
     return false;
   }
-}
-function Splitkoordinattilarray(string) {
-  let svar = string.split("");
-  return [
-    Convert.Index.From.Tall(svar[1]),
-    Convert.Index.From.UpperCase(svar[0]),
-  ];
 }
 
 function find_path(brikke, start, end = [], svar = false, depth = 7) {
@@ -643,6 +645,10 @@ function find_path(brikke, start, end = [], svar = false, depth = 7) {
 }
 
 function find_path_med_betingelser(a, b, c) {
+  // legg til betingelse-steg start
+  console.log(a);
+
+  // legg til betingelse-steg slutt
   if (a.flytte.recursive_path) {
     retrieve_recursive = true;
   }
@@ -664,6 +670,8 @@ let brett_queue = [];
 let riktigesteg = [];
 let retrieve_recursive = false;
 
+const betingelse_navn = ["PieceNotMoved"];
+
 setboard();
 veivalg();
 
@@ -679,9 +687,14 @@ klikkebrikke.forEach(function (vei) {
   });
 });
 console.log(brett_id);
+
 // TODO: Angi regler for spillets fremgang. ferdig, mangler bare for betingelsesteg.
 // TODO: lagre brett_id lokalt i nettleseren, så spillprogresjonen ikke slettes.
 // TODO: Angi nytt spill-knapp.
 // TODO: lagre variabelen spillebrikke fil man henter info ifra. spille.None kan lagres om egen variabel i spillet.
 // TODO: Angi two-player, lokalt og online.
 // TODO: Angi Digital sjakkmotstandard:
+
+// testing
+
+console.log(!!spillebrikke.black.Bishop.spillinfo.flytte);
