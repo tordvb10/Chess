@@ -570,7 +570,6 @@ function validmove(BrettIdElFrom, BrettIdElTo) {
     return false;
   }
 }
-
 function Splitkoordinattilarray(string) {
   let svar = string.split("");
   return [
@@ -579,24 +578,27 @@ function Splitkoordinattilarray(string) {
   ];
 }
 
-function find_path(
-  brikke,
-  start,
-  end = [],
-  svar = false,
-  depth = 7,
-  riktigesteg = []
-) {
+function find_path(brikke, start, end = [], svar = false, depth = 7) {
+  console.log(`depth = ${depth}`);
   let queue_start = [];
   let queue_path = [];
   let path_mx = [];
   brikke.flytte.path.forEach(function (element, index) {
+    console.log(`index = ${index}`);
+    console.log(element);
     let path_tall =
       (start.length == 1 ? start[0][0] : start[index][0]) + element[0];
     let path_bokstav =
       (start.length == 1 ? start[0][1] : start[index][1]) + element[1];
     if (IndexOnBoard(path_tall) && IndexOnBoard(path_bokstav)) {
+      console.log("path on board"); // Path på board
       path_mx = [path_tall, path_bokstav];
+      riktigesteg.push(path_mx);
+      console.log(path_mx, end);
+      console.log("printer brikke på path");
+      console.log(brett_id[path_tall][path_bokstav].BoardInfo.BoardPiece);
+      console.log(brett_id[path_tall][path_bokstav]);
+      console.log(brikke.flytte.recursive_path);
       if (
         !brett_id[path_tall][path_bokstav].BoardInfo.BoardPiece.length &&
         path_tall !== end[0] &&
@@ -605,12 +607,19 @@ function find_path(
       ) {
         queue_start.push(path_mx);
         queue_path.push(element);
+        console.log("queue");
       } else if (path_tall === end[0] && path_bokstav === end[1]) {
         brikke.flytte.recursive_path = false;
         svar = true;
+        console.log("Jeg har funnet riktig steg.");
       }
+      console.log(brikke.flytte.recursive_path);
+    } else {
+      console.log("Path er utenfor brettet."); // Path utenfor board
     }
   });
+  console.log("Jeg printer kø");
+  console.log(queue_start);
   if (brikke.flytte.recursive_path && depth) {
     return find_path(
       {
@@ -626,12 +635,25 @@ function find_path(
       depth - 1
     );
   } else {
+    if (retrieve_recursive) {
+      brikke.flytte.recursive_path = true;
+    }
     return svar;
   }
 }
 
 function find_path_med_betingelser(a, b, c) {
-  return find_path(a, b, c);
+  if (a.flytte.recursive_path) {
+    retrieve_recursive = true;
+  }
+  riktigesteg = [];
+  // klar for find_path
+  console.log(`Brikke ${a.boardpieceArray} vil gå fra ${b} til ${c}`);
+  let returnereskal = find_path(a, b, c);
+  console.log(riktigesteg);
+  // ferdig med find_path
+  retrieve_recursive = false;
+  return returnereskal;
 }
 
 // globale variabler  .
@@ -639,23 +661,24 @@ function find_path_med_betingelser(a, b, c) {
 let brett = document.querySelector("main #sjakkcontainer");
 let brett_id = [];
 let brett_queue = [];
+let riktigesteg = [];
+let retrieve_recursive = false;
 
 setboard();
 veivalg();
 
 const klikkebrikke = [
-  ["F7", "F6"],
-  ["F6", "F5"],
-  ["F2", "F3"],
-  ["F3", "F4"],
-  ["F5", "F4"],
+  ["E7", "E6"],
+  ["E2", "E3"],
+  ["F8", "E7"],
+  ["E7", "G5"],
 ];
 klikkebrikke.forEach(function (vei) {
   vei.forEach(function (vei1) {
     brett.querySelector(`#${vei1}`).click();
   });
 });
-
+console.log(brett_id);
 // TODO: Angi regler for spillets fremgang. ferdig, mangler bare for betingelsesteg.
 // TODO: lagre brett_id lokalt i nettleseren, så spillprogresjonen ikke slettes.
 // TODO: Angi nytt spill-knapp.
