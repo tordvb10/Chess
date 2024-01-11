@@ -665,8 +665,6 @@ function MoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
 }
 // flytte bare brikke
 function actuallyMoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
-  console.log(BrettIdElFrom);
-  console.log(BrettIdElTo);
   brett.querySelector(`#${BrettIdElTo.ID.tag} .her`).innerHTML =
     BrettIdElFrom.BoardInfo.Svg;
   brett.querySelector(`#${BrettIdElFrom.ID.tag} .her`).innerHTML =
@@ -686,16 +684,10 @@ function actuallyMoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
 }
 // sjekker regler fra find_path. Kort funksjon som definerer variabler som man skal bruke til å sjekke regler v.h.a find_path
 function validmove(BrettIdElFrom, BrettIdElTo) {
-  console.log(
-    BrettIdElFrom.BoardInfo.BoardPiece[0] == BrettIdElTo.BoardInfo.BoardPiece[0]
-  );
   if (spille_paa_tur) {
     riktig_spiller = false;
   }
-  console.log(BrettIdElFrom.BoardInfo.BoardPiece[0] === hvem_sin_tur);
   if (BrettIdElFrom.BoardInfo.BoardPiece[0] == hvem_sin_tur && spille_paa_tur) {
-    console.log(`Det er ${hvem_sin_tur} sin tur.`);
-    console.log(riktig_spiller);
     switch (hvem_sin_tur) {
       case "white":
         hvem_sin_tur = "black";
@@ -706,7 +698,6 @@ function validmove(BrettIdElFrom, BrettIdElTo) {
         riktig_spiller = true;
         break;
     }
-    console.log(hvem_sin_tur);
   }
   if (
     riktig_spiller &&
@@ -740,32 +731,20 @@ function find_path(
   svar = false,
   depth = 7
 ) {
-  console.log(`depth = ${depth}`);
   let queue_start = [];
   let queue_path = [];
   let path_mx = [];
   brikke.flytte.path.forEach(function (element, index) {
-    console.log(`index = ${index}`);
-    console.log(element);
     let path_tall =
       (start.length == 1 ? start[0][0] : start[index][0]) + element[0];
     let path_bokstav =
       (start.length == 1 ? start[0][1] : start[index][1]) + element[1];
     if (IndexOnBoard(path_tall) && IndexOnBoard(path_bokstav)) {
-      console.log("path on board"); // Path på board
       path_mx = [path_tall, path_bokstav];
       riktigesteg.push(path_mx);
-      console.log(path_mx, end);
-      console.log("printer brikke på path");
-      console.log(brett_id[path_tall][path_bokstav].BoardInfo.BoardPiece);
-      console.log(brett_id[path_tall][path_bokstav]);
-      console.log(brikke.flytte.recursive_path);
-      console.log(`brikke_i_veien = ${brikke_i_veien}`);
       let sjekk_brikke_i_veien =
         brikke_i_veien ==
         brett_id[path_tall][path_bokstav].BoardInfo.BoardPiece.length;
-      console.log(sjekk_brikke_i_veien);
-      console.log(path_tall, path_bokstav, end[0], end[1]);
       if (
         sjekk_brikke_i_veien &&
         (path_tall !== end[0]) | (path_bokstav !== end[1]) &&
@@ -773,7 +752,6 @@ function find_path(
       ) {
         queue_start.push(path_mx);
         queue_path.push(element);
-        console.log("queue");
       } else if (
         path_tall === end[0] &&
         path_bokstav === end[1] &&
@@ -783,15 +761,10 @@ function find_path(
         //hjelpe recursive her.
         brikke.flytte.recursive_path = false;
         svar = true;
-        console.log("Jeg har funnet riktig steg.");
       }
-      console.log(brikke.flytte.recursive_path);
     } else {
-      console.log("Path er utenfor brettet."); // Path utenfor board
     }
   });
-  console.log("Jeg printer kø");
-  console.log(queue_start);
   if (brikke.flytte.recursive_path && depth) {
     return find_path(
       {
@@ -825,18 +798,12 @@ function find_path_med_betingelser(a, b, c) {
     retrieve_recursive = true;
   }
   riktigesteg = [];
-  console.log(`Brikke ${a.boardpieceArray} vil gå fra ${b} til ${c}`);
-  console.log(a);
-  console.log(`Brikken ${a.boardpieceArray} har betingelsene:`);
-  console.log(a.betingelser);
-  console.log("Jeg sjekker for betingelser");
   if (!!a.betingelser.length) {
     a.betingelser.forEach(function (sjekk_betingelser) {
       switch (sjekk_betingelser.navn) {
         case "CannotAttack":
           let c_ny1 = [];
           let ny_path1 = false;
-          console.log(`Dette er case ${sjekk_betingelser.navn}`);
           c_ny1.push(
             b[0][0] + sjekk_betingelser.path[0][0],
             b[0][1] + sjekk_betingelser.path[0][1]
@@ -855,9 +822,6 @@ function find_path_med_betingelser(a, b, c) {
             false,
             c_ny1
           );
-          console.log(c_ny1[0] === c[0], c_ny1[1] === c[1]);
-          console.log("Detter er c_ny1 og c");
-          console.log(c_ny1, c);
           if (c_ny1[0] === c[0] && c_ny1[1] === c[1]) {
             returnereskal = ny_path1;
           }
@@ -865,11 +829,6 @@ function find_path_med_betingelser(a, b, c) {
         case "Dobblemove":
           let c_ny2 = [];
           let ny_path2 = false;
-          console.log(`Dette er case ${sjekk_betingelser.navn}`);
-          console.log(ny_path2);
-          console.log(c_ny2[0] === c[0], c_ny2[1] === c[1]);
-          console.log("Detter er c_ny2 og c");
-          console.log(c_ny2, c);
           c_ny2.push(
             b[0][0] + sjekk_betingelser.path[1][0],
             b[0][1] + sjekk_betingelser.path[1][1]
@@ -891,8 +850,6 @@ function find_path_med_betingelser(a, b, c) {
 
           if (ny_path2 && !brett_id[b[0][0]][b[0][1]].BoardInfo.PieceMoved) {
             let c_ny3 = [];
-            console.log();
-            console.log(ny_path2);
             c_ny3.push(
               b[0][0] + sjekk_betingelser.path[0][0],
               b[0][1] + sjekk_betingelser.path[0][1]
@@ -914,8 +871,6 @@ function find_path_med_betingelser(a, b, c) {
           }
           break;
         case "PawnAttacks":
-          console.log("PawnAttacks");
-          console.log(b[0][1], c[1]);
           let I = NaN;
           let PawnIsAttacking = false;
           for (let i = 0; i < 1; i++) {
@@ -929,12 +884,10 @@ function find_path_med_betingelser(a, b, c) {
                 PawnIsAttacking = true;
                 break;
             }
-            console.log(`i = ${i}`);
           }
           if (!isNaN(I)) {
             let c_nyPawnAttack = [];
             let ny_pathPawnAttack = false;
-            console.log(`Dette er case ${sjekk_betingelser.navn}`);
             c_nyPawnAttack.push(
               b[0][0] + sjekk_betingelser.path[I][0],
               b[0][1] + sjekk_betingelser.path[I][1]
@@ -953,9 +906,6 @@ function find_path_med_betingelser(a, b, c) {
               true,
               c_nyPawnAttack
             );
-            console.log(c_nyPawnAttack[0] === c[0], c_nyPawnAttack[1] === c[1]);
-            console.log("Detter er c_ny1 og c");
-            console.log(c_nyPawnAttack, c);
             if (c_nyPawnAttack[0] === c[0] && c_nyPawnAttack[1] === c[1]) {
               returnereskal = ny_pathPawnAttack;
             }
@@ -963,9 +913,6 @@ function find_path_med_betingelser(a, b, c) {
           break;
         case "Passant":
           let motstander_brikke = {};
-          console.log("Dette er Passant");
-          console.log(b, c);
-          console.log(b[0][1] - c[1]);
           let PawnIsAttackingCheat = false;
           let I2 = NaN;
           for (let i = 0; i < 1; i++) {
@@ -979,13 +926,10 @@ function find_path_med_betingelser(a, b, c) {
                 PawnIsAttackingCheat = true;
                 break;
             }
-            console.log(`i = ${i}`);
           }
-          console.log(I2);
           if (PawnIsAttackingCheat) {
             let c_nyPawnAttackCheat = [];
             let ny_pathPawnAttackCheat = false;
-            console.log(`Dette er case ${sjekk_betingelser.navn}`);
             c_nyPawnAttackCheat.push(
               b[0][0] + sjekk_betingelser.path.utfordrer[I2][0],
               b[0][1] + sjekk_betingelser.path.utfordrer[I2][1]
@@ -1004,33 +948,20 @@ function find_path_med_betingelser(a, b, c) {
               false,
               c_nyPawnAttackCheat
             );
-            console.log(
-              c_nyPawnAttackCheat[0] === c[0],
-              c_nyPawnAttackCheat[1] === c[1]
-            );
-            console.log("Detter er c_ny1 og c");
-            console.log(c_nyPawnAttackCheat, c);
             if (
               c_nyPawnAttackCheat[0] === c[0] &&
               c_nyPawnAttackCheat[1] === c[1]
             ) {
-              console.log("skal sjekke Passant videre");
               motstander_brikke =
                 brett_id[b[0][0] + sjekk_betingelser.path.motstander[I2][0]][
                   b[0][1] + sjekk_betingelser.path.motstander[I2][1]
                 ];
-              console.log(motstander_brikke);
-              console.log(motstander_brikke.BoardInfo.BoardPiece[1]);
-              console.log(motstander_brikke.BoardInfo.CountedMoves);
-              console.log(Convert.Index.From.Tall(motstander_brikke.ID.tall));
-              console.log(sjekk_betingelser.path.tall);
               if (
                 motstander_brikke.BoardInfo.BoardPiece[1] === "Pawn" &&
                 motstander_brikke.BoardInfo.CountedMoves === 1 &&
                 Convert.Index.From.Tall(motstander_brikke.ID.tall) ===
                   sjekk_betingelser.path.tall
               ) {
-                console.log("Dette er et passant-move");
                 actuallyMoveBoardPiece(
                   motstander_brikke,
                   brett_id[b[0][0] + sjekk_betingelser.path.utfordrer[I2][0]][
@@ -1044,15 +975,6 @@ function find_path_med_betingelser(a, b, c) {
           break;
         case "BeskyttKonge":
           if (!brett_id[b[0][0]][b[0][1]].BoardInfo.PieceMoved) {
-            console.log("Kongen kan beskyttes");
-            console.log(sjekk_betingelser);
-            let c_nyking = [];
-            let ny_pathking = false;
-            let c_nyrook = [];
-            let ny_pathrook = false;
-            console.log(c[1]);
-            console.log(b[0][1]);
-            console.log(c[1] - b[0][1]);
             let I = NaN;
             let flytte_king = false;
             for (let i = 0; i < 1; i++) {
@@ -1066,12 +988,11 @@ function find_path_med_betingelser(a, b, c) {
                   flytte_king = true;
                   break;
               }
-              console.log(`i = ${i}`);
             }
             if (flytte_king) {
               // sjekker kongen
-              c_nyking = [];
-              ny_pathking = false;
+              let c_nyking = [];
+              let ny_pathking = false;
               c_nyking.push(
                 b[0][0] + sjekk_betingelser.path.king[I][0],
                 b[0][1] + sjekk_betingelser.path.king[I][1]
@@ -1092,8 +1013,8 @@ function find_path_med_betingelser(a, b, c) {
               );
               //sjekker tårnet
 
-              c_nyrook = [];
-              ny_pathrook = false;
+              let c_nyrook = [];
+              let ny_pathrook = false;
               c_nyrook.push(
                 sjekk_betingelser.path.rook.start[I][0] +
                   sjekk_betingelser.path.rook.move[I][0],
@@ -1123,14 +1044,6 @@ function find_path_med_betingelser(a, b, c) {
                 ].BoardInfo.PieceMoved &&
                 !brett_id[b[0][0]][b[0][1]].BoardInfo.PieceMoved
               ) {
-                console.log(a);
-                console.log("Kongen kan beskyttes bak tårnet.");
-                console.log(sjekk_betingelser.path.rook.start);
-                console.log(
-                  brett_id[sjekk_betingelser.path.rook.start[I][0]][
-                    sjekk_betingelser.path.rook.start[I][1]
-                  ]
-                );
                 actuallyMoveBoardPiece(
                   brett_id[sjekk_betingelser.path.rook.start[I][0]][
                     sjekk_betingelser.path.rook.start[I][1]
@@ -1145,14 +1058,13 @@ function find_path_med_betingelser(a, b, c) {
       }
     });
   } else {
-    console.log("Jeg kjører default.");
     returnereskal = find_path(a, b, false, false, false, c);
   }
 
   // klar for find_path
   // Denne er midlertidig, etter å ha sjekket for om alle betingelse steg intreffe eller ikke, da skal jeg hit.
 
-  console.log(riktigesteg);
+  //console.log(riktigesteg);
   // ferdig med find_path
   retrieve_recursive = false;
   return returnereskal;
@@ -1165,7 +1077,7 @@ let brett_id = [];
 let brett_queue = [];
 let riktigesteg = [];
 let retrieve_recursive = false;
-const spille_paa_tur = false;
+const spille_paa_tur = true;
 let hvem_sin_tur = "white";
 let riktig_spiller = true;
 
@@ -1174,43 +1086,13 @@ let riktig_spiller = true;
 setboard();
 veivalg();
 
-const klikkebrikke = [
-  //  ["A7", "A5"],
-  //["B7", "B5"],
-  //["C7", "C5"],
-  //["D7", "D5"],
-  //["E7", "E5"],
-  //["F7", "F5"],
-  //["G7", "G5"],
-  //["H7", "H5"],
-  //["B8", "A6"],
-  //["G8", "H6"],
-  //["C8", "E6"],
-  //["F8", "D6"],
-  //["E8", "C6"],
-  //["E2", "E4"],
-  // ["D8", "B8"],
-  //["D8", "F8"],
-  // ny_path
-  //["H7", "H5"],
-  //["G7", "G5"],
-  //["G8", "F6"],
-  //["E7", "E6"],
-  //["F8", "D6"],
-  //["H8", "F8"], //Rook white wont move
-  //["D7", "D5"],
-  //["D5", "D4"],
-  //["E2", "E4"],
-  //["D4", "E3"],
-  //["D5", "C4"],
-];
+const klikkebrikke = [];
 klikkebrikke.forEach(function (vei) {
   vei.forEach(function (vei1) {
     brett.querySelector(`#${vei1}`).click();
   });
 });
-console.log(brett_id);
-console.log(spillebrikke.white.Rook.spillinfo);
+
 // TODO: Angi regler for spillets fremgang. ferdig, mangler bare for betingelsesteg.
 // TODO: lagre brett_id lokalt i nettleseren, så spillprogresjonen ikke slettes.
 // TODO: Angi nytt spill-knapp.
