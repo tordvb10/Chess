@@ -689,13 +689,34 @@ function validmove(BrettIdElFrom, BrettIdElTo) {
   console.log(
     BrettIdElFrom.BoardInfo.BoardPiece[0] == BrettIdElTo.BoardInfo.BoardPiece[0]
   );
+  if (spille_paa_tur) {
+    riktig_spiller = false;
+  }
+  console.log(BrettIdElFrom.BoardInfo.BoardPiece[0] === hvem_sin_tur);
+  if (BrettIdElFrom.BoardInfo.BoardPiece[0] == hvem_sin_tur && spille_paa_tur) {
+    console.log(`Det er ${hvem_sin_tur} sin tur.`);
+    console.log(riktig_spiller);
+    switch (hvem_sin_tur) {
+      case "white":
+        hvem_sin_tur = "black";
+        riktig_spiller = true;
+        break;
+      case "black":
+        hvem_sin_tur = "white";
+        riktig_spiller = true;
+        break;
+    }
+    console.log(hvem_sin_tur);
+  }
   if (
+    riktig_spiller &&
     BrettIdElFrom.BoardInfo.BoardPiece.length > 0 &&
     !(
       BrettIdElFrom.BoardInfo.BoardPiece[0] ===
       BrettIdElTo.BoardInfo.BoardPiece[0]
     )
   ) {
+    riktig_spiller = true;
     return find_path_med_betingelser(
       spillebrikke[BrettIdElFrom.BoardInfo.BoardPiece[0]][
         BrettIdElFrom.BoardInfo.BoardPiece[1]
@@ -704,6 +725,7 @@ function validmove(BrettIdElFrom, BrettIdElTo) {
       Splitkoordinattilarray(BrettIdElTo.ID.tag)
     );
   } else {
+    riktig_spiller = true;
     return false;
   }
 }
@@ -1143,6 +1165,9 @@ let brett_id = [];
 let brett_queue = [];
 let riktigesteg = [];
 let retrieve_recursive = false;
+const spille_paa_tur = false;
+let hvem_sin_tur = "white";
+let riktig_spiller = true;
 
 //const betingelse_navn = ["CannotAttack", "Dobblemove"];
 
@@ -1173,10 +1198,10 @@ const klikkebrikke = [
   //["E7", "E6"],
   //["F8", "D6"],
   //["H8", "F8"], //Rook white wont move
-  ["D7", "D5"],
-  ["D5", "D4"],
-  ["E2", "E4"],
-  ["D4", "E3"],
+  //["D7", "D5"],
+  //["D5", "D4"],
+  //["E2", "E4"],
+  //["D4", "E3"],
   //["D5", "C4"],
 ];
 klikkebrikke.forEach(function (vei) {
