@@ -70,7 +70,7 @@ const spillebrikke = {
           recursive_path: true,
         },
         boardpieceArray: ["black", "Bishop"],
-        betingelser: [],
+        betingelser: [{ navn: "None" }],
       },
     },
     King: {
@@ -122,6 +122,7 @@ const spillebrikke = {
               },
             },
           },
+          { navn: "None" },
         ],
       },
     },
@@ -154,7 +155,7 @@ const spillebrikke = {
           recursive_path: false,
         },
         boardpieceArray: ["black", "Knight"],
-        betingelser: [],
+        betingelser: [{ navn: "None" }],
       },
     },
     Pawn: {
@@ -242,7 +243,7 @@ const spillebrikke = {
           recursive_path: true,
         },
         boardpieceArray: ["black", "Queen"],
-        betingelser: [],
+        betingelser: [{ navn: "None" }],
       },
     },
     Rook: {
@@ -270,7 +271,7 @@ const spillebrikke = {
           recursive_path: true,
         },
         boardpieceArray: ["black", "Rook"],
-        betingelser: [],
+        betingelser: [{ navn: "None" }],
       },
     },
   },
@@ -300,7 +301,7 @@ const spillebrikke = {
           recursive_path: true,
         },
         boardpieceArray: ["white", "Bishop"],
-        betingelser: [],
+        betingelser: [{ navn: "None" }],
       },
     },
     King: {
@@ -352,6 +353,7 @@ const spillebrikke = {
               },
             },
           },
+          { navn: "None" },
         ],
       },
     },
@@ -384,7 +386,7 @@ const spillebrikke = {
           recursive_path: false,
         },
         boardpieceArray: ["white", "Knight"],
-        betingelser: [],
+        betingelser: [{ navn: "None" }],
       },
     },
     Pawn: {
@@ -472,7 +474,7 @@ const spillebrikke = {
           recursive_path: true,
         },
         boardpieceArray: ["white", "Queen"],
-        betingelser: [],
+        betingelser: [{ navn: "None" }],
       },
     },
     Rook: {
@@ -500,14 +502,62 @@ const spillebrikke = {
           recursive_path: true,
         },
         boardpieceArray: ["white", "Rook"],
-        betingelser: [],
+        betingelser: [{ navn: "None" }],
       },
     },
   },
 };
+// globale variabler  .
+
+let brett = document.querySelector("main #sjakkcontainer");
+let brett_id = [];
+let brett_queue = [];
+let riktigesteg = [];
+let retrieve_recursive = false;
+const spille_paa_tur = false;
+const kontroller_sjakk = true;
+let hvem_sin_tur = "white";
+let riktig_spiller = true;
+let kongensplass = {
+  white: [7, 3],
+  black: [0, 3],
+};
+let sjekke_sjakk_sin_tur = true;
+let brett_id_backup = [];
+let PieceIsMoved = false;
 
 // Funksjoner
 // Små hjelpefunksjoner
+function rett_opp_riktige_steg() {
+  riktigesteg = toFindDuplicates(riktigesteg, false);
+}
+function dupliatearrboolean(arr) {
+  return toFindDuplicates(arr, true);
+}
+function toFindDuplicates(arr, boolean) {
+  let toMap = {};
+  let resultToReturn = false;
+  for (let i = 0; i < arr.length; i++) {
+    if (toMap[arr[i]]) {
+      resultToReturn = true;
+    }
+    toMap[arr[i]] = true;
+  }
+  if (resultToReturn) {
+    let to_return = [];
+    let key = [];
+    let to_keys = Object.keys(toMap);
+    to_keys.forEach(function (keys) {
+      key = keys.split(",");
+      to_return.push([Number(key[0]), Number(key[1])]);
+    });
+    if (boolean) {
+      return resultToReturn;
+    } else {
+      return to_return;
+    }
+  }
+}
 function IndexOnBoard(x) {
   return x >= 0 && x <= 7;
 }
@@ -521,6 +571,12 @@ function Splitkoordinattilarray(string) {
 // setboard, og veivalg er de funksjonene som setter spillet igang, og er de eneste som er nevn globalt.
 // setboard, setter svg på brikke, alt ettersom hvordan brett_id ser ut. Den kan ha annerledes verdi enn ved start ved load of page
 function setboard() {
+  let lag_nytt_brett = false;
+  let SVG = spillebrikke.None.Svg;
+  if (!brett_id.length) {
+    console.log("brettet eksisterer.");
+    lag_nytt_brett = true;
+  }
   for (let i = 0; i < 8; i++) {
     let brett_id_indre = [];
     let chr = Convert.Index.To.Tall(i);
@@ -528,94 +584,109 @@ function setboard() {
     for (let j = 0; j < 8; j++) {
       let letter = Convert.Index.To.UpperCase(j);
       // hvis brette trenger flere object elementer, så er det bare til å legge dem til her.
-      let SVG = spillebrikke.None.Svg;
-      switch (chr) {
-        case "2":
-          SVG = spillebrikke.black.Pawn.Svg;
-          boardpieceArray = spillebrikke.black.Pawn.spillinfo.boardpieceArray;
-          break;
-        case "1":
-          switch (letter) {
-            case "A":
-            case "H":
-              SVG = spillebrikke.black.Rook.Svg;
-              boardpieceArray =
-                spillebrikke.black.Rook.spillinfo.boardpieceArray;
+      SVG = spillebrikke.None.Svg;
+      if (lag_nytt_brett) {
+        switch (chr) {
+          case "2":
+            SVG = spillebrikke.black.Pawn.Svg;
+            boardpieceArray = spillebrikke.black.Pawn.spillinfo.boardpieceArray;
+            break;
+          case "1":
+            switch (letter) {
+              case "A":
+              case "H":
+                SVG = spillebrikke.black.Rook.Svg;
+                boardpieceArray =
+                  spillebrikke.black.Rook.spillinfo.boardpieceArray;
+                break;
+              case "B":
+              case "G":
+                SVG = spillebrikke.black.Knight.Svg;
+                boardpieceArray =
+                  spillebrikke.black.Knight.spillinfo.boardpieceArray;
+                break;
+              case "C":
+              case "F":
+                SVG = spillebrikke.black.Bishop.Svg;
+                boardpieceArray =
+                  spillebrikke.black.Bishop.spillinfo.boardpieceArray;
+                break;
+              case "D":
+                SVG = spillebrikke.black.King.Svg;
+                boardpieceArray =
+                  spillebrikke.black.King.spillinfo.boardpieceArray;
+                break;
+              case "E":
+                SVG = spillebrikke.black.Queen.Svg;
+                boardpieceArray =
+                  spillebrikke.black.Queen.spillinfo.boardpieceArray;
+                break;
+            }
+            break;
+          case "7":
+            SVG = spillebrikke.white.Pawn.Svg;
+            boardpieceArray = spillebrikke.white.Pawn.spillinfo.boardpieceArray;
+            break;
+          case "8":
+            switch (letter) {
+              case "A":
+              case "H":
+                SVG = spillebrikke.white.Rook.Svg;
+                boardpieceArray =
+                  spillebrikke.white.Rook.spillinfo.boardpieceArray;
+                break;
+              case "B":
+              case "G":
+                SVG = spillebrikke.white.Knight.Svg;
+                boardpieceArray =
+                  spillebrikke.white.Knight.spillinfo.boardpieceArray;
+                break;
+              case "C":
+              case "F":
+                SVG = spillebrikke.white.Bishop.Svg;
+                boardpieceArray =
+                  spillebrikke.white.Bishop.spillinfo.boardpieceArray;
+                break;
+              case "D":
+                SVG = spillebrikke.white.King.Svg;
+                boardpieceArray =
+                  spillebrikke.white.King.spillinfo.boardpieceArray;
+                break;
+              case "E":
+                SVG = spillebrikke.white.Queen.Svg;
+                boardpieceArray =
+                  spillebrikke.white.Queen.spillinfo.boardpieceArray;
+            }
+        }
+        let brett_object = {
+          ID: {
+            tag: letter + chr,
+            bokstav: letter,
+            tall: chr,
+          },
+          BoardInfo: {
+            BoardPiece: boardpieceArray,
+            Svg: SVG,
+            PieceMoved: false,
+            CountedMoves: 0,
+          },
+        };
+        brett_id_indre.push(brett_object);
+        brett.querySelector(`#${letter + chr} .her`).innerHTML = SVG;
+      } else {
+        if (brett_id[i][j].BoardInfo.BoardPiece[1] === "King") {
+          switch (brett_id[i][j].BoardInfo.BoardPiece[0]) {
+            case "white":
+              kongensplass.white = [i, j];
               break;
-            case "B":
-            case "G":
-              SVG = spillebrikke.black.Knight.Svg;
-              boardpieceArray =
-                spillebrikke.black.Knight.spillinfo.boardpieceArray;
-              break;
-            case "C":
-            case "F":
-              SVG = spillebrikke.black.Bishop.Svg;
-              boardpieceArray =
-                spillebrikke.black.Bishop.spillinfo.boardpieceArray;
-              break;
-            case "D":
-              SVG = spillebrikke.black.King.Svg;
-              boardpieceArray =
-                spillebrikke.black.King.spillinfo.boardpieceArray;
-              break;
-            case "E":
-              SVG = spillebrikke.black.Queen.Svg;
-              boardpieceArray =
-                spillebrikke.black.Queen.spillinfo.boardpieceArray;
+            case "black":
+              kongensplass.white = [i, j];
               break;
           }
-          break;
-        case "7":
-          SVG = spillebrikke.white.Pawn.Svg;
-          boardpieceArray = spillebrikke.white.Pawn.spillinfo.boardpieceArray;
-          break;
-        case "8":
-          switch (letter) {
-            case "A":
-            case "H":
-              SVG = spillebrikke.white.Rook.Svg;
-              boardpieceArray =
-                spillebrikke.white.Rook.spillinfo.boardpieceArray;
-              break;
-            case "B":
-            case "G":
-              SVG = spillebrikke.white.Knight.Svg;
-              boardpieceArray =
-                spillebrikke.white.Knight.spillinfo.boardpieceArray;
-              break;
-            case "C":
-            case "F":
-              SVG = spillebrikke.white.Bishop.Svg;
-              boardpieceArray =
-                spillebrikke.white.Bishop.spillinfo.boardpieceArray;
-              break;
-            case "D":
-              SVG = spillebrikke.white.King.Svg;
-              boardpieceArray =
-                spillebrikke.white.King.spillinfo.boardpieceArray;
-              break;
-            case "E":
-              SVG = spillebrikke.white.Queen.Svg;
-              boardpieceArray =
-                spillebrikke.white.Queen.spillinfo.boardpieceArray;
-          }
+        }
+        brett.querySelector(`#${letter + chr} .her`).innerHTML =
+          brett_id[i][j].BoardInfo.Svg;
       }
-      let brett_object = {
-        ID: {
-          tag: letter + chr,
-          bokstav: letter,
-          tall: chr,
-        },
-        BoardInfo: {
-          BoardPiece: boardpieceArray,
-          Svg: SVG,
-          PieceMoved: false,
-          CountedMoves: 0,
-        },
-      };
-      brett_id_indre.push(brett_object);
-      brett.querySelector(`#${letter + chr} .her`).innerHTML = SVG;
     }
     brett_id.push(brett_id_indre);
   }
@@ -640,17 +711,32 @@ function veivalg() {
             brett_queue.push(aa_pushe);
           }
           if (brett_queue.length == 1) {
-            brett
-              .querySelector(`#${brett_queue[0].bokstav}${brett_queue[0].tall}`)
-              .classList.add("markertbrikke");
+            let BrettIdElFrom =
+              brett_id[brett_queue[0].index[0]][brett_queue[0].index[1]];
+            if (!!BrettIdElFrom.BoardInfo.BoardPiece.length) {
+              console.log(!!Object.keys(BrettIdElFrom).length);
+              let BrettIdElTo = {};
+              console.log(!!Object.keys(BrettIdElTo).length);
+              brett // if sjekk_sjakk = false
+                .querySelector(
+                  `#${brett_queue[0].bokstav}${brett_queue[0].tall}`
+                )
+                .classList.add("markertbrikke");
+              MoveBoardPiece(BrettIdElFrom, BrettIdElTo);
+              // sjekk sjølv_sjakk, if false retrieve brett_id.default
+            } else {
+              brett_queue = [];
+            }
           } else if (brett_queue.length == 2) {
-            brett
+            brett // if sjekk_sjakk = false
               .querySelector(`#${brett_queue[0].bokstav}${brett_queue[0].tall}`)
               .classList.remove("markertbrikke");
             let BrettIdElFrom =
               brett_id[brett_queue[0].index[0]][brett_queue[0].index[1]];
             let BrettIdElTo =
               brett_id[brett_queue[1].index[0]][brett_queue[1].index[1]];
+            console.log(BrettIdElFrom, BrettIdElTo);
+
             MoveBoardPiece(BrettIdElFrom, BrettIdElTo);
           }
         });
@@ -658,63 +744,85 @@ function veivalg() {
   }
 }
 // flytte brikker etter å ha sjekkt regler, blir kalt fra veivalg. Denne funksjonen er kort, men samler alle funksjoner
-function MoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
+function MoveBoardPiece(BrettIdElFrom, BrettIdElTo, sjekk_sjakk = false) {
+  PieceIsMoved = false;
   if (validmove(BrettIdElFrom, BrettIdElTo)) {
     actuallyMoveBoardPiece(BrettIdElFrom, BrettIdElTo);
   }
 }
 // flytte bare brikke
 function actuallyMoveBoardPiece(BrettIdElFrom, BrettIdElTo) {
-  brett.querySelector(`#${BrettIdElTo.ID.tag} .her`).innerHTML =
-    BrettIdElFrom.BoardInfo.Svg;
-  brett.querySelector(`#${BrettIdElFrom.ID.tag} .her`).innerHTML =
-    spillebrikke.None.Svg;
-  brett_id[Convert.Index.From.Tall(BrettIdElTo.ID.tall)][
-    Convert.Index.From.UpperCase(BrettIdElTo.ID.bokstav)
-  ].BoardInfo = BrettIdElFrom.BoardInfo;
-  brett_id[Convert.Index.From.Tall(BrettIdElFrom.ID.tall)][
-    Convert.Index.From.UpperCase(BrettIdElFrom.ID.bokstav)
-  ].BoardInfo = spillebrikke.None;
-  brett_id[Convert.Index.From.Tall(BrettIdElTo.ID.tall)][
-    Convert.Index.From.UpperCase(BrettIdElTo.ID.bokstav)
-  ].BoardInfo.PieceMoved = true;
-  brett_id[Convert.Index.From.Tall(BrettIdElTo.ID.tall)][
-    Convert.Index.From.UpperCase(BrettIdElTo.ID.bokstav)
-  ].BoardInfo.CountedMoves += 1;
+  if (!!Object.keys(BrettIdElTo).length) {
+    PieceIsMoved = true;
+    brett.querySelector(`#${BrettIdElTo.ID.tag} .her`).innerHTML =
+      BrettIdElFrom.BoardInfo.Svg;
+    brett.querySelector(`#${BrettIdElFrom.ID.tag} .her`).innerHTML =
+      spillebrikke.None.Svg;
+    brett_id[Convert.Index.From.Tall(BrettIdElTo.ID.tall)][
+      Convert.Index.From.UpperCase(BrettIdElTo.ID.bokstav)
+    ].BoardInfo = BrettIdElFrom.BoardInfo;
+    brett_id[Convert.Index.From.Tall(BrettIdElFrom.ID.tall)][
+      Convert.Index.From.UpperCase(BrettIdElFrom.ID.bokstav)
+    ].BoardInfo = spillebrikke.None;
+    brett_id[Convert.Index.From.Tall(BrettIdElTo.ID.tall)][
+      Convert.Index.From.UpperCase(BrettIdElTo.ID.bokstav)
+    ].BoardInfo.PieceMoved = true;
+    brett_id[Convert.Index.From.Tall(BrettIdElTo.ID.tall)][
+      Convert.Index.From.UpperCase(BrettIdElTo.ID.bokstav)
+    ].BoardInfo.CountedMoves += 1;
+  }
 }
 // sjekker regler fra find_path. Kort funksjon som definerer variabler som man skal bruke til å sjekke regler v.h.a find_path
 function validmove(BrettIdElFrom, BrettIdElTo) {
-  if (spille_paa_tur) {
+  console.log(!!Object.keys(BrettIdElFrom).length);
+  let er_andre_trekk = !!Object.keys(BrettIdElTo).length;
+  if (spille_paa_tur && er_andre_trekk) {
     riktig_spiller = false;
-  }
-  if (BrettIdElFrom.BoardInfo.BoardPiece[0] == hvem_sin_tur && spille_paa_tur) {
-    switch (hvem_sin_tur) {
-      case "white":
-        hvem_sin_tur = "black";
-        riktig_spiller = true;
-        break;
-      case "black":
-        hvem_sin_tur = "white";
-        riktig_spiller = true;
-        break;
+
+    if (BrettIdElFrom.BoardInfo.BoardPiece[0] == hvem_sin_tur) {
+      switch (hvem_sin_tur) {
+        case "white":
+          hvem_sin_tur = "black";
+          riktig_spiller = true;
+          break;
+        case "black":
+          hvem_sin_tur = "white";
+          riktig_spiller = true;
+          break;
+      }
     }
   }
   if (
     riktig_spiller &&
     BrettIdElFrom.BoardInfo.BoardPiece.length > 0 &&
-    !(
-      BrettIdElFrom.BoardInfo.BoardPiece[0] ===
-      BrettIdElTo.BoardInfo.BoardPiece[0]
-    )
+    (er_andre_trekk
+      ? !(
+          BrettIdElFrom.BoardInfo.BoardPiece[0] ===
+          BrettIdElTo.BoardInfo.BoardPiece[0]
+        )
+      : true)
   ) {
     riktig_spiller = true;
-    return find_path_med_betingelser(
-      spillebrikke[BrettIdElFrom.BoardInfo.BoardPiece[0]][
-        BrettIdElFrom.BoardInfo.BoardPiece[1]
-      ].spillinfo,
-      [Splitkoordinattilarray(BrettIdElFrom.ID.tag)],
-      Splitkoordinattilarray(BrettIdElTo.ID.tag)
-    );
+    let lets_move = false;
+    if (er_andre_trekk) {
+      console.log(riktigesteg, [Splitkoordinattilarray(BrettIdElTo.ID.tag)]);
+      if (
+        dupliatearrboolean(
+          riktigesteg.concat([Splitkoordinattilarray(BrettIdElTo.ID.tag)])
+        )
+      ) {
+        lets_move = true;
+      }
+    }
+    if (er_andre_trekk ? lets_move : true) {
+      return find_path_med_betingelser(
+        spillebrikke[BrettIdElFrom.BoardInfo.BoardPiece[0]][
+          BrettIdElFrom.BoardInfo.BoardPiece[1]
+        ].spillinfo,
+        [Splitkoordinattilarray(BrettIdElFrom.ID.tag)],
+        er_andre_trekk ? Splitkoordinattilarray(BrettIdElTo.ID.tag) : [8, 8]
+      );
+    }
   } else {
     riktig_spiller = true;
     return false;
@@ -727,7 +835,7 @@ function find_path(
   brikke_i_veien,
   sjekk_end_brikke_i_veien,
   only_attack,
-  end = [],
+  end = [8, 8],
   svar = false,
   depth = 7
 ) {
@@ -792,15 +900,25 @@ function find_path(
 // sjakk har noen regler som kun er lovlig ved visse betingelser, da sjekker han om disse betingelsene først intreffer
 // så legger han til respektive lovlige steg med i find_path hvis de respektive betingelser er tilfredsstilt.
 function find_path_med_betingelser(a, b, c) {
+  console.log(c);
   // legg til betingelse-steg slutt
+  let returnere_skal_dobbel = false;
   let returnereskal = false;
   if (a.flytte.recursive_path) {
     retrieve_recursive = true;
   }
   riktigesteg = [];
+  const et_trykk = c[0] === 8 && c[1] === 8;
+  console.log(`et_trykk = ${et_trykk}`);
   if (!!a.betingelser.length) {
     a.betingelser.forEach(function (sjekk_betingelser) {
       switch (sjekk_betingelser.navn) {
+        case "None":
+          console.log(sjekk_betingelser);
+          returnereskal = find_path(a, b, false, false, false, c);
+          console.log(riktigesteg);
+          console.log(returnereskal);
+          break;
         case "CannotAttack":
           let c_ny1 = [];
           let ny_path1 = false;
@@ -871,136 +989,98 @@ function find_path_med_betingelser(a, b, c) {
           }
           break;
         case "PawnAttacks":
+          let i = NaN;
           let I = NaN;
           let PawnIsAttacking = false;
-          for (let i = 0; i < 1; i++) {
+          let c_nyPawnAttack = [];
+          let ny_pathPawnAttack = false;
+          for (let j = 0; j < 1; j++) {
             switch (b[0][1] - c[1]) {
               case -1:
-                I = 1;
+                i = 1;
                 PawnIsAttacking = true;
                 break;
               case 1:
-                I = 0;
+                i = 0;
                 PawnIsAttacking = true;
                 break;
             }
           }
-          if (!isNaN(I)) {
-            let c_nyPawnAttack = [];
-            let ny_pathPawnAttack = false;
-            c_nyPawnAttack.push(
-              b[0][0] + sjekk_betingelser.path[I][0],
-              b[0][1] + sjekk_betingelser.path[I][1]
-            );
-            ny_pathPawnAttack = find_path(
-              {
-                flytte: {
-                  path: sjekk_betingelser.path,
-                  recursive_path: a.flytte.recursive_path,
+          if (PawnIsAttacking | et_trykk) {
+            for (let k = 0; k < (et_trykk ? 2 : 1); k++) {
+              console.log(I);
+              I = et_trykk ? k : i;
+              console.log("heiher");
+              console.log(I);
+              console.log(et_trykk);
+              console.log(et_trykk ? 2 : 1);
+              console.log(et_trykk ? k : i);
+              c_nyPawnAttack = [];
+              ny_pathPawnAttack = false;
+              c_nyPawnAttack.push(
+                b[0][0] + sjekk_betingelser.path[I][0],
+                b[0][1] + sjekk_betingelser.path[I][1]
+              );
+              ny_pathPawnAttack = find_path(
+                {
+                  flytte: {
+                    path: sjekk_betingelser.path,
+                    recursive_path: a.flytte.recursive_path,
+                  },
+                  boardpieceArray: a.boardpieceArray,
                 },
-                boardpieceArray: a.boardpieceArray,
-              },
-              b,
-              false,
-              false,
-              true,
-              c_nyPawnAttack
-            );
-            if (c_nyPawnAttack[0] === c[0] && c_nyPawnAttack[1] === c[1]) {
-              returnereskal = ny_pathPawnAttack;
+                b,
+                false,
+                false,
+                true,
+                c_nyPawnAttack
+              );
+              if (c_nyPawnAttack[0] === c[0] && c_nyPawnAttack[1] === c[1]) {
+                returnereskal = ny_pathPawnAttack;
+              }
             }
           }
           break;
         case "Passant":
+          let i2 = NaN;
           let motstander_brikke = {};
           let PawnIsAttackingCheat = false;
           let I2 = NaN;
-          for (let i = 0; i < 1; i++) {
+          let c_nyPawnAttackCheat = [];
+          let ny_pathPawnAttackCheat = false;
+          for (let j = 0; j < 1; j++) {
             switch (b[0][1] - c[1]) {
               case -1:
-                I2 = 1;
+                i2 = 1;
                 PawnIsAttackingCheat = true;
                 break;
               case 1:
-                I2 = 0;
+                i2 = 0;
                 PawnIsAttackingCheat = true;
                 break;
             }
+            break;
           }
-          if (PawnIsAttackingCheat) {
-            let c_nyPawnAttackCheat = [];
-            let ny_pathPawnAttackCheat = false;
-            c_nyPawnAttackCheat.push(
-              b[0][0] + sjekk_betingelser.path.utfordrer[I2][0],
-              b[0][1] + sjekk_betingelser.path.utfordrer[I2][1]
-            );
-            ny_pathPawnAttackCheat = find_path(
-              {
-                flytte: {
-                  path: sjekk_betingelser.path.utfordrer,
-                  recursive_path: a.flytte.recursive_path,
-                },
-                boardpieceArray: a.boardpieceArray,
-              },
-              b,
-              false,
-              true,
-              false,
-              c_nyPawnAttackCheat
-            );
-            if (
-              c_nyPawnAttackCheat[0] === c[0] &&
-              c_nyPawnAttackCheat[1] === c[1]
-            ) {
-              motstander_brikke =
-                brett_id[b[0][0] + sjekk_betingelser.path.motstander[I2][0]][
-                  b[0][1] + sjekk_betingelser.path.motstander[I2][1]
-                ];
-              if (
-                motstander_brikke.BoardInfo.BoardPiece[1] === "Pawn" &&
-                motstander_brikke.BoardInfo.CountedMoves === 1 &&
-                Convert.Index.From.Tall(motstander_brikke.ID.tall) ===
-                  sjekk_betingelser.path.tall
-              ) {
-                actuallyMoveBoardPiece(
-                  motstander_brikke,
-                  brett_id[b[0][0] + sjekk_betingelser.path.utfordrer[I2][0]][
-                    b[0][1] + sjekk_betingelser.path.utfordrer[I2][1]
-                  ]
-                );
-                returnereskal = true;
-              }
-            }
-          }
-          break;
-        case "BeskyttKonge":
-          if (!brett_id[b[0][0]][b[0][1]].BoardInfo.PieceMoved) {
-            let I = NaN;
-            let flytte_king = false;
-            for (let i = 0; i < 1; i++) {
-              switch (c[1] - b[0][1]) {
-                case 2:
-                  I = 1;
-                  flytte_king = true;
-                  break;
-                case -2:
-                  I = 0;
-                  flytte_king = true;
-                  break;
-              }
-            }
-            if (flytte_king) {
-              // sjekker kongen
-              let c_nyking = [];
-              let ny_pathking = false;
-              c_nyking.push(
-                b[0][0] + sjekk_betingelser.path.king[I][0],
-                b[0][1] + sjekk_betingelser.path.king[I][1]
+
+          if (PawnIsAttackingCheat | et_trykk) {
+            for (let k = 0; k < (et_trykk ? 2 : 1); k++) {
+              console.log(I2);
+              I2 = et_trykk ? k : i2;
+              console.log("heiher");
+              console.log(I2);
+              console.log(et_trykk);
+              console.log(et_trykk ? 2 : 1);
+              console.log(et_trykk ? k : i2);
+              c_nyPawnAttackCheat = [];
+              ny_pathPawnAttackCheat = false;
+              c_nyPawnAttackCheat.push(
+                b[0][0] + sjekk_betingelser.path.utfordrer[I2][0],
+                b[0][1] + sjekk_betingelser.path.utfordrer[I2][1]
               );
-              ny_pathking = find_path(
+              ny_pathPawnAttackCheat = find_path(
                 {
                   flytte: {
-                    path: [sjekk_betingelser.path.king[I]],
+                    path: sjekk_betingelser.path.utfordrer,
                     recursive_path: a.flytte.recursive_path,
                   },
                   boardpieceArray: a.boardpieceArray,
@@ -1009,91 +1089,252 @@ function find_path_med_betingelser(a, b, c) {
                 false,
                 true,
                 false,
-                c_nyking
+                c_nyPawnAttackCheat
               );
-              //sjekker tårnet
-
-              let c_nyrook = [];
-              let ny_pathrook = false;
-              c_nyrook.push(
-                sjekk_betingelser.path.rook.start[I][0] +
-                  sjekk_betingelser.path.rook.move[I][0],
-                sjekk_betingelser.path.rook.start[I][1] +
-                  sjekk_betingelser.path.rook.move[I][1]
-              );
-              ny_pathrook = find_path(
-                {
-                  flytte: {
-                    path: [sjekk_betingelser.path.rook.move[I]],
-                    recursive_path: a.flytte.recursive_path,
-                  },
-                  boardpieceArray: a.boardpieceArray,
-                },
-                [sjekk_betingelser.path.rook.start[I]],
-                false,
-                true,
-                false,
-                c_nyrook
-              );
-
               if (
-                ny_pathking &&
-                ny_pathrook &&
-                !brett_id[sjekk_betingelser.path.rook.start[I][0]][
-                  sjekk_betingelser.path.rook.start[I][1]
-                ].BoardInfo.PieceMoved &&
-                !brett_id[b[0][0]][b[0][1]].BoardInfo.PieceMoved
+                c_nyPawnAttackCheat[0] === c[0] &&
+                c_nyPawnAttackCheat[1] === c[1]
               ) {
-                actuallyMoveBoardPiece(
-                  brett_id[sjekk_betingelser.path.rook.start[I][0]][
-                    sjekk_betingelser.path.rook.start[I][1]
-                  ],
-                  brett_id[c_nyrook[0]][c_nyrook[1]]
-                );
-                returnereskal = true;
+                motstander_brikke =
+                  brett_id[b[0][0] + sjekk_betingelser.path.motstander[I2][0]][
+                    b[0][1] + sjekk_betingelser.path.motstander[I2][1]
+                  ];
+                if (
+                  motstander_brikke.BoardInfo.BoardPiece[1] === "Pawn" &&
+                  motstander_brikke.BoardInfo.CountedMoves === 1 &&
+                  Convert.Index.From.Tall(motstander_brikke.ID.tall) ===
+                    sjekk_betingelser.path.tall
+                ) {
+                  actuallyMoveBoardPiece(
+                    motstander_brikke,
+                    brett_id[b[0][0] + sjekk_betingelser.path.utfordrer[I2][0]][
+                      b[0][1] + sjekk_betingelser.path.utfordrer[I2][1]
+                    ]
+                  );
+                  returnereskal = true;
+                }
               }
             }
           }
+          rett_opp_riktige_steg();
+          break;
+        case "BeskyttKonge":
+          if (!brett_id[b[0][0]][b[0][1]].BoardInfo.PieceMoved) {
+            let i = NaN;
+            let I = NaN;
+            let flytte_king = false;
+            let c_nyrook = [];
+            let ny_pathrook = false;
+            let c_nyking = [];
+            let ny_pathking = false;
+            for (let j = 0; j < 1; j++) {
+              switch (c[1] - b[0][1]) {
+                case 2:
+                  i = 1;
+                  flytte_king = true;
+                  break;
+                case -2:
+                  i = 0;
+                  flytte_king = true;
+                  break;
+              }
+            }
+            console.log(et_trykk);
+            if (flytte_king | et_trykk) {
+              for (let k = 0; k < (et_trykk ? 2 : 1); k++) {
+                console.log(I);
+                I = et_trykk ? k : i;
+                console.log("heiher");
+                console.log(I);
+                console.log(et_trykk);
+                console.log(et_trykk ? 2 : 1);
+                console.log(et_trykk ? k : i);
+                console.log("beskyttKonge");
+                // sjekker kongen
+                c_nyking = [];
+                ny_pathking = false;
+                c_nyking.push(
+                  b[0][0] + sjekk_betingelser.path.king[I][0],
+                  b[0][1] + sjekk_betingelser.path.king[I][1]
+                );
+                ny_pathking = find_path(
+                  {
+                    flytte: {
+                      path: [sjekk_betingelser.path.king[I]],
+                      recursive_path: a.flytte.recursive_path,
+                    },
+                    boardpieceArray: a.boardpieceArray,
+                  },
+                  b,
+                  false,
+                  true,
+                  false,
+                  c_nyking
+                );
+                //sjekker tårnet
+
+                c_nyrook = [];
+                ny_pathrook = false;
+                c_nyrook.push(
+                  sjekk_betingelser.path.rook.start[I][0] +
+                    sjekk_betingelser.path.rook.move[I][0],
+                  sjekk_betingelser.path.rook.start[I][1] +
+                    sjekk_betingelser.path.rook.move[I][1]
+                );
+                ny_pathrook = find_path(
+                  {
+                    flytte: {
+                      path: [sjekk_betingelser.path.rook.move[I]],
+                      recursive_path: a.flytte.recursive_path,
+                    },
+                    boardpieceArray: a.boardpieceArray,
+                  },
+                  [sjekk_betingelser.path.rook.start[I]],
+                  false,
+                  true,
+                  false,
+                  c_nyrook
+                );
+
+                if (
+                  ny_pathking &&
+                  ny_pathrook &&
+                  !brett_id[sjekk_betingelser.path.rook.start[I][0]][
+                    sjekk_betingelser.path.rook.start[I][1]
+                  ].BoardInfo.PieceMoved &&
+                  !brett_id[b[0][0]][b[0][1]].BoardInfo.PieceMoved &&
+                  !et_trykk
+                ) {
+                  actuallyMoveBoardPiece(
+                    brett_id[sjekk_betingelser.path.rook.start[I][0]][
+                      sjekk_betingelser.path.rook.start[I][1]
+                    ],
+                    brett_id[c_nyrook[0]][c_nyrook[1]]
+                  );
+                  console.log("heiheihiehiehiehi");
+                  returnere_skal_dobbel = true;
+                  console.log(returnereskal);
+                }
+              }
+            }
+          }
+          console.log(b, c);
+          console.log(returnereskal);
           break;
       }
     });
-  } else {
-    returnereskal = find_path(a, b, false, false, false, c);
+    console.log(riktigesteg);
+    //rett_opp_riktige_steg();
   }
-
-  // klar for find_path
-  // Denne er midlertidig, etter å ha sjekket for om alle betingelse steg intreffe eller ikke, da skal jeg hit.
-
-  //console.log(riktigesteg);
+  console.log(riktigesteg);
   // ferdig med find_path
+  console.log(b, c);
+  console.log(returnereskal | returnere_skal_dobbel);
   retrieve_recursive = false;
-  return returnereskal;
+  return returnereskal | returnere_skal_dobbel;
 }
 
-// globale variabler  .
+// Her skal jeg sjekke for sjakk
 
-let brett = document.querySelector("main #sjakkcontainer");
-let brett_id = [];
-let brett_queue = [];
-let riktigesteg = [];
-let retrieve_recursive = false;
-const spille_paa_tur = true;
-let hvem_sin_tur = "white";
-let riktig_spiller = true;
-
-//const betingelse_navn = ["CannotAttack", "Dobblemove"];
+function sjakk(omkrets = false) {
+  let boardinfo = {};
+  let det_er_sjakk = false;
+  let sette_sjakk = "";
+  let annen_sjakk = "";
+  let det_er_sjakk_mx = [];
+  switch (hvem_sin_tur) {
+    case "white":
+      annen_sjakk = "black";
+      break;
+    case "black":
+      annen_sjakk = "white";
+      break;
+  }
+  switch (sjekke_sjakk_sin_tur ? hvem_sin_tur : annen_sjakk) {
+    case "white":
+      sette_sjakk = "black";
+      break;
+    case "black":
+      sette_sjakk = "white";
+      break;
+  }
+  let kongestegene = [[0, 0]];
+  if (omkrets) {
+    kongestegene = spillebrikke[sette_sjakk].King.spillinfo.flytte.path;
+  }
+  kongestegene.forEach(function (kongesteg) {
+    if (
+      IndexOnBoard(kongesteg[0] + kongensplass[sette_sjakk][0]) &&
+      IndexOnBoard(kongesteg[1] + kongensplass[sette_sjakk][1])
+    ) {
+      console.log([
+        kongesteg[0] + kongensplass[sette_sjakk][0],
+        kongesteg[1] + kongensplass[sette_sjakk][1],
+      ]);
+      det_er_sjakk = false;
+      for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
+          boardinfo = brett_id[i][j].BoardInfo;
+          if (!!boardinfo.BoardPiece.length) {
+            det_er_sjakk = find_path_med_betingelser(
+              spillebrikke[boardinfo.BoardPiece[0]][boardinfo.BoardPiece[1]]
+                .spillinfo,
+              [[i, j]],
+              [
+                kongesteg[0] + kongensplass[sette_sjakk][0],
+                kongesteg[1] + kongensplass[sette_sjakk][1],
+              ]
+            );
+            console.log(det_er_sjakk);
+            det_er_sjakk_mx.push(det_er_sjakk);
+            if (det_er_sjakk) {
+              console.log("Det er sjakk.");
+              det_er_sjakk_mx.push(true);
+              break;
+            } else {
+              console.log("Det er ikke sjakk.");
+            }
+          }
+        }
+      }
+    }
+  });
+  console.log(det_er_sjakk_mx);
+}
 
 setboard();
 veivalg();
 
-const klikkebrikke = [];
+const klikkebrikke = [
+  //  ["A7", "A5"],
+  //["B7", "B5"],
+  //["C7", "C5"],
+  //["D7", "D5"],
+  //["E7", "E5"],
+  //["F7", "F6"],
+  //["G7", "G5"],
+  //["H7", "H5"],
+  //["C8", "E6"],
+  //["F8", "D6"],
+  //["B8", "A6"],
+  //["G8", "H6"],
+  //["E8", "C6"],
+  //["D8", "F8"],
+  //["F2", "F4"],
+  //["E5", "E4"],
+  //["E4", "F3"],
+];
 klikkebrikke.forEach(function (vei) {
   vei.forEach(function (vei1) {
     brett.querySelector(`#${vei1}`).click();
   });
 });
 
-// TODO: Angi regler for spillets fremgang. ferdig, mangler bare for betingelsesteg.
+//sjakk();
+//sjakk(true);
+//setboard();
+
+// TODO: Angi regler for spillets fremgang. ferdig, mangler bare å sjekke for sjakk.
 // TODO: lagre brett_id lokalt i nettleseren, så spillprogresjonen ikke slettes.
 // TODO: Angi nytt spill-knapp.
 // TODO: lagre variabelen spillebrikke fil man henter info ifra. spille.None kan lagres om egen variabel i spillet.
@@ -1101,3 +1342,16 @@ klikkebrikke.forEach(function (vei) {
 // TODO: Angi Digital sjakkmotstandard:
 
 // testing
+let test = [];
+
+// Prints "1, 2, 3"
+[1, 2, 3, 4, 5].every((v) => {
+  if (v > 3) {
+    return false;
+  }
+
+  test.push(v);
+  // Make sure you return true. If you don't return a value, `every()` will stop.
+  return true;
+});
+console.log(test);
