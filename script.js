@@ -1906,7 +1906,7 @@ function spill() {
     });
   });
 }
-spill();
+//spill();
 
 //sjekke_sjakk_sin_tur = true;
 //sjakk(nokkelkoe);
