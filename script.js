@@ -632,7 +632,6 @@ function setboard() {
   let lag_nytt_brett = false;
   let SVG = spillebrikke.None.Svg;
   if (!brett_id[hovednokkel].length) {
-    console.log("brettet eksisterer ikke.");
     lag_nytt_brett = true;
   } else {
     har_vunnet = { white: true, black: true };
@@ -738,18 +737,12 @@ function setboard() {
         if (brett_id[hovednokkel][i][j].BoardInfo.BoardPiece[1] === "King") {
           switch (brett_id[hovednokkel][i][j].BoardInfo.BoardPiece[0]) {
             case "white":
-              console.log("case white");
-              console.log(kongensplass[hovednokkel].white);
               kongensplass[hovednokkel].white = [i, j];
               har_vunnet.black = false;
-              console.log(har_vunnet);
               break;
             case "black":
-              console.log("case black");
               kongensplass[hovednokkel].black = [i, j];
-              console.log(kongensplass[hovednokkel].black);
               har_vunnet.white = false;
-              console.log(har_vunnet);
               break;
           }
         }
@@ -794,45 +787,25 @@ function veivalg() {
               brett_id[nokkelkoe][brett_queue[0].index[0]][
                 brett_queue[0].index[1]
               ];
-            //alert(!!BrettIdElFrom.BoardInfo.BoardPiece.length);
             if (!!BrettIdElFrom.BoardInfo.BoardPiece.length) {
-              console.log(!!Object.keys(BrettIdElFrom).length);
               let BrettIdElTo = {};
-              console.log(!!Object.keys(BrettIdElTo).length);
-
-              console.log(BrettIdElFrom);
-              console.log(
-                "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
-              );
-              //alert(hvem_sin_tur[nokkelkoe]);
               MoveBoardPiece(BrettIdElFrom, BrettIdElTo, nokkelkoe);
-              // sjekk sjølv_sjakk, if false retrieve brett_id.default
-              console.log("HeisannFørSjakk");
               sjekke_sjakk_sin_tur = true;
-              //    sjakke = ;
-              console.log(
-                "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
-              );
-              console.log(riktigesteg[nokkelkoe]);
-              //  console.log(sjakke);
-              console.log("HeisannEtterSjakk");
-              //console.log(console.log(sjakke));
               if (
                 kontroller_sjakk ? selv_sjakk(nokkelkoe, BrettIdElFrom) : false
               ) {
-                // bytte funksjon med selvsjakk()
                 console.log(
                   "Denne brikken kan ikke flyttes, da setter du deg selv i sjakk."
                 );
                 brett_queue = [];
               } else {
-                brett // if sjekk_sjakk = false
+                brett
                   .querySelector(
                     `#${brett_queue[0].bokstav}${brett_queue[0].tall}`
                   )
                   .classList.add("markertbrikke");
                 riktigesteg[nokkelkoe].forEach(function (merke) {
-                  brett // if sjekk_sjakk = false
+                  brett
                     .querySelector(
                       `#${Convert.Index.To.UpperCase(
                         merke[1]
@@ -845,11 +818,11 @@ function veivalg() {
               brett_queue = [];
             }
           } else if (brett_queue.length == 2) {
-            brett // if sjekk_sjakk = false
+            brett
               .querySelector(`#${brett_queue[0].bokstav}${brett_queue[0].tall}`)
               .classList.remove("markertbrikke");
             riktigesteg[nokkelkoe].forEach(function (merke) {
-              brett // if sjekk_sjakk = false
+              brett
                 .querySelector(
                   `#${Convert.Index.To.UpperCase(
                     merke[1]
@@ -865,50 +838,26 @@ function veivalg() {
               brett_id[nokkelkoe][brett_queue[1].index[0]][
                 brett_queue[1].index[1]
               ];
-
-            console.log(BrettIdElFrom, BrettIdElTo);
-            console.log("Det er neste steg!!");
             MoveBoardPiece(BrettIdElFrom, BrettIdElTo, nokkelkoe);
             if (PieceIsMoved[nokkelkoe]) {
               oppdaternokkel(hovednokkel, nokkelkoe);
               sjekke_sjakk_sin_tur = true;
               brett_id[hovednokkel] = brett_id[nokkelkoe];
-              console.log(
-                "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
-              );
               if (kontroller_sjakk ? sjakk(nokkelkoe) : false) {
-                console.log("før sjakkmatt");
                 console.log(`Du ER satt i sjakk av ${hvem_sin_tur[nokkelkoe]}`);
                 if (sjakk_matt(nokkelkoe)) {
                   console.log(
                     `Det er sjakkmatt, og ${hvem_sin_tur[nokkelkoe]} har vunnet.`
                   );
-                  // Bryt spillet her.
                 }
-                //if (kontroller_sjakk ? sjakk() : false) {
-                // bytte funksjon med sjakkmatt.
-                //console.log("Det er sjakkmatt, motstander har tapt.");
-                //}
               } else {
                 console.log(
                   `Du er IKKE satt i sjakk av ${hvem_sin_tur[nokkelkoe]}`
                 );
               }
-              console.log(
-                "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
-              );
-              //alert(nokkelkoe);
               setboard();
-              console.log(brett_id);
-              console.log(kongensplass[hovednokkel]);
             }
-            // stegene under skal bare gjøres hvis brikken er flyttet
-            // sjekk if motstander er satt i sjakk
-            // then console.log(${motstander} er i sjakk)
-            // if sjakk, sjekk om motstander er satt i sjakkmatt
-            // if sjakkmatt, utfordrer har vunnet.
             console.log(`Det er ${hvem_sin_tur[hovednokkel]} sin tur.`);
-            // sjekk om bonden er på andre side av sin respektive side av brettet, og tilby spiller å bytte brikken inn i en vilkårlig brikke.
           }
         });
     }
@@ -916,8 +865,6 @@ function veivalg() {
 }
 // flytte brikker etter å ha sjekkt regler, blir kalt fra veivalg. Denne funksjonen er kort, men samler alle funksjoner
 function MoveBoardPiece(BrettIdElFrom, BrettIdElTo, nokkel) {
-  console.log(nokkel);
-  // alle globale variabler inni MoveBoardPiece skal ha nøkler
   PieceIsMoved[nokkel] = false;
   if (validmove(BrettIdElFrom, BrettIdElTo, nokkel)) {
     actuallyMoveBoardPiece(BrettIdElFrom, BrettIdElTo, nokkel);
@@ -930,12 +877,7 @@ function actuallyMoveBoardPiece(
   nokkel,
   extra_steg = false
 ) {
-  console.log(!!Object.keys(BrettIdElTo).length);
   if (!!Object.keys(BrettIdElTo).length) {
-    console.log(
-      "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    );
-    console.log(BrettIdElFrom);
     if (BrettIdElFrom.BoardInfo.BoardPiece[1] === "King") {
       kongensplass[nokkel][BrettIdElFrom.BoardInfo.BoardPiece[0]] =
         Splitkoordinattilarray(BrettIdElTo.ID.tag);
@@ -967,13 +909,9 @@ function actuallyMoveBoardPiece(
 }
 // sjekker regler fra find_path. Kort funksjon som definerer variabler som man skal bruke til å sjekke regler v.h.a find_path
 function validmove(BrettIdElFrom, BrettIdElTo, nokkel) {
-  console.log(!!Object.keys(BrettIdElFrom).length);
-  console.log(BrettIdElFrom);
   let er_andre_trekk = !!Object.keys(BrettIdElTo).length;
-  console.log(er_andre_trekk);
   if (spille_paa_tur && er_andre_trekk && sjekk_valid_move) {
     riktig_spiller[nokkel] = false;
-    console.log(hvem_sin_tur[nokkel], BrettIdElFrom.BoardInfo.BoardPiece[0]);
     if (BrettIdElFrom.BoardInfo.BoardPiece[0] == hvem_sin_tur[nokkel]) {
       sjekk_valid_move[nokkel] = false;
       switch (hvem_sin_tur[nokkel]) {
@@ -998,15 +936,9 @@ function validmove(BrettIdElFrom, BrettIdElTo, nokkel) {
         )
       : true)
   ) {
-    console.log("HEITORDER");
     riktig_spiller[nokkel] = true;
     let lets_move = false;
     if (er_andre_trekk) {
-      console.log(riktigesteg[nokkel], [
-        Splitkoordinattilarray(BrettIdElTo.ID.tag),
-      ]);
-      console.log(nokkel);
-      console.log(riktigesteg, Splitkoordinattilarray(BrettIdElTo.ID.tag));
       if (
         dupliatearrboolean(
           riktigesteg[nokkel].concat([
@@ -1017,10 +949,7 @@ function validmove(BrettIdElFrom, BrettIdElTo, nokkel) {
         lets_move = true;
       }
     }
-    console.log(`er_andre_trekk = ${er_andre_trekk}`);
-    console.log(`lets_move = ${lets_move}`);
     if (er_andre_trekk ? lets_move : true) {
-      console.log(nokkel);
       return find_path_med_betingelser(
         nokkel,
         spillebrikke[BrettIdElFrom.BoardInfo.BoardPiece[0]][
@@ -1044,7 +973,6 @@ function find_path(
   brikke_i_veien = false,
   sjekk_end_brikke_i_veien = false,
   only_attack = false,
-  extra_move = false,
   svar = false,
   depth = 7
 ) {
@@ -1059,9 +987,6 @@ function find_path(
     if (IndexOnBoard(path_tall) && IndexOnBoard(path_bokstav)) {
       path_mx = [path_tall, path_bokstav];
       riktigesteg[nokkel].push(path_mx);
-      console.log(brett_id);
-      console.log(nokkel);
-      console.log(riktigesteg);
       let sjekk_brikke_i_veien =
         brikke_i_veien ==
         brett_id[nokkel][path_tall][path_bokstav].BoardInfo.BoardPiece.length;
@@ -1078,11 +1003,9 @@ function find_path(
         (sjekk_end_brikke_i_veien ? sjekk_brikke_i_veien : true) &&
         (only_attack ? !sjekk_brikke_i_veien : true)
       ) {
-        //hjelpe recursive her.
         brikke.flytte.recursive_path = false;
         svar = true;
       }
-    } else {
     }
   });
   if (brikke.flytte.recursive_path && depth) {
@@ -1099,7 +1022,6 @@ function find_path(
       brikke_i_veien,
       sjekk_end_brikke_i_veien,
       only_attack,
-      extra_move,
       svar,
       depth - 1
     );
@@ -1107,26 +1029,12 @@ function find_path(
     if (retrieve_recursive) {
       brikke.flytte.recursive_path = true;
     }
-    console.log("skal returenere path.");
-    if (extra_move) {
-      console.log("Det er ekstrasteg");
-      console.log(7, depth);
-      console.log(riktigesteg[nokkel]);
-      //for (let i = 0; i < 7 - depth; i++) {
-      //console.log(riktigesteg[nokkel][i]);
-      //riktigesteg[nokkel][i].shift();
-      //}
-      console.log(riktigesteg[nokkel]);
-    }
     return svar;
   }
 }
 // sjakk har noen regler som kun er lovlig ved visse betingelser, da sjekker han om disse betingelsene først intreffer
 // så legger han til respektive lovlige steg med i find_path hvis de respektive betingelser er tilfredsstilt.
 function find_path_med_betingelser(nokkel, a, b, c) {
-  console.log(c);
-  console.log(nokkel);
-  // legg til betingelse-steg slutt
   let returnere_skal_dobbel = false;
   let returnereskal = false;
   if (a.flytte.recursive_path) {
@@ -1134,23 +1042,13 @@ function find_path_med_betingelser(nokkel, a, b, c) {
   }
   riktigesteg[nokkel] = [];
   const et_trykk = c[0] === 8 && c[1] === 8;
-  console.log(`et_trykk = ${et_trykk}`);
   if (!!a.betingelser.length) {
     a.betingelser.forEach(function (sjekk_betingelser) {
       switch (sjekk_betingelser.navn) {
         case "None":
-          console.log(
-            "ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆ"
-          );
-          console.log(a);
-          console.log(sjekk_betingelser);
           returnereskal = find_path(nokkel, a, b, c);
-          console.log(riktigesteg[nokkel]);
-          console.log(returnereskal);
-          console.log(`returnere = ${returnereskal}`);
           break;
         case "CannotAttack":
-          console.log(sjekk_betingelser);
           let c_ny1 = [];
           let ny_path1 = false;
           c_ny1.push(
@@ -1173,19 +1071,16 @@ function find_path_med_betingelser(nokkel, a, b, c) {
             false
           );
           if (c_ny1[0] === c[0] && c_ny1[1] === c[1]) {
-            console.log("Cannot Attack");
             returnereskal = ny_path1;
           }
           break;
         case "Dobblemove":
-          console.log(sjekk_betingelser);
           let c_ny2 = [];
           let ny_path2 = false;
           c_ny2.push(
             b[0][0] + sjekk_betingelser.path[1][0],
             b[0][1] + sjekk_betingelser.path[1][1]
           );
-          console.log(c_ny2);
           ny_path2 = find_path(
             nokkel,
             {
@@ -1212,19 +1107,6 @@ function find_path_med_betingelser(nokkel, a, b, c) {
               b[0][0] + sjekk_betingelser.path[0][0],
               b[0][1] + sjekk_betingelser.path[0][1]
             );
-            console.log(returnereskal);
-            console.log(b);
-            console.log(sjekk_betingelser.path);
-            console.log(c_ny3);
-            console.log(c);
-            console.log(nokkel, {
-              flytte: {
-                path: sjekk_betingelser.path[1],
-                recursive_path: a.flytte.recursive_path,
-              },
-              boardpieceArray: a.boardpieceArray,
-            });
-
             returnereskal = find_path(
               nokkel,
               {
@@ -1239,11 +1121,9 @@ function find_path_med_betingelser(nokkel, a, b, c) {
               true,
               false
             );
-            console.log(returnereskal);
           }
           break;
         case "PawnAttacks":
-          console.log(sjekk_betingelser);
           let i = NaN;
           let I = NaN;
           let PawnIsAttacking = false;
@@ -1263,13 +1143,7 @@ function find_path_med_betingelser(nokkel, a, b, c) {
           }
           if (PawnIsAttacking | et_trykk) {
             for (let k = 0; k < (et_trykk ? 2 : 1); k++) {
-              console.log(I);
               I = et_trykk ? k : i;
-              console.log("heiher");
-              console.log(I);
-              console.log(et_trykk);
-              console.log(et_trykk ? 2 : 1);
-              console.log(et_trykk ? k : i);
               c_nyPawnAttack = [];
               ny_pathPawnAttack = false;
               c_nyPawnAttack.push(
@@ -1291,15 +1165,12 @@ function find_path_med_betingelser(nokkel, a, b, c) {
                 true
               );
               if (c_nyPawnAttack[0] === c[0] && c_nyPawnAttack[1] === c[1]) {
-                console.log("PawnAttacs");
                 returnereskal = ny_pathPawnAttack;
-                console.log(returnereskal);
               }
             }
           }
           break;
         case "Passant":
-          console.log(sjekk_betingelser);
           let i2 = NaN;
           let motstander_brikke = {};
           let PawnIsAttackingCheat = false;
@@ -1322,13 +1193,7 @@ function find_path_med_betingelser(nokkel, a, b, c) {
 
           if (PawnIsAttackingCheat | et_trykk) {
             for (let k = 0; k < (et_trykk ? 2 : 1); k++) {
-              console.log(I2);
               I2 = et_trykk ? k : i2;
-              console.log("heiher");
-              console.log(I2);
-              console.log(et_trykk);
-              console.log(et_trykk ? 2 : 1);
-              console.log(et_trykk ? k : i2);
               c_nyPawnAttackCheat = [];
               ny_pathPawnAttackCheat = false;
               c_nyPawnAttackCheat.push(
@@ -1357,11 +1222,6 @@ function find_path_med_betingelser(nokkel, a, b, c) {
                   brett_id[nokkel][
                     b[0][0] + sjekk_betingelser.path.motstander[I2][0]
                   ][b[0][1] + sjekk_betingelser.path.motstander[I2][1]];
-                console.log("Passant skal testes.");
-                console.log(
-                  motstander_brikke.BoardInfo.LastMoved ===
-                    counted_moves[nokkel]
-                );
                 if (
                   motstander_brikke.BoardInfo.LastMoved ===
                     counted_moves[nokkel] &&
@@ -1378,7 +1238,6 @@ function find_path_med_betingelser(nokkel, a, b, c) {
                     nokkel,
                     true
                   );
-                  console.log("PawnattacsCheat");
                   returnereskal = true;
                 }
               }
@@ -1405,34 +1264,16 @@ function find_path_med_betingelser(nokkel, a, b, c) {
                   break;
               }
             }
-            console.log(et_trykk);
             if (flytte_king | et_trykk) {
               for (let k = 0; k < (et_trykk ? 2 : 1); k++) {
                 rookclear = false;
-                console.log(I);
                 I = et_trykk ? k : i;
-                console.log("heiher");
-                console.log(I);
-                console.log(et_trykk);
-                console.log(et_trykk ? 2 : 1);
-                console.log(et_trykk ? k : i);
-                console.log("beskyttKonge");
-                console.log("sjekker_tårnet");
-                console.log(a.boardpieceArray);
-                console.log(nokkel, {
-                  flytte: {
-                    path: [sjekk_betingelser.path.rook.path[I]],
-                    recursive_path: true,
-                  },
-                });
-                console.log([sjekk_betingelser.path.rook.start[I]]);
                 c_rookclear = [
                   sjekk_betingelser.path.rook.start[I][0] +
                     sjekk_betingelser.path.rook.move[I][0],
                   sjekk_betingelser.path.rook.start[I][1] +
                     sjekk_betingelser.path.rook.move[I][1],
                 ];
-                console.log(c_rookclear);
                 rookclear = find_path(
                   nokkel,
                   {
@@ -1445,13 +1286,8 @@ function find_path_med_betingelser(nokkel, a, b, c) {
                   c_rookclear,
                   false,
                   true,
-                  false,
-                  true
+                  false
                 );
-                //rett_opp_riktige_steg(nokkel);
-                console.log(rookclear);
-                console.log(riktigesteg);
-                //console.log(riktigesteg[nokkel].shift());
                 if (
                   sjekk_betingelser.path.king[I][0] + b[0][0] === c[0] &&
                   sjekk_betingelser.path.king[I][1] + b[0][1] === c[1] &&
@@ -1461,7 +1297,6 @@ function find_path_med_betingelser(nokkel, a, b, c) {
                   ].BoardInfo.PieceMoved &&
                   !et_trykk
                 ) {
-                  console.log("Det er klar bane for beskyttkonge");
                   actuallyMoveBoardPiece(
                     brett_id[nokkel][sjekk_betingelser.path.rook.start[I][0]][
                       sjekk_betingelser.path.rook.start[I][1]
@@ -1475,21 +1310,10 @@ function find_path_med_betingelser(nokkel, a, b, c) {
               }
             }
           }
-          console.log(b, c);
-          console.log(returnereskal);
           break;
       }
     });
-
-    console.log(b, c);
-    console.log(returnereskal);
-    console.log(riktigesteg[nokkel]);
-    //rett_opp_riktige_steg(nokkel);
   }
-  console.log(riktigesteg[nokkel]);
-  // ferdig med find_path
-  console.log(b, c);
-  console.log(returnereskal);
   retrieve_recursive = false;
   return returnereskal | returnere_skal_dobbel;
 }
@@ -1520,8 +1344,6 @@ function sjakk_farge(nokkel) {
   return [sette_sjakk, sjakk_angrep];
 }
 function sjakk(nokkel) {
-  console.log(nokkel);
-  console.log("Jeg sjekker for sjakk.");
   let sette_sjakk = "";
   let sjakk_angrep = "";
   let svar = false;
@@ -1531,22 +1353,10 @@ function sjakk(nokkel) {
   for (let i = 0; i < 8 && !svar; i++) {
     for (let j = 0; j < 8 && !svar; j++) {
       sjekkstegsjakk = false;
-      console.log(brett_id);
-      console.log(brett_id[nokkel][i][j]);
       BrettIdElFrom = brett_id[nokkel][i][j];
       if (!sjekk_steg([i, j], sjakk_angrep, nokkel)) {
-        console.log("heisann");
         continue;
       }
-      console.log(kongensplass[nokkel][sette_sjakk]);
-      console.log(
-        nokkel,
-        spillebrikke[BrettIdElFrom.BoardInfo.BoardPiece[0]][
-          BrettIdElFrom.BoardInfo.BoardPiece[1]
-        ].spillinfo,
-        [[i, j]],
-        kongensplass[nokkel][sette_sjakk]
-      );
       sjekkstegsjakk = find_path_med_betingelser(
         nokkel,
         spillebrikke[BrettIdElFrom.BoardInfo.BoardPiece[0]][
@@ -1555,14 +1365,7 @@ function sjakk(nokkel) {
         [[i, j]],
         kongensplass[nokkel][sette_sjakk]
       );
-      console.log(
-        "ÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅ"
-      );
-      console.log(kongensplass[nokkel][sette_sjakk]);
-      console.log(brett_id[nokkel][i][j]);
-      console.log(sjekkstegsjakk);
       if (sjekkstegsjakk) {
-        console.log(BrettIdElFrom);
         console.log(`${sette_sjakk} er i sjakk.`);
         svar = true;
         break;
@@ -1573,7 +1376,6 @@ function sjakk(nokkel) {
   return svar;
 }
 function selv_sjakk(nokkel, BrettIdElFrom = {}, tillegsnavn = "") {
-  console.log("DETTE ER SELVSJAKK");
   let sette_sjakk = "";
   let sjakk_angrep = "";
   let svar = false;
@@ -1581,34 +1383,15 @@ function selv_sjakk(nokkel, BrettIdElFrom = {}, tillegsnavn = "") {
   let nokkelnavn_queue = [];
   let riktigesteg_queue = [];
   [sjakk_angrep, sette_sjakk] = sjakk_farge(nokkel);
-  console.log(kongensplass[nokkel][sette_sjakk]);
-  console.log(
-    Splitkoordinattilarray(
-      brett_id[nokkel][kongensplass[nokkel][sette_sjakk][0]][ //denne linjen og den under vil erstattes med BrettElIdFrom når den puttes
-        kongensplass[nokkel][sette_sjakk][1] // inn fra veivalg()
-      ].ID.tag
-    )
-  );
   const brettIdtagfrom =
     brett_id[nokkel][kongensplass[nokkel][sette_sjakk][0]][
       kongensplass[nokkel][sette_sjakk][1]
     ].ID.tag;
   let startsteg = [];
-  //alert(riktigesteg[nokkelkoe]);
-  // console.log(riktigesteg[nokkelkoe][2]);
   for (let i = 0; i < riktigesteg[nokkel].length; i++) {
-    console.log(riktigesteg[nokkel][i]);
-    console.log(
-      !!brett_id[nokkel][riktigesteg[nokkel][i][0]][riktigesteg[nokkel][i][1]]
-        .BoardInfo.BoardPiece.length
-    );
     if (sjekk_steg(riktigesteg[nokkel][i], sette_sjakk, nokkel)) {
-      console.log("ikke gå her");
       continue;
     }
-
-    console.log("vi har gått videre");
-    console.log(brettIdtagfrom);
     nokkelnavn =
       tillegsnavn +
       (!Object.keys(BrettIdElFrom).length
@@ -1617,23 +1400,11 @@ function selv_sjakk(nokkel, BrettIdElFrom = {}, tillegsnavn = "") {
       "->" +
       Convert.Index.To.UpperCase(riktigesteg[nokkel][i][1]) +
       Convert.Index.To.Tall(riktigesteg[nokkel][i][0]);
-    console.log(nokkelnavn);
     oppdaternokkel(nokkelnavn, nokkel);
     riktigesteg[nokkelnavn] = JSON.parse(JSON.stringify(riktigesteg[nokkel]));
     startsteg = !Object.keys(BrettIdElFrom).length
       ? kongensplass[nokkelnavn][sette_sjakk]
       : Splitkoordinattilarray(BrettIdElFrom.ID.tag);
-    console.log(startsteg);
-    console.log(kongensplass[nokkelnavn][sette_sjakk]);
-    console.log(Splitkoordinattilarray(BrettIdElFrom.ID.tag));
-    console.log(
-      nokkelnavn,
-      brett_id[nokkelnavn][startsteg[0]][startsteg[1]],
-      brett_id[nokkelnavn][riktigesteg[nokkelnavn][i][0]][
-        riktigesteg[nokkelnavn][i][1]
-      ]
-    );
-
     MoveBoardPiece(
       brett_id[nokkelnavn][startsteg[0]][startsteg[1]],
       brett_id[nokkelnavn][riktigesteg[nokkel][i][0]][
@@ -1641,31 +1412,10 @@ function selv_sjakk(nokkel, BrettIdElFrom = {}, tillegsnavn = "") {
       ],
       nokkelnavn
     );
-
     nokkelnavn_queue.push(nokkelnavn);
     riktigesteg_queue.push(riktigesteg[nokkel][i]);
-    console.log(i);
-    console.log(riktigesteg_queue);
-    console.log(riktigesteg[nokkelnavn]);
-    console.log(riktigesteg[nokkelnavn][i]);
-    console.log(riktigesteg[nokkel][6]);
-    console.log(riktigesteg[nokkel]);
-    console.log(startsteg);
-    console.log(
-      "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR"
-    );
-    console.log(nokkelnavn);
-    //alert(riktigesteg[nokkelnavn][i]);
-    //deletenokkel(nokkelnavn);
   }
-  console.log(
-    "ØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØ"
-  );
-  console.log(PieceIsMoved);
   sjekke_sjakk_sin_tur = false;
-  //console.log(nokkelnavn_queue[1]);
-  console.log(riktigesteg_queue);
-  console.log(riktigesteg[nokkel]);
   riktigesteg[nokkel] = [];
   let sjakksteg = [];
   for (let i = 0; i < nokkelnavn_queue.length; i++) {
@@ -1673,37 +1423,20 @@ function selv_sjakk(nokkel, BrettIdElFrom = {}, tillegsnavn = "") {
       if (sjakk(nokkelnavn_queue[i])) {
         console.log(`Det er sjakk på ${nokkelnavn_queue[i]}`);
       } else {
-        console.log("Dette er et riktig steg");
         riktigesteg[nokkel].push(riktigesteg_queue[i]);
-        console.log(riktigesteg);
         sjakksteg.push(nokkelnavn_queue[i]);
       }
     }
     deletenokkel(nokkelnavn_queue[i]);
   }
-  console.log(riktigesteg_queue);
-  console.log(nokkelnavn_queue);
-  console.log(sjakksteg);
-  console.log(riktigesteg);
-  svar = !riktigesteg[nokkel].length;
-  console.log(svar);
-  if (svar) {
-    /*
-    Hvis det er det er sjakk på utfordrer fra før av, så kan utfordrer fra før av, så kan utfordrer kun bevege kongen slik at det ikke blir sjakk, men de andre brikkene kan flyttes
-    uavhengig at det er sjakk neste runde. For det kan jo bli sjakk uten at noen merker det. Det er kun kongen man ikke kan flytte slik at den er i sjakk. 
-    */
-  }
-  return svar;
+  return !riktigesteg[nokkel].length;
 }
 function sjakk_matt(nokkel) {
   let sjakk_angrep = "";
   let sette_sjakk = "";
   let svar = [];
   let svarsteg = false;
-  console.log("Dette er sjakkmatt");
-  console.log(hvem_sin_tur);
   [sjakk_angrep, sette_sjakk] = sjakk_farge(nokkel);
-  console.log(sjakk_angrep, sette_sjakk);
   let nokkelnavn = "";
   let BrettIdElFrom = {};
   for (let i = 0; i < 8; i++) {
@@ -1716,12 +1449,9 @@ function sjakk_matt(nokkel) {
         "matt-" + Convert.Index.To.UpperCase(j) + Convert.Index.To.Tall(i);
       oppdaternokkel(nokkelnavn, nokkel);
       riktigesteg[nokkelnavn] = [];
-      console.log(nokkelnavn);
       MoveBoardPiece(BrettIdElFrom, {}, nokkelnavn);
       svarsteg = !selv_sjakk(nokkelnavn, BrettIdElFrom, nokkelnavn);
       svar.push(svarsteg);
-      console.log(svar);
-      console.log([i, j]);
       deletenokkel(nokkelnavn);
       if (svarsteg) {
         console.log(`Det er IKKE sjakkmatt på ${sette_sjakk}`);
@@ -1730,13 +1460,9 @@ function sjakk_matt(nokkel) {
     }
   }
   console.log(`Det ER sjakkmatt på ${sette_sjakk}`);
-  console.log(svar);
-  console.log("hallaisen!!!!!!!!!!!!!!!!!!!!!!!!");
-  console.log(riktigesteg);
   return true;
 }
 function sjekk_steg(steg, sette_sjakk, nokkel) {
-  console.log(steg);
   if (!!brett_id[nokkel][steg[0]][steg[1]].BoardInfo.BoardPiece.length) {
     if (
       brett_id[nokkel][steg[0]][steg[1]].BoardInfo.BoardPiece[0] === sette_sjakk
@@ -1746,14 +1472,11 @@ function sjekk_steg(steg, sette_sjakk, nokkel) {
       return false;
     }
   } else {
-    console.log("plassen er tom");
     return false;
   }
 }
 function save_move(BrettIdElFrom, BrettIdElTo, nokkel) {
   let nytur = "";
-  console.log("Trekket skal lagres.");
-  console.log(counted_moves[nokkel]);
   switch (hvem_sin_tur[nokkel]) {
     case "white":
       nytur = "black";
@@ -1762,8 +1485,6 @@ function save_move(BrettIdElFrom, BrettIdElTo, nokkel) {
       nytur = "white";
       break;
   }
-  console.log(nytur);
-  console.log(BrettIdElFrom, BrettIdElTo);
 
   alle_steg.push({
     trekknr: counted_moves[nokkel],
