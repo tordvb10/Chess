@@ -1376,7 +1376,14 @@ function find_path_med_betingelser(nokkel, a, b, c) {
                   brett_id[nokkel][
                     b[0][0] + sjekk_betingelser.path.motstander[I2][0]
                   ][b[0][1] + sjekk_betingelser.path.motstander[I2][1]];
+                console.log("Passant skal testes.");
+                console.log(
+                  motstander_brikke.BoardInfo.LastMoved ===
+                    counted_moves[nokkel]
+                );
                 if (
+                  motstander_brikke.BoardInfo.LastMoved ===
+                    counted_moves[nokkel] &&
                   motstander_brikke.BoardInfo.BoardPiece[1] === "Pawn" &&
                   motstander_brikke.BoardInfo.CountedMoves === 1 &&
                   Convert.Index.From.Tall(motstander_brikke.ID.tall) ===
@@ -1888,7 +1895,7 @@ const blipassant = [
   ["D2", "D4"],
   ["E5", "E4"],
   ["F2", "F4"],
-  ["E4", "F3"],
+  ["E4", "D3"],
 ];
 
 const klikkebrikke = [];
