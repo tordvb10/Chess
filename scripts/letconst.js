@@ -1,5 +1,5 @@
 // kompakt form av variabel-type konvertering her som objekt, enkelt å hente ut i ettertid.
-const Convert = {
+export const Convert = {
   Index: {
     To: {
       UpperCase(index) {
@@ -26,7 +26,7 @@ const Convert = {
   },
 };
 // Setter svg for hver spillebrikke klar til uthenting her.
-const spillebrikke = {
+export const spillebrikke = {
   None: {
     BoardPiece: [],
     Svg: ` <!-- Tombox -->
@@ -517,27 +517,24 @@ const spillebrikke = {
 };
 // globale variabler  .
 
-let brett = document.querySelector("main #sjakkcontainer");
+export let brett = document.querySelector("main #sjakkcontainer");
 
-const hovednokkel = "default";
-const nokkelkoe = "queue";
+export const hovednokkel = "default";
+export const nokkelkoe = "queue";
 
-const spille_paa_tur = true; // konstant, skal ikke ha nøkkel
-const kontroller_sjakk = true; // konstant, skal ikke ha nøkkel
+export const spille_paa_tur = true; // konstant, skal ikke ha nøkkel
+export const kontroller_sjakk = true; // konstant, skal ikke ha nøkkel
 
-let global_nokkel = hovednokkel;
-global_nokkel = nokkelkoe;
+export let brett_id = {}; // nøkkel
+export let riktigesteg = {}; // nøkkel
+export let hvem_sin_tur = {}; // nøkkel
+export let riktig_spiller = {}; // nøkkel
+export let PieceIsMoved = {}; // nøkkel
+export let sjekk_valid_move = {}; // nøkkel
+export let kongensplass = {}; // nøkkel
+export let counted_moves = {}; // nøkkel
 
-let brett_id = {}; // nøkkel
-let riktigesteg = {}; // nøkkel
-let hvem_sin_tur = {}; // nøkkel
-let riktig_spiller = {}; // nøkkel
-let PieceIsMoved = {}; // nøkkel
-let sjekk_valid_move = {}; // nøkkel
-let kongensplass = {}; // nøkkel
-let counted_moves = {}; // nøkkel
-
-let retrieve_recursive = false; // global nøkker uten nøkkel, selv om den går i MoveBoardPiece, for den endres for hvert trekk.
+export let retrieve_recursive = false; // global nøkker uten nøkkel, selv om den går i MoveBoardPiece, for den endres for hvert trekk.
 
 brett_id[hovednokkel] = []; // nøkkel
 riktigesteg[hovednokkel] = []; // nøkkel
@@ -554,11 +551,9 @@ counted_moves[hovednokkel] = 0; // nøkkel
 
 ///  RETT OPP I ALLE GLOBALE VARIABLER JEG HAR VALGT Å GI NØKLER!! ///
 
-let brett_queue = []; // ikke nøkkel
-let sjekke_sjakk_sin_tur = true; // ikke nøkkel
-let har_vunnet = { white: false, black: false }; // ikke nøkkel
-let er_selv_sjakk = { white: false, black: false }; // ikke nøkkel
-let alle_steg = []; // ikke nøkkel
-let forward_steg = []; // ikke nøkkel
-
-//
+export let brett_queue = []; // ikke nøkkel
+export let sjekke_sjakk_sin_tur = true; // ikke nøkkel
+export let har_vunnet = { white: false, black: false }; // ikke nøkkel
+export let er_selv_sjakk = { white: false, black: false }; // ikke nøkkel
+export let alle_steg = []; // ikke nøkkel
+export let forward_steg = []; // ikke nøkkel
