@@ -558,4 +558,24 @@ const Convert = {
   let alle_steg = []; // ikke nøkkel
   let forward_steg = []; // ikke nøkkel
   
-export default {Convert,spillebrikke,brett,nokkelkoe,spille_paa_tur,kontroller_sjakk,brett_id,riktigesteg,hvem_sin_tur,riktig_spiller,PieceIsMoved,sjekk_valid_move,kongensplass,counted_moves,brett_queue,sjekke_sjakk_sin_tur,har_vunnet,er_selv_sjakk,alle_steg,forward_steg}
+export default {
+  Convert,
+  spillebrikke,
+  brett,nokkelkoe,
+  spille_paa_tur,
+  kontroller_sjakk,
+  brett_id,
+  riktigesteg,
+  hvem_sin_tur,
+  riktig_spiller,
+  PieceIsMoved,
+  sjekk_valid_move,
+  kongensplass,
+  counted_moves,
+  brett_queue,
+  sjekke_sjakk_sin_tur,
+  har_vunnet,
+  er_selv_sjakk,
+  alle_steg,
+  forward_steg
+}
