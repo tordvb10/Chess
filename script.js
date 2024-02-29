@@ -525,9 +525,6 @@ const nokkelkoe = "queue";
 const spille_paa_tur = true; // konstant, skal ikke ha nøkkel
 const kontroller_sjakk = true; // konstant, skal ikke ha nøkkel
 
-let global_nokkel = hovednokkel;
-global_nokkel = nokkelkoe;
-
 let brett_id = {}; // nøkkel
 let riktigesteg = {}; // nøkkel
 let hvem_sin_tur = {}; // nøkkel
@@ -1631,7 +1628,6 @@ function spill() {
 // TODO: Legg til cookies for spillevennlighet.
 
 function sisteconosle() {
-  console.log(global_nokkel);
   console.log(brett_id);
   console.log("riktigesteg = ");
   console.log(riktigesteg);
