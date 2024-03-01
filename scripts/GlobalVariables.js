@@ -561,7 +561,9 @@ const Convert = {
 export default {
   Convert,
   spillebrikke,
-  brett,nokkelkoe,
+  brett,
+  hovednokkel,
+  nokkelkoe,
   spille_paa_tur,
   kontroller_sjakk,
   brett_id,
